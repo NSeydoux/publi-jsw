@@ -1,0 +1,58 @@
+\tikzstyle{appNode}=[regular polygon, draw, regular polygon sides=6, inner sep=0.1cm]
+	\tikzstyle{cloudNode}=[cloud, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=0.1cm]
+	\tikzstyle{fogNode}=[ellipse, draw]
+	\tikzstyle{sensorNode}=[level distance=1.5cm, sibling distance=1cm]
+	
+	
+	\tikzstyle{level all}=[level distance=1.5cm]
+	\tikzstyle{level 1}=[sibling distance=3.5cm]
+	\tikzstyle{level 2}=[sibling distance=5cm]
+	\tikzstyle{level 3}=[sibling distance=1.4cm]
+	
+	\node[cloudNode, sibling distance=3cm] (d) {\pbox{3cm}{\Centering Factory\\datacenter}}
+		child[sibling distance=3.2cm] { node[fogNode] (f000) {\pbox{3cm}{\Centering Ground\\Floor}}
+			child[sibling distance=4.5cm] { node[ellipse,draw,sibling distance=1cm] (g110) {\pbox{3cm}{\Centering Conveyor 010}}
+				child[sibling distance=2.5cm] { node[ellipse,draw] (r011) {\pbox{3cm}{\Centering Machine 011}}
+					child[level distance=1.5cm] {
+						node {\pyranometry}
+					}
+					child[level distance=1.5cm] {
+						node {\anemometer}
+					}
+				}
+				child[sibling distance=2cm] { node[ellipse,draw] (r012) {\pbox{3cm}{\Centering Machine 012}} 
+					child[level distance=1.5cm] {
+						node {\power}
+					}
+					child[sensorNode] {
+						node {\temperature}
+					}	
+				}
+			}
+		}
+		child[sibling distance=3.2cm] { node[ellipse,draw] (f100) {\pbox{3cm}{\Centering Floor 100}}
+			child[sibling distance=4.5cm] { node[ellipse,draw,sibling distance=1cm] (g110) {\pbox{3cm}{\Centering Conveyor 110}} 
+				child { node[ellipse,draw] (r111) {\pbox{3cm}{\Centering Machine 111}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp111) {\temperature}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther111) {\presence}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther111) {\luminosity}}
+				}
+				child[level distance=1.5cm] {
+					node {\thermostat}
+				}
+				child { node[ellipse,draw] (r112) {\pbox{3cm}{\Centering Machine\\112}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp112) {\temperature}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther111) {\presence}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther111) {\luminosity}}	
+				}
+			}
+			child { node[ellipse,draw] (g120) {\pbox{3cm}{\Centering Conveyor 120}} 
+				child[sibling distance=2.0cm] { node[ellipse,draw] (r121) {\pbox{3cm}{\Centering Machine 121}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp121) {\temperature}}		
+				}
+				child[sibling distance=2.0cm] { node[ellipse,draw] (r122) {\pbox{3cm}{\Centering Machine 122}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther122) {\thermostat}}	
+				}	
+			}
+		};
+	

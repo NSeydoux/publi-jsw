@@ -1,0 +1,36 @@
+\begin{forest}
+	%\centering
+	for tree={
+		fill=white
+	},
+	where n children=0{	if n=2 {tikz+={
+				\scoped[on background layer]{\path [line width=1pt, draw=lightgray, line cap=round] (current bounding box.west |- .center)  --  (current bounding box.east |- .center);}}}{}
+	}{
+	if level=2{if n=2 {if n children=1{tikz+={
+					\scoped[on background layer]{\path [line width=1pt, draw=lightgray, line cap=round] (current bounding box.west |- .center)   -- (current bounding box.east |- .center);}}}{}}{}
+	}{
+	if level=1{if n=1{tikz+={
+				\scoped[on background layer]{\path [line width=1pt, draw=lightgray, line cap=round] (current bounding box.west |- .center)   -- (current bounding box.east |- .center);}}}{}
+	}{
+	if level=3{if n=2{tikz+={
+				\scoped[on background layer]{\path [line width=1pt, draw=lightgray, line cap=round] (current bounding box.west |- .center)   -- (current bounding box.east |- .center);}
+			}}{}}{}}
+}
+}
+[,phantom
+[Depth 0,edge=dashed
+[Depth 1,edge=dashed
+[Depth 2,edge=dashed
+[Depth 3,edge=dashed]]]]
+[Building (B)
+	[Floor (F)
+		[Gallery (G)
+			[Room (R)]
+			[Room (R)]]
+		[Gallery (G)
+			[Room (R)]]]
+	[Floor (F)
+		[Gallery (G)
+			[Room (R)]]]]
+]
+\end{forest}

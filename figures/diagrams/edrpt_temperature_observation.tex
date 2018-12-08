@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+\begin{umlseqdiag}
+	%\umlobject[x=0, no ddots, fill=white]{F100}
+	\umlobject[x=0, no ddots, fill=white]{G110}
+	\umlobject[x=5, no ddots, fill=white]{R111}
+	\umlobject[x=8.5, no ddots, fill=white]{Temperature sensor}
+	\umlobject[x=12, no ddots, fill=white]{Control center}
+	\begin{umlcall}[op={\pbox{3cm}{\Centering New raw \\observation}}, dt=8]{Temperature sensor}{R111}\end{umlcall}
+	\begin{umlcallself}[op=\pbox{4cm}{\Centering Enriches new \\temperature observation}, dt=5]{R111}\end{umlcallself}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Propagates \\enriched observation}}]{R111}{G110}\end{umlcall}
+	\begin{umlcallself}[op=\pbox{3cm}{\Centering Processes $r_{C}$ core}, return=New deduction]{R111}\end{umlcallself}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Delivers deduction}}, dt=6]{R111}{Control center}
+		\begin{umlcallself}[op=\pbox{3cm}{\Centering Processes $r_{TG}$ core}, return=New deduction]{G110}\end{umlcallself}
+		\begin{umlcall}[op={\pbox{4.5cm}{\Centering Delivers deduction}}, dt=3.5]{G110}{Control center}\end{umlcall}
+	\end{umlcall}
+\end{umlseqdiag}
+\end{tikzpicture}

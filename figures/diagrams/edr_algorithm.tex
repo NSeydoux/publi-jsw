@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\draw (-1,-0.3) node[rectangle, draw] (mess_reception) {Message reception};
+	\draw (-1,-2) node[diamond, draw, aspect=2.0, inner sep=0] (test_obs) {\pbox{3.0cm}{\Centering Is the message an observation ?}};
+	\draw (2.5,-3.3) node[diamond, draw, aspect=2.0, inner sep=0] (test_rule) {\pbox{2.7cm}{\Centering Is the message a rule ?}};
+	\draw (4.9,-4.8) node[rectangle, draw] (activate_rule_modules) {\pbox{2.7cm}{\Centering All rules modules activation (2)}};
+	\draw (4.9,-6.8) node[rectangle, draw] (update_topo) {\pbox{2.7cm}{\Centering Update topology representation}};
+	\draw (4.9,-8.5) node[rectangle, draw] (propagate_topo) {\pbox{2.7cm}{\Centering Propagate new topology}};
+	\draw (2.5,-9.7) node[rectangle, draw] (update_rule_deployment) {\pbox{2.7cm}{\Centering Update rule deployment (3)}};
+	\draw (-1,-9.7) node[rectangle, draw] (deactivate_rule_modules) {\pbox{2.7cm}{\Centering All rules modules deactivation (4)}};
+	\draw (-1,-4) node[rectangle, draw] (reasoning) {\pbox{2.7cm}{\Centering Reasoning}};
+	\draw (-1,-5.5) node[rectangle, draw] (mark_data) {\pbox{2.7cm}{\Centering Mark data (5)}};
+	\draw (-1,-7.5) node[rectangle, draw] (data_deduction_propagation) {\pbox{2.7cm}{\Centering Data and deduction propagation}};
+	
+	\draw[->] (mess_reception.south) -- (test_obs.north);
+	\draw[->] (test_obs.east) node[above] {No} -| (test_rule.north);
+	\draw[->] (test_rule.east) node[above, xshift=1.5cm] {\pbox{7cm}{No (the message is a\\ topology update)}} -| (activate_rule_modules.north);
+	\draw[->] (activate_rule_modules.south) -- (update_topo.north);
+	\draw[->] (update_topo.south) -- (propagate_topo.north);
+	\draw[->] (test_rule.south) node[left] {Yes (1)} -- (update_rule_deployment.north);
+	\draw[->] (propagate_topo.south) |- (update_rule_deployment.east);
+	\draw[->] (update_rule_deployment.west) -- (deactivate_rule_modules.east);
+	
+	\draw[->] (test_obs.south) node[left] {Yes} -| (reasoning.north);
+	\draw[->] (reasoning.south) -- (mark_data.north);
+	\draw[->] (mark_data.south) -- (data_deduction_propagation.north);
+	\draw[->] (data_deduction_propagation.south) -- ([yshift=-0.3cm]data_deduction_propagation.south) -- ([xshift=-2.4cm, yshift=-0.3cm]data_deduction_propagation.south) -- ([xshift=-2.4cm, yshift=7cm]data_deduction_propagation.south) |- (mess_reception.west) ;
+	\draw[->] (deactivate_rule_modules.west)  -| ([xshift=-2.4cm, yshift=-0.3cm]data_deduction_propagation.south);
+	
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+\begin{tikzpicture}[level distance=1.3cm]
+	\tikzstyle{level 1}=[sibling distance=5.5cm]
+	\tikzstyle{level 2}=[sibling distance=4cm]
+	\tikzstyle{level 3}=[sibling distance=2cm]
+	
+	\node[ellipse,draw] (d) {Building datacenter}
+		child { node[ellipse,draw] (f1) {Ground Floor} 
+			child[sibling distance=2cm] { node[ellipse,draw] (r1) {\pbox{3cm}{\Centering Room\\100}} }
+			child[sibling distance=2cm] { node[ellipse,draw] (r2) {\pbox{3cm}{\Centering Room\\200}} }
+		}
+		child { node[ellipse,draw] (f2) {Floor 001}
+			child { node[ellipse,draw] (g21) {Gallery 011} 
+				child { node[ellipse,draw] (c212) {\pbox{3cm}{\Centering Room\\111}} }
+				child { node[ellipse,draw] (c211) {\pbox{3cm}{\Centering Room\\111}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/thermometer.pdf_tex}}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/sun.pdf_tex}}}	
+				}
+			}
+			child { node[ellipse,draw] (g22) {Gallery 021} 
+				child { node[ellipse,draw] (c221) {\pbox{3cm}{\Centering Room\\121}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/thermometer.pdf_tex}}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/sun.pdf_tex}}}		
+				}
+				child { node[ellipse,draw] (c222) {\pbox{3cm}{\Centering Room\\221}} }	
+			}
+		};
+	
+\end{tikzpicture}
+
+	
+
+
+

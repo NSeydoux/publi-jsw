@@ -1,0 +1,30 @@
+\tikzstyle{level all}=[level distance=1.5cm]
+	\tikzstyle{level 1}=[sibling distance=6cm]
+	\tikzstyle{level 2}=[sibling distance=5cm]
+	\tikzstyle{level 3}=[sibling distance=2cm]
+	
+	\node[ellipse,draw] (d) {\pbox{3cm}{\Centering Building\\datacenter}}
+		child { node[ellipse,draw] (f000) {\pbox{3cm}{\Centering Ground\\Floor}} 
+			child[sibling distance=2cm] { node[ellipse,draw] (r001) {\pbox{3cm}{\Centering Room\\001}} }
+			child[sibling distance=2cm] { node[ellipse,draw] (r002) {\pbox{3cm}{\Centering Room\\002}} }
+		}
+		child { node[ellipse,draw] (f100) {\pbox{3cm}{\Centering Floor\\100}}
+			child { node[ellipse,draw] (g110) {\pbox{3cm}{\Centering Gallery\\110}} 
+				child { node[ellipse,draw] (r111) {\pbox{3cm}{\Centering Room\\111}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp111) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/thermometer.pdf_tex}}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther111) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/dashboard.pdf_tex}}}	
+				}
+				child { node[ellipse,draw] (r112) {\pbox{3cm}{\Centering Room\\112}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp112) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/thermometer.pdf_tex}}}
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther112) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/dashboard.pdf_tex}}}	
+				}
+			}
+			child { node[ellipse,draw] (g120) {\pbox{3cm}{\Centering Gallery\\120}} 
+				child { node[ellipse,draw] (r121) {\pbox{3cm}{\Centering Room\\121}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (temp121) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/thermometer.pdf_tex}}}		
+				}
+				child { node[ellipse,draw] (r122) {\pbox{3cm}{\Centering Room\\122}} 
+					child[level distance=1.3cm,sibling distance=0.8cm] {node (ther122) {\def\svgscale{0.01} \input{040_distribution/figures/topologies/icons/dashboard.pdf_tex}}}	
+				}	
+			}
+		};

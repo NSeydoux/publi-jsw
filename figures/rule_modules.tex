@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\tikzstyle{concept}=[draw, ellipse, inner sep=0.01cm, shape aspect=0.5]
+	
+	\draw (0.5,0) node[concept] (envelope) {\concept{ex}{rule\-Envelope}};
+	\draw (3.5, 3) node[concept] (transfershape) {\concept{ex}{ruleTransferShape}};
+	\draw (3.5, 1) node[concept] (deliveryshape) {\concept{ex}{resultDeliveryShape}};
+	\draw (3.5, -1) node[concept] (activationshape) {\concept{ex}{activationShape}};
+	\draw (3.5, -3) node[concept] (deductionshape) {\concept{ex}{deductionShape}};
+	
+	\draw (8, 3) node[concept] (transferrule) {\concept{ex}{ruleTransferRule}};
+	\draw (8, 1) node[concept] (deliveryrule) {\concept{ex}{resultDeliveryRule}};
+	\draw (8, -1) node[concept] (activationrule) {\concept{ex}{activationRule}};
+	\draw (8, -3) node[concept] (deductionrule) {\concept{ex}{deductionRule}};
+	
+	\draw[->] (envelope.north) to[out=90, in=180] node[right] {\footnotesize \concept{edr}{hasTransferShape}} (transfershape);
+	\draw[->] (envelope.north) to[out=90, in=180] node[below right] {\footnotesize \concept{edr}{hasDeliveryShape}} (deliveryshape);
+	\draw[->] (envelope.south) to[out=270, in=180] node[above right] {\footnotesize \concept{edr}{hasTransferShape}} (activationshape);
+	\draw[->] (envelope.south) to[out=270, in=180] node[right] {\concept{edr}{\footnotesize hasDeductionShape}} (deductionshape);
+	
+	\draw[<-] (transfershape.south east) to[out=340, in=200] node[below] {\footnotesize \concept{sh}{condition}} (transferrule.south west);
+	\draw[<-] (deliveryshape.south east) to[out=340, in=200] node[below] {\footnotesize \concept{sh}{condition}} (deliveryrule.south west);
+	\draw[<-] (activationshape.south east) to[out=340, in=200] node[below] {\footnotesize \concept{sh}{condition}} (activationrule.south west);
+	\draw[<-] (deductionshape.south east) to[out=340, in=200] node[below] {\footnotesize \concept{sh}{condition}} (deductionrule.south west);
+	
+	\draw (6, 3.5) node {\textbf{Rule propagation module}};
+	\draw (6, 1.5) node {\textbf{Result delivery module}};
+	\draw (6, -0.5) node {\textbf{Activation module}};
+	\draw (6, -2.5) node {\textbf{Rule core module}};
+	
+	\draw (3.5, -4.2) node[concept] (nodeshape){\concept{sh}{NodeShape}};
+	\draw (8, -4.2) node[concept] (sparqlrule) {\concept{sh}{SPARQLRule}};
+	\draw[->] (deductionshape) -- node[left] {\concept{rdf}{type}} (nodeshape);
+	\draw[->] (deductionrule) -- node[right] {\concept{rdf}{type}} (sparqlrule);
+\end{tikzpicture}

@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+	\input{figures/topologies/illustration_edrpt.tikz}
+	
+	\begin{pgfonlayer}{background}
+	\draw[gray,fill=gray,dashed,fill opacity=0.2]([yshift=1mm]r111.north) 
+	to[closed,curve through={(r111.east) .. ([yshift=-1mm]lumi111.south) .. ([yshift=-1mm]temp111.south) .. (r111.west)}]([yshift=1mm]r111.north);
+	
+	\draw[dashed] ([yshift=-5mm]lumi111.south west) node [below] {R111 context} -- ([xshift=1mm, yshift=1.5mm]lumi111.south west);
+	
+%	\draw[gray,fill=gray,dashed,fill opacity=0.2](g110.north)
+%	to[closed,curve through={(g110.east) .. (ther110.east) .. (ther110.south) .. ([xshift=5mm]r111.east) .. (lumi111.north) .. ([xshift=1mm]lumi111.west) .. (temp111.south) .. (temp111.west).. (r111.west) .. ([yshift=2mm]g110.west) }](g110.north);
+	
+	\draw[gray,fill=gray,dashed,fill opacity=0.2]([yshift=1mm]r112.north) 
+	to[closed,curve through={(r112.east) ..  ([yshift=-1mm]temp112.south) .. ([yshift=-1mm]lumi112.south) .. (r112.west)}]([yshift=1mm]r112.north);
+	
+	\draw[dashed] ([yshift=-5mm]lumi112.south east) node [below] {R112 context} -- ([xshift=-1mm, yshift=1.5mm]lumi112.south east);
+	
+%	\draw[gray,fill=gray,dashed,fill opacity=0.2](g110.north)
+%	to[closed,curve through={(g110.west) .. (ther110.west) .. (ther110.south) .. ([xshift=-3mm]r112.west) .. (lumi112.north) .. (temp112.west) .. (temp112.south) .. (temp112.east)  ..  (r112.east) .. ([yshift=2mm]g110.east) }](g110.north);
+	
+	\draw[gray,fill=gray,dashed,fill opacity=0.2](g110.north)
+	to[closed,curve through={([yshift=2mm]g110.west) .. (r111.west) .. (temp111.west) .. (temp111.south) .. (temp111.east) .. (lumi111.north) .. ([yshift=-3mm]r111.south east) .. ([yshift=-3mm]r112.south west) .. (lumi112.north) .. (temp112.west) .. (temp112.south) .. (temp112.east)  ..  (r112.east) .. ([yshift=2mm]g110.east) }](g110.north);
+	
+	\draw[dashed] ([xshift=15mm, yshift=20mm]r111.north west) node [above] {G110 context} -- ([yshift=3mm]r111.north);
+	
+	\draw[gray,fill=gray,dashed,fill opacity=0.2](g120.north) 
+	to[closed,curve through={(r122.east).. (ther122.south) .. (temp121.south) .. (r121.west)}](g120.north);
+	
+	\draw[dashed] ([xshift=5mm,yshift=8mm]g120.north) node [above] {G120 context} -- ([xshift=6mm,yshift=-3.5mm]g120.south east);
+	\end{pgfonlayer}
+	
+\end{tikzpicture}
+
+	
+
+
+

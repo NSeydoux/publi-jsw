@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\input{040_distribution/figures/topologies/reference_topology.tikz}
+	
+	\begin{pgfonlayer}{background}
+	\draw[gray,fill=gray,dashed,fill opacity=0.1](r112.north) 
+	to[closed,curve through={(r112.east).. (ther112.south) .. (temp112.south)
+		.. (temp112.west).. (r112.west) }](r112.north);
+	
+	\draw[gray,fill=gray,dashed,fill opacity=0.1](r111.north) 
+	to[closed,curve through={(r111.east).. (ther111.south) .. (temp111.south)
+		.. (temp111.west).. (r111.west) }](r111.north);
+	
+	\draw[gray,fill=gray,dashed,fill opacity=0.1](g120.north) 
+	to[closed,curve through={(r122.east).. (ther122.south) .. (temp121.south)
+		.. (r121.west)}](g120.north);
+	\end{pgfonlayer}
+	
+\end{tikzpicture}
+
+	
+
+
+

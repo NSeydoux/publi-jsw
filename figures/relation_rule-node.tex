@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\draw (0,0) node {\textbf{Rule components}};
+	\draw (0,1.8) node {\textbf{Vocabulary}};
+	\draw (-0,3.6) node {\pbox{2.5cm}{\Centering \textbf{Node}\\\textbf{functionalities}}};
+	
+	\draw (3, 0) node[draw, rectangle] (activation) {\pbox{2cm}{\Centering Activation module}}; 
+	\draw (5.75, 0) node[draw, rectangle] (delivery) {\pbox{3cm}{\Centering Result delivery\\module}};
+	\draw (8.75, 0) node[draw, rectangle] (transfer) {\pbox{3.5cm}{\Centering Rule transfer\\module}};
+	\draw (5.75, -1.2) node[draw, rectangle] (core) {\pbox{2cm}{\Centering Result core module}};
+	
+	\draw (2.70, 2) node (active) {\concept{edr}{rule\-Active}}; 
+	\draw (5, 1.6) node (interested) {\concept{edr}{is\-Interested\-In}};
+	\draw (7, 2) node (consumes) {\concept{edr}{consumes\-Result}};
+	\draw (9.5, 1.6) node (transferable) {\concept{edr}{transferable\-To}};
+	
+	\draw[->] (activation) -- (active);
+	\draw[->] (activation) -- (interested);
+	\draw[->] (delivery) -- (consumes);
+	\draw[->] (transfer) -- (transferable);
+	
+	\draw (2.70, 3.6) node[draw, rectangle] (apply) {\pbox{2cm}{\Centering Apply rule}};
+	\draw (5.3, 3.6) node[draw, rectangle] (announce) {\pbox{2.5cm}{\Centering Announce self-description}};
+	\draw (8, 3.6) node[draw, rectangle] (deliver) {\pbox{1.8cm}{\Centering Deliver rule result}};
+	\draw (10.5, 3.6) node[draw, rectangle] (propagate) {\pbox{1.8cm}{\Centering Propagate rule}};
+	
+	\draw[->] (active) -- (apply);
+	\draw[->] (interested) -- (announce);
+	\draw[->] (consumes) -- (deliver);
+	\draw[->] (transferable) -- (propagate);
+\end{tikzpicture}

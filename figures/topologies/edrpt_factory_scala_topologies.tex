@@ -1,0 +1,50 @@
+%\documentclass[border=10pt]{standalone}
+
+%\begin{document}
+\begin{tikzpicture}[level distance=0.8cm]
+
+	\tikzstyle{level 1}=[sibling distance=3cm]
+	\tikzstyle{level 2}=[sibling distance=3cm]
+	\tikzstyle{level 3}=[sibling distance=1.5cm]
+	
+	\node [rotate=30] (floorLabel) at (-5.4,-1.1) {Factory floor};
+	%\draw[dashed] (floorLabel.south) -- (-4.5, -1.1);
+	
+	\node (d) {Factory datacenter}
+		child {node (f1) {Floor}
+			child { node (c1) {Conveyor} 
+				child { node (m11) {Machine} }
+				child { node (m12) {Machine} }	
+			}
+			child { node (c2) {Conveyor}
+				child { node (m21) {Machine} }
+				child { node (m22) {Machine} }
+			}
+		}
+		child[level distance=1.2cm] {node (f2) {Factory floor}}
+		child[level distance=1.2cm, sibling distance=2.2cm] {node (f3) {Factory floor}};
+	
+	\begin{pgfonlayer}{background}
+	\draw[gray,fill=gray,dashed,fill opacity=0.1](f1.north) 
+	to[closed,curve through={(c2.east).. (m22.east) .. (m22.south) .. (m21.south) .. (m12.south)
+		.. (m11.south).. (m11.west) .. (c1.west) }](f1.north);
+	\end{pgfonlayer}
+	
+	\begin{pgfonlayer}{background}
+	\draw[gray,fill=gray,dashed,fill opacity=0.1]([yshift=0.3cm]f2.north) 
+	to[closed,curve through={([xshift=0.7cm]f2.north) .. (f2.east) .. ([yshift=-0.1cm]f2.south) .. (f2.west) .. ([xshift=-0.7cm]f2.north)}]([yshift=0.3cm]f2.north);
+	\end{pgfonlayer}
+	
+	\begin{pgfonlayer}{background}
+	\draw[gray,fill=gray,dashed,fill opacity=0.1]([yshift=0.3cm]f3.north) 
+	to[closed,curve through={([xshift=0.7cm]f3.north) .. (f3.east) .. ([yshift=-0.1cm]f3.south) .. (f3.west) .. ([xshift=-0.7cm]f3.north)}]([yshift=0.3cm]f3.north);
+	\end{pgfonlayer}
+	
+	\draw[snake=brace, mirror snake, segment amplitude=5] (-6, -2.7) -- (-0.2, -2.7) node[midway,below, xshift=0.05cm]{s1};
+	
+	\draw[snake=brace, mirror snake, segment amplitude=5] (-6, -3.1) -- (1.3, -3.1) node[midway,below, xshift=0.05cm]{s2};
+	
+	\draw[snake=brace, mirror snake, segment amplitude=5] (-6, -3.5) -- (3.5, -3.5) node[midway,below, xshift=0.05cm]{s3};
+	
+\end{tikzpicture}
+%\end{document}
