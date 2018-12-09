@@ -13,24 +13,26 @@
 		child[level distance=2cm] { node[ellipse,draw] (f100) {\pbox{3cm}{\Centering F100}}
 			child[sibling distance=4cm, level distance=1.5cm] { node[ellipse,draw,sibling distance=1cm] (g110) {\pbox{3cm}{\Centering C110}} 
 				child[sibling distance=2cm] { node[ellipse,draw] (r111) {\pbox{3cm}{\Centering M111}} 
-					child[sensorNode] {node (temp111) {\presence}}
+					child[sensorNode] {node (pres111) {\presence}}
 					child[sensorNode] {node (lumi111) {\luminosity}}
-					child[sensorNode] {node (lumi111) {\off}}
+					child[sensorNode] {node (acti111) {\off}}
 				}
 %				child[sensorNode] {node (ther110) {\luminosity}}
 				child[sibling distance=2cm] { node[ellipse,draw] (r112) {\pbox{3cm}{\Centering M112}} 
-					child[sensorNode] {node (lumi112) {\presence}}
-					child[sensorNode] {node (temp112) {\off}}
-				child[sensorNode] {node (lumi111) {\luminosity}}
+					child[sensorNode] {node (pres112) {\presence}}
+					child[sensorNode] {node (lumi112) {\luminosity}}
+					child[sensorNode] {node (acti112) {\off}}
 				}
 			}
 			child[sibling distance=4cm, level distance=1.5cm] { node[ellipse,draw] (g120) {\pbox{3cm}{\Centering C120}} 
 				child[sibling distance=1cm] { node[ellipse,draw] (r121) {\pbox{3cm}{\Centering M121}} 
-					child[sensorNode] {node (temp121) {\off}}	
+					child[sensorNode] {node (acti121) {\off}}
+					child[sensorNode] {node (pres121) {\presence}}
 				}
 				child[sensorNode] { node {\pbox{3cm}{\Centering \temperature}}}	
 				child[sibling distance=1cm] { node[ellipse,draw] (r122) {\pbox{3cm}{\Centering M122}}
-					child[sensorNode] {node (ther122) {\off}}
+					child[sensorNode] {node (acti122) {\off}}
+					child[sensorNode] {node (lumi122) {\luminosity}}
 				}
 			}
 		};

@@ -775,8 +775,8 @@ The behavior of nodes executing \edrt is detailed in Section \textsection \ref{s
 
 \subsection{Implementing a deployment strategy based on property types with \edrt}
 \label{subs:overview_edrt}
-\Nicolas{Exprimer simplement l'objectif d'edrt en intro de la section, et joindre cette description plus détaillée avec son implémentation par les règles}
-The purpose of \edrt is to bring rules as deep as possible in the topology, in order for them to be processed as soon as possible, while limiting unnecessary message exchanges.
+%\Nicolas{Exprimer simplement l'objectif d'edrt en intro de la section, et joindre cette description plus détaillée avec son implémentation par les règles}
+The purpose of \edrt is to \textbf{bring rules as deep as possible in the topology, in order for them to be processed as soon as possible}, while limiting unnecessary message exchanges.
 Therefore, \edrt is meant to reduce the delay between the moment observations able to trigger a deduction by a rule are produced by devices, and the moment said deduction is received by the rule originator.
 Due to the assumed hierarchical nature of the network, the deeper a node is in the topology, the fewer descendants it has.
 A node processing a rule deeper in the hierarchy will thus apply said rule less often, on a smaller \gls{kb}, since it should receive less updates from its descendants.
@@ -790,14 +790,14 @@ These characteristics are captured in the rule modules to enable the deployment 
 The conditional shape of rule modules is based on both \textbf{property types consumed by the rule} and \textbf{property types produced by neighboring nodes} to infer the node behavior.
 
 To manipulate these property types in the following, the $body$ and $head$ notations introduced in Section \textsection \ref{subsubs:modules} are extended. 
-We introduce $body_t(r_{x})=\{\gamma_{1},...,\gamma_{n'}\}$ and $head\_t(r_{x})=\{\delta_{1}, ..., \delta_{m'}\}$ where $\gamma_{i}$ designates the property type of $\Gamma_{i}$, and $\delta_{j}$ the property type of the deduction $\Delta_{j}$.
+We introduce $body_t(r_{x})=\{\gamma_{1},...,\gamma_{n'}\}$ and $head_t(r_{x})=\{\delta_{1}, ..., \delta_{m'}\}$ where $\gamma_{i}$ designates the property type of $\Gamma_{i}$, and $\delta_{j}$ the property type of the deduction $\Delta_{j}$.
 It should be noted that not all $\Gamma_{i}$ or $\Delta_{j}$ used in the rule are relevant to the \edrt approach.
-\Nicolas{retrouver et remplacer toutes les références à rcomfort et aux noeuds de la topologie}
+
 Let us consider $R_{Visibility}$ and $R_{ColdChain}$, illustrative rules provided in natural language in Section \textsection \ref{sec:distribution_use_case}. 
-A translation of $R_{Visibility}$ in based on description logic is: $Location(?l) \land Presence(?l, ?o_1) \land ?o_1 = True \land Luminosity(?l, ?o_2) \land ?o_2 < 300L \land Machine(?m) $\\$ \land Activity(?m, ?o_3) \land ?o_3 = True \land locatedIn(?m, ?l) \rightarrow LowMachineVisibility(?m)$.
-For this rule, the defined predicates behave as follows: $body_t(R_{Visibility})=\{Presence, Luminosity, Activity\}$, and $head\_t(R_{Visibility})= \{LowMachineVisibility\}$. 
+A translation of $R_{Visibility}$ in based on description logic is: $Lo\-ca\-tion(?l) \land Pre\-sence(?l, ?o_1) \land ?o_1 = True \land Lu\-mi\-no\-si\-ty(?l, ?o_2) \land ?o_2 < 300L \land Ma\-chine(?m) \land Ac\-ti\-vi\-ty(?m, ?o_3) \land ?o_3 = True \land located\-In(?m, ?l) \rightarrow Low\-Machine\-Vi\-si\-bi\-li\-ty(?m)$.
+For this rule, the defined predicates behave as follows: for the conditions, $body_t(R_{Visibility})=\{Pre\-sence, Lu\-mi\-no\-si\-ty, Ac\-ti\-vi\-ty\}$, and for the deductions,  $head_t(R_{Visibility})= \{Low\-Ma\-chine\-Vi\-si\-bi\-li\-ty\}$. 
 $Location$ is a property type that is not considered by the deployment strategy implemented by \edrt.
-For $R_{ColdChain}$, represented in description logic in Section \textsection \ref{subs:factory_use_case}, $body_t(R_{ColdChain})=\{Temperature, Activity\}$, and $head\_t(R_{conveyor})= \{ColdChainBroken\}$.
+For $R_{ColdChain}$, represented in description logic in Section \textsection \ref{subs:factory_use_case}, the predicates results are $body_t(R_{ColdChain})=\{Tem\-pe\-ra\-ture, Ac\-ti\-vi\-ty\}$, and $head_t(R_{conveyor})= \{Cold\-Chain\-Bro\-ken\}$.
 
 The deployment of $R_{Visibility}$ and $R_{ColdChain}$ by \edrt in an extract of the simulation topology is shown on Fig. \ref{fig:edrpt_deployment}.
 Both rules are submitted by the control center application to the Cloud node, and are deployed among Fog nodes.
@@ -829,7 +829,7 @@ The production of observations by node $n$ for a property type $\rho_t$ is denot
 \label{subsub:topology}
 
 A node $n$ knows its parent in the network tree-like hierarchy, noted $Upper(n)$, and its children, referred to as $Lower(n)$. 
-On Fig. \ref{fig:edrpt_deployment}, $Lower(G110)=\{R111, R112\}$, and $Upper(G110)=\{F100\}$.
+On Fig. \ref{fig:edrpt_deployment}, $Lower(C110)=\{M111, M112\}$, and $Upper(C110)=\{F100\}$.
 The node communicates its characteristics to these neighbors to support the deployment strategy implemented by \edrt.
 Such characteristics include the types of the data produced by the node, as well as the types of data consumed.
 
@@ -842,7 +842,7 @@ In order to enable the propagation of rules towards nodes that are not direct ne
 This mechanism makes a node aware of the types of properties produced by any node below its lower nodes while communicating only with its lower nodes, therefore ensuring the locality of its decisions.
 To illustrate the proxying in more details, let us define $productions(n)=own\_productions(n)\cup$\\$productions(Lower(n))$. 
 Node $n$ announces itself to its parent $n_{parent}$ as a producer of $\rho^{i}_t, \forall \rho^{i}_t\in productions(n)$, $\rho^{i}_t$ being the type of data produced by one of the sensors or lower nodes connected to $n$.
-For instance, on Fig. \ref{fig:edrpt_deployment}, $productions(G110) = \{Temperature, Luminosity, Thermostat\}$, with\\$own\_productions(G110) = \{Thermostat\}$.
+For instance, on Fig. \ref{fig:edrpt_deployment}, $productions(C120) = \{Activity, Temperature\}$, with\\$own\_productions(C120) = \{Temperature\}$.
 If the parent node $n_{parent}$ was not a producer of the property type $\rho_t$, it includes a new triplet in its \gls{kb} \triplet{$n_{parent}$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}, and forwards this triplet to its own parent.
 If node $n_{parent}$ was already a producer for $rho_t$, its capabilities remain unchanged, and the information propagation stops.
 
@@ -857,7 +857,7 @@ Indeed, when a node applies a rule $r$ and is thus interested in the properties 
 The interest of $n$ for $\rho_t$ is only announced to children of $n$ that are producers of $\rho_t$.
 Moreover, if some nodes $n^i_{child}\in Lower(n)$ are able to apply the rule $r$ themselves, node $n$ will forward $r$ to $n^i_{child}$, rather than notifying $n^i_{child}$ of its interest.
 The details of the rule deployment strategy are provided in Section \textsection \ref{subs:edrt_modules}.
-In Fig. \ref{fig:edrpt_deployment}, R111 announced to G110 that it produced $temperature$, and G110 notified R111 of its interest for $temperature$ in order to receive observations.
+In Fig. \ref{fig:edrpt_deployment}, M121 announced to C120 that it produced $Activity$, and C120 notified M121 of its interest for $Activity$ in order to receive future observations.
 
 Nodes interests are proxied towards children: \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Children\-Proxied\-Property}}.
 When a node $n$ receives a message from its parent $n_{parent}$ containing a triple \triplet{$n_{parent}$}{edr:is\-Interested\-In}{$\rho_t$}, $n$ announces to its children $n_{child}\in Lower(n)$ that \triplet{$n$}{edr:is\-Interested\-In}{$\rho_t$}.
@@ -870,10 +870,10 @@ The knowledge of nodes about their environment is thus limited to their neighbor
 The rule deployment strategy supported by \edrt is based on the assumption that the \textbf{correlation between pieces of data is embedded in the network topology}. 
 \gls{iot} data is strongly bound to a spacio-temporal context \cite{Perera2014_context}, and the distribution of Fog nodes reflects the distribution of features observed by sensors.
 From this hypothesis, it can be inferred that the context of a node is a subset of the context of its parent.
-To illustrate this claim with $R_{Comfort}$ previously introduced, it means that if it is possible to apply $R_{Comfort}$ with luminosity and temperature observations collected by the same gateway, it is not necessary to compare the same luminosity observations with temperature observations collected elsewhere.
+To illustrate this claim with $R_{ColdChain}$ previously introduced, it means that if it is possible to apply $R_{ColdChain}$ with activity and temperature observations collected by the same gateway, it is not necessary to compare the same activity observations with temperature observations collected elsewhere.
 \gls{iot} data being highly contextual, applications do not necessarily need to reason over a complete \gls{kb} to get relevant results.
-\gls{edr} is therefore suitable for rules exploiting this context by correlating data sharing an identical context, \textit{e.g.,} the correlation of temperature and luminosity in the context of a single room for $R_{Comfort}$.
-\Nicolas{Update according to smart factory use case}
+\gls{edr} is therefore suitable for rules exploiting this context by correlating data sharing an identical context, \textit{e.g.,} the correlation of temperature and luminosity in the context of a single room for $R_{ColdChain}$.
+
 \begin{figure}
 	\centering
 	\caption{Illustration of observations spatio-temporal context}
@@ -884,17 +884,17 @@ To illustrate this claim with $R_{Comfort}$ previously introduced, it means that
 \end{figure}
 
 The relation between the spatio-temporal context and the topology is represented in Fig. \ref{fig:contextuality}, where each gray area represents the context of a Fog node.
-The assumption we make entails that, since both R111 and R112 contexts contain enough information to process rule $R_{Comfort}$, the luminosity from R111 context and the temperature from R112 context will never be processed together by $R_{Comfort}$.
+The assumption we make entails that, since both M111 and M112 contexts contain enough information to process rule $R_{Visibility}$, the luminosity from M111 context and the temperature from M112 context will never be processed together by $R_{Visibility}$.
 
-In the case of the G120 context, since neither R121 nor R122 produce the information necessary to process $R_{TemperatureGap}$, both nodes send their observations to G120.
-The fact that G120 is the parent of both R121 and R122 is considered a hint that the context of R122 is closer to the context of R121 than, for instance, to the context of R112.
-The proximity of context is associated to the distance of the closest common ancestor: R121 and R122 share a parent, while the closest common ancestor to R121 and R112 is F100, at a distance of 2 hops from both nodes.
-Since R121 and R122 are closer to each other than R122 and R112, there is a higher chance for the thermostat observation from R122 to lead to a deduction based on $R_{TemperatureGap}$ when processed with temperature from R121 rather than R112.
+In the case of the C120 context, since neither M121 nor M122 produce the information necessary to process $R_{ColdChain}$ or $R_{Visibility}$, both nodes send their observations to C120.
+The fact that C120 is the parent of both M121 and M122 is considered a hint that the context of M122 is closer to the context of M121 than, for instance, to the context of M112.
+The proximity of context is associated to the distance of the closest common ancestor: M121 and M122 share a parent, while the closest common ancestor to M121 and M112 is F100, at a distance of 2 hops from both nodes.
+Since M121 and M122 are closer to each other than M122 and M112, there is a higher chance for the luminosity observation from M122 to lead to a deduction based on $R_{Visibility}$ when processed with presence from M121 rather than M112.
 
 In a similar manner as context proximity, context inclusion is impacted by the hierarchy.
 A context A is considered included in a context B if the elements of context A are also available in context B.
-On Fig. \ref{fig:contextuality}, the G110 context partially includes the R111 and R112 contexts, since only temperature values are propagated to G110, and not presence values.
-Since G110 applies $R_{TemperatureGap}$, R111 and R112 provide it with temperature observations, which it processes with its own thermostat value observations.
+On Fig. \ref{fig:contextuality}, the C120 context includes the M121 and M122 contexts, since activity, presence and luminosity values are propagated to C120.
+Since C120 applies $R_{ColdChain}$, M121 and M122 provide it with activity observations, which it processes with its own temperature value observations.
 
 If, as in our case, the scope of rules is not broader than the context in which they are applied, applying rules deeper in the hierarchy does not impact the completeness of the result.
 However, if the rules are not adapted to the topology in which they are deployed with \edrt, some deductions will be inferred in a centralized approach that would be missed when data is processed in a decentralized manner. 
@@ -911,14 +911,15 @@ That is a second reason not to support aggregation rules.
 
 To ensure decidability, only DL-safe rules are considered, and \gls{edr} is only suitable for stratified rule sets. 
 Cyclic dependencies between rules are not resolved.
-When a node applies rule $r$, it is considered as producer of the $head\_t(r)$, and this production information is used for the deployment of any rule $r'$ such as $body_t(r')\cap head\_t(r)\neq \emptyset$.
-However, a non stratified rule set where rules $r$ and $r'$ coexist such that $body_t(r')\subseteq head\_t(r)$ and $body_t(r)\subseteq head\_t(r')$ cannot be processed successfully by \gls{edr}, and neither $r$ nor $r'$ will be propagated or applied.
+When a node applies rule $r$, it is considered as producer of the $head_t(r)$, and this production information is used for the deployment of any rule $r'$ such as $body_t(r')\cap head_t(r)\neq \emptyset$.
+However, a non stratified rule set where rules $r$ and $r'$ coexist such that $body_t(r')\subseteq head_t(r)$ and $body_t(r)\subseteq head_t(r')$ cannot be processed successfully by \gls{edr}, and neither $r$ nor $r'$ will be propagated or applied.
 
 \subsection{Implementation of \edrt in rule modules}
 \label{subs:edrt_modules}
 The behavior of a node implementing \edrt is embedded in the modules of \edrt-compliant rule.
 For now, these rules are built manually: the property types feature in the rule body and head of the rule are identified when the rule is written, and the modules are built accordingly.
 The knowledge required for the processing of each module is local to the node performing the reasoning process. 
+For the sake of legibility, the SHACL representation of the rules is not reproduced in the present paper, and they are available online\footnote{\url{https://w3id.org/laas-iot/edr/iiot/visibility.ttl}, \url{https://w3id.org/laas-iot/edr/iiot/coldchain.ttl}}.
 
 \subsubsection{Rule Transfer module}
 
@@ -950,11 +951,11 @@ Therefore, it is not necessary to re-propagate a rule upwards: if a node ceases 
 
 Incrementally, the rule $r$ will converge toward nodes such that, for any node $n$ of them:
 \begin{itemize}
-	\item $n$ can no longer \textbf{propagate} $r$, \textit{i.e.} $\forall n'\in Lower(n), body_t(r_{x})\not\subset productions(n')$,
-	\item $n$ is able to \textbf{apply} $r$, \textit{i.e.} $body_t(r_{x})\subset productions(n)$.
+	\item $n$ can no longer \textbf{propagate} $r$, \textit{i.e.} $\forall n'\in Lo\-wer(n), body_t(r_{x})\not\subset pro\-du\-ctions(n')$,
+	\item $n$ is able to \textbf{apply} the rule $r$, \textit{i.e.} $body_t(r_{x})\subset productions(n)$.
 \end{itemize} 
 These are the nodes able to apply the rule that are the closest to the original data producing: propagating the rule lower in the hierarchy is not necessary.
-Such a node is represented on Fig. \ref{fig:edrpt_deployment} with gray dashes connected to $R_{Comfort}$. 
+Such a node is represented on Fig. \ref{fig:edrpt_deployment} with gray dashes connected to $R_{Visibility}$ and $R_{ColdChain}$. 
 
 \subsubsection{Activation module}
 
@@ -991,14 +992,15 @@ It is characterized as such: $\exists \mathcal{P}$, such as $\forall n_c\in \mat
 
 If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, some deductions are inferred. 
 The activity of rule $r$ is made explicit by the triplet \triplet{$r$}{\concept{edr}{isRuleActive}}{true}, and the nodes $n'\in \mathcal{P}$ are identified as providers of the data type which $r$ now consumes. 
-The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partialDataProvider} triple\Nicolas{Attention, basé sur le listing qui a été retiré}.
+The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partialDataProvider} triple in the SHACL rule.
 The object of the interest, represented as a reified statement, will be bound to any partial production of the rule head by a child of $n$.
 The interest of the rule originator $o$ is also denoted with \triplet{$o$}{\concept{edr}{consumesResult}}{$r$}.
 These inferences enable both the \textbf{rule application} and the \textbf{rule result forwarding mechanisms} as described in Section \textsection \ref{subs:edr_vocabulary}.
 %The SPARQL CONSTRUCT embedded in the SHACL rule for the $r_{comfort}^{activation}$ module is provided in Lst. \ref{lst:activationRule}.
 The focus of the SHACL shape, materialized by the \texttt{\$this} variable, captures the \gls{iri} of the node applying the rule in its own \gls{kb}.
 It is defined in the SHACL documentation as the only element shared natively between the SHACL conditional shape and the SHACL rule said shape conditions: the \texttt{\$this} captures the node violating the shape defined in the condition. 
-That is why some elements characterizing the child nodes of the current node need to be recaptured in the WHERE clause of the $r_{comfort}^{activation}$ rule, while the \texttt{\$this} is already bound to the current node.
+%\Nicolas{Attention r\_comfort}
+That is why some elements characterizing the child nodes of the current node need to be recaptured in the WHERE clause of the $r_{Visibility}^{activation}$ rule, while the \texttt{\$this} is already bound to the current node.
 
 %\begin{lstlisting}[float, caption=$r_{comfort}^{activation}$ rule, label=lst:activationRule]
 %CONSTRUCT {
@@ -1059,6 +1061,7 @@ In the case when the node already held some rules, their placement might need to
 In order to adjust the rule deployment accordingly, rule modules dedicated to such deployment, namely application, transfer and delivery modules, are activated, processed in a reasoning step, before being deactivated again as detailed in Fig. \ref{fig:edr_algo}.
 The deductions yielded by this reasoning step, based on the \textit{edr} vocabulary, are used to control the node behavior as described previously.
 The use of these modules is similar when a new rule is received, as it is described in the next section.
+\Nicolas{Garder le diagramme de séquence ? si oui, adapter au use case}
 The propagation of $r_{TemperatureGap}$ in the illustrative deployment provided in Fig. \ref{fig:edrpt_deployment} is represented as a sequence diagram on Fig. \ref{fig:seq_temperaturegap}.
 
 \begin{figure*}
@@ -1075,7 +1078,7 @@ The propagation of $r_{TemperatureGap}$ in the illustrative deployment provided 
 When node $n$ receives a new rule $r$, $n$ evaluates whether it can apply $r$ directly, and/or if it should propagate $r$ to some of its children by performing a reasoning step with all modules of $r$ activated. 
 Based on the deductions produced by this reasoning step, some node functionalities are activated if necessary: 
 \begin{itemize}
-	\item If the rule $r$ is applicable by the current node, the productions of $n$ are updated by $r_{comfort}^{activation}$.
+	\item If the rule $r$ is applicable by the current node, the productions of $n$ are updated by $r_{x}^{activation}$.
 	$n$ notifies its parent of its new productions, \textit{i.e.} the head of $r$.
 	Being able to produce the deductions of a rule is processed like a capability change, described in the previous section.
 	If the applicability of rule $r$ is enabled by the productions of some children of node $n$, the interest of $n$ for their productions has been added in the \gls{kb}, as well as the necessity for their notification of such interest.
@@ -1087,11 +1090,11 @@ Based on the deductions produced by this reasoning step, some node functionaliti
 
 \paragraph{When receiving new data}
 
-The propagation of a new piece of data is represented as a sequence diagram on Fig. \ref{fig:seq_temperatureobservation}.
+%The propagation of a new piece of data is represented as a sequence diagram on Fig. \ref{fig:seq_temperatureobservation}.
 Different kinds of data can be received by node $n$:
 \begin{itemize}
-	\item raw observations directly produced by a sensor connected to $n$, as for the observation sent by the sensor to R111 on Fig. \ref{fig:seq_temperatureobservation}
-	\item enriched observation or deduction sent to $n$ by node $n_c \in Lower(n)$, as for the observation sent by R111 to G110 on Fig. \ref{fig:seq_temperatureobservation}
+	\item raw observations directly produced by a sensor connected to $n$%, as for the observation sent by the sensor to R111 on Fig. \ref{fig:seq_temperatureobservation}
+	\item enriched observation or deduction sent to $n$ by node $n_c \in Lower(n)$%, as for the observation sent by R111 to G110 on Fig. \ref{fig:seq_temperatureobservation}
 \end{itemize}
 If the received observation is raw, node $n$ enriches it by annotating it with an ontology before its processing as a new enriched observation. 
 If the piece of data is either an enriched observation or a deduction, it is directly integrated to its \gls{kb} and processed. 
@@ -1109,7 +1112,7 @@ Therefore, applications are notified continuously by the nodes as those nodes ap
 %	\centering
 %	\caption{Propagation of a temperature observation}
 %	\label{fig:seq_temperatureobservation}
-%	%\input{figures/diagrams/edrpt_temperature_observation.tex}
+%	\input{figures/diagrams/edrpt_temperature_observation.tex}
 %\end{figure}
 
 \section{Experimentations}
@@ -1180,7 +1183,7 @@ The characteristics of the different delivery mechanisms are summarized in Tab. 
 
 All these characteristics are illustrated in an example on Fig. \ref{fig:delivery_mechanisms}, where the propagation of raw data and deductions according to the different delivery mechanisms is represented. 
 In the case of deductions delivery, it is assumed for the sake of clarity that deductions are made in the lowest Fog nodes. 
-The considered topology comes from the smart building use case described in Section \textsection \ref{sec:distribution_use_case}, with a hierarchical deployment of nodes in a floor, galleries and rooms, respectively designated as FXXX, GXXX and RXXX on the figure.
+The considered topology comes from the smart building use case described in Section \textsection \ref{sec:distribution_use_case}, with a hierarchical deployment of nodes in a floor, galleries and rooms, respectively designated as FXXX, CXXX and MXXX on the figure.
 The manipulation of the \gls{edr} behavior by implementing different delivery mechanisms enables the comparison of centralized (\gls{cir} and \gls{cdr}) and distributed approaches (\gls{cip}, \gls{cdp}, \gls{adp}), and the comparison of approaches based on direct (\gls{cdp}, \gls{cdr}) and indirect (\gls{cir}, \gls{cip}) communication with the Cloud node. 
 
 \input{tables/delivery_mechanisms.tex}	
@@ -1332,7 +1335,7 @@ The rule's SHACL representation is available online\footnote{\url{https://w3id.o
 To measure how distribution impacts responsiveness, four topologies were distinguished, labeled d1 to d4 and further on simply denoted d*. Each of these topologies is constituted of 47 identical nodes, and processes data according to four rules, r1 to r4.
 The difference between the four d* topologies is the location of sensors, as depicted in Fig. \ref{fig:dstar}. 
 Sensors producing data of the type $\gamma_{1}$ are directly attached to the top node in d1, while they are attached to its children in d2. 
-Since $body\_t(r1)=\{\gamma_{1}, \gamma_{4}\}$, $r1$ is applied at a maximum depth of 1 in d1, but is propagated to nodes of depth 2 in d2, hence a ``more decentralized'' execution is performed in d2 than in d1.
+Since $body_t(r1)=\{\gamma_{1}, \gamma_{4}\}$, $r1$ is applied at a maximum depth of 1 in d1, but is propagated to nodes of depth 2 in d2, hence a ``more decentralized'' execution is performed in d2 than in d1.
 Rule execution depths are given in Tab. \ref{tab:factory_distrib_topologies}: in d4, all sensors are connected to leaf nodes, and the distribution is maximal.
 
 \begin{figure}
