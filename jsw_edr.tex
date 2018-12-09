@@ -32,6 +32,7 @@
 \newcommand{\edrt}{EDR$_{\mathcal{T}}$\xspace}
 \newcommand{\Nathalie}[1]{\textcolor{red}{ Nathalie: \textbf{#1} }}
 \newcommand{\Nicolas}[1]{\textcolor{red}{ Nicolas: \textbf{#1} }}
+\newcommand{\Khalil}[1]{\textcolor{red}{ Khalil: \textbf{#1} }}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,calc}
@@ -138,43 +139,43 @@ The complementarity between Fog and Cloud in this context is assessed based on t
 
 \section{Introduction}
 
-The maturity of \gls{iot} communication technologies is fostering a wide variety of industrial and societal applications with responsiveness and privacy requirements, especially useful for home automation or industry 4.0 scenarios. 
-However, the heterogeneity of \gls{iot} data and use cases raises interoperability issues constituting hurdles for the development of \gls{iot} service platforms and related applications. 
-In order to tackle this issue, the \gls{sw} technologies and principles are as an interoperability enabler, by providing expressive vocabularies to describe data and manipulate information.
+The maturity of \gls{iot} communication technologies is fostering a wide variety of industrial and societal applications, including home automation and industry 4.0 scenarios. 
+However, the heterogeneity of \gls{iot} data and use cases raises interoperability issues constituting hurdles for the development of cross-domain \gls{iot} service platforms, leading to isolated application silos. 
+The \gls{sw} technologies and principles constitute an interoperability enabler providing expressive vocabularies to describe data and manipulate information.
 The domain at the interface between the \gls{sw} and the \gls{iot} is called the \gls{swot}, and it emergence is not trivial. 
-Even though the \gls{swot} has been envisioned as soon as the fundamental article of the \gls{sw} \cite{Berners-Lee2001}, where smart agents interact with devices in the user's environment, concrete \gls{swot} relatizations where only proposed in recent years \cite{Pfisterer2011}.
-%\Nicolas{La suite suppose un déploiement décentralisé, il faudrait l'introduire mieux}
+Even though the \gls{swot} has been envisioned as soon as the fundamental article of the \gls{sw} \cite{Berners-Lee2001}, where smart agents interact with devices in the user's environment, practical \gls{swot} achievements where proposed in recent years only\cite{Pfisterer2011}.
 In particular, a core challenge the \gls{swot} is facing is the deployment of \gls{sw} technologies, which are resource-consuming, into \gls{iot} networks, characterized by constrained devices. 
 
-The integration of the \gls{sw} stack to an \gls{iot} architecture is often centered on remote, powerful machines\Nicolas{ref}. 
-\gls{iot} data is centralized on such machines before being processed using \gls{sw} technologies.
-Managing powerful servers with little concern about their computing resources is one of the main characteristics of Cloud computing, a concept which definitive definition is provided by the NIST in \cite{Mell2011}.
+The integration of the \gls{sw} stack to an \gls{iot} architecture is often centered on remote, powerful machines as in \cite{Gyrard2017} or \cite{Wang2018}. 
+\gls{iot} data is centralized on such machines before being processed using \gls{sw} technologies, in a Cloud computing approach \cite{Mell2011}.
+%Managing powerful servers with little concern about their computing resources is one of the main characteristics of Cloud computing, a concept which definitive definition is provided by the NIST in \cite{Mell2011}.
 %However, \gls{swot} architectures are characterized by the presence of constrained nodes, which limited communicating capabilities might prevent from accessing remote Cloud servers in a timely fashion \cite{Maarala2017}, if not at all. 
-\gls{swot} architectures are characterized by devices pervasively distributed in the environment, with potentially limited communication capabilities. 
-In order to transport data from these devices to Cloud nodes, multiple intermediary nodes are necessary.
-However, this transfer introduces a delay in data processing, and decreases applications' responsivity.
+\gls{swot} deployment architectures consider pervasively distributed devices, with potentially limited computation and communication capabilities. 
+Transporting data from these local devices to remote Cloud servers rely on multiple middle nodes, which introduces a delay in data processing, and degrades applications' responsivity.
 
-One way of tackling the issues of the centralized, Cloud-based approach to the \gls{swot} is the distribution of the \gls{sw} stack on these middle nodes between the Cloud and the \gls{iot} devices.
-Such approach is conform with the Fog computing paradigm \cite{Bonomi2012}, dedicated to storing and processing data \textbf{at the edge of the network}\cite{Patel2017}.
-However, the Fog computing is not introduced as a paradigm meant to replace Cloud computing: its limited computing capabilities, as well as the locality of the scale of its deployments, are not suited to support Cloud computing use cases.
-\textbf{Cloud and Fog computing are two complementary approaches}, supporting the deployment of complex \gls{swot} applications \cite{Sahni2017}.
+%One way of tackling the issues of the centralized, Cloud-based approach to the \gls{swot} is the distribution 
+Distributing the \gls{sw} stack among the multiple middle nodes between the Cloud servers and the \gls{iot} devices allows the \gls{swot} architecture to avoid the drawbacks of a Cloud-centered processing.
+Doing so allows the architectures to evolve towards the Fog computing paradigm \cite{Bonomi2012} that promotes data storage and processing \textbf{at the edge of the network}\cite{Patel2017}.
+However, Fog computing is not introduced as a paradigm meant to replace Cloud computing: its limited computing capabilities, as well as the locality of the scale of its deployments, are not suited to support Cloud computing use cases.
+\textbf{Cloud and Fog computing are two complementary approaches} that, when associated, enable the deployment of complex \gls{swot} applications \cite{Sahni2017}.
 
-The purpose of semantic processing is, thanks to knowledge captured in ontologies, to \textbf{process data in order to produce application-level information}. 
+The purpose of semantic processing is, thanks to knowledge captured in ontologies, to \textbf{process data in order to produce meaningful business information}. 
 %In order to face the diversity of applications potentially interested in the data of an \gls{iot} deployment, 
-Knowledge about the deployed \gls{iot} system and its environment can be a priori modelled by the system administrators.
-However, it is also necessary to inject business-specific knowledge into the reasoning system, and this information is not known a priori.
-It must therefore be modeled as bootstrapped\Nicolas{je ne suis pas trop sûr du terme, mais self-sufficient me semble inadapté} entities, inserted into the system at runtime.
+One can suppose that knowledge about the deployed \gls{iot} system and its environment modeled beforehand by the system administrators.
+However, this requires injecting business-specific knowledge into the reasoning system, while this information is not known at design-time.
+Knowledge must therefore be modeled as self-contained bundles, and inserted into the system at runtime.
 Moreover, when considering a distributed approach, the integrality of the business knowledge might not be relevant in the context of all the nodes. 
-If bundled into entities that can be exchanged node to node, application-level kowledge may be opportunistically distributed in the network. 
+If packaged into bundles that can be moved from node to node, business-level knowledge may be opportunistically distributed in the network. 
 Inspired from the application bursting approach introduced in \cite{Charrada2016}, we propose to consider modular applications to enable the distribution of some of their modules.
-Rules are a common way to capture applicative logic: a rule is a self-contained representation of a logical process.
-Due to these considerations, the contribution in this article considers rule-based reasoning: rules are used as representation of business logic, applied in a \gls{kb} capturing the environment of the node.
+Rules are a common way to capture business-level logic: a rule is a self-contained representation of a logical process.
+Following to these considerations, the contribution in this article considers rule-based reasoning: rules are used as representation of business logic, applied in a \gls{kb} capturing the environment of the node.
 
 The contribution in this paper is \gls{edr}, a \textbf{generic approach to the dynamic distribution of rule-based reasoning in a Cloud-Fog \gls{iot} architecture}.
+\Khalil{Peut-etre il vaut mieux parler du contenu en citant ou non ces papiers en intro et les citer dans les autres sections plus tard. C’est risqué de limiter la description des contribs du papiers à ces citations et extension : l’idéal c’est de développer quitte à réduire avant si problème de place}
 The work presented in this paper is an extension two conference articles, \cite{wi2018} and \cite{coopis2018}, where some aspects of \gls{edr} and its refinements have been introduced.
 Novel work include the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Open Rules \cite{Khandelwal2011} principles. 
 Complementary evaluations regarding the impact of distribution, and the impact of the execution of \edr on a constrained hardware are included, leading to a discussion analyzing the light shed by the obtained results on the Cloud-Fog complementarity. 
-The scientific challenge faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, dynamicity. 
+The scientific challenge we faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, and dynamicity. 
 These characteristics are presented in details in \textsection \ref{sec:edr_characteristics}.
 In \textsection \ref{sec:related_work_distribution}, existing work is introduced, to identify the added value of the present contribution.
 The core contribution is detailed in \textsection \ref{sec:edr} and \ref{sec:edrpt}, and it is evaluated in \textsection \ref{sec:experimentations}.
@@ -797,7 +798,7 @@ Let us consider $R_{Visibility}$ and $R_{ColdChain}$, illustrative rules provide
 A translation of $R_{Visibility}$ in based on description logic is: $Lo\-ca\-tion(?l) \land Pre\-sence(?l, ?o_1) \land ?o_1 = True \land Lu\-mi\-no\-si\-ty(?l, ?o_2) \land ?o_2 < 300L \land Ma\-chine(?m) \land Ac\-ti\-vi\-ty(?m, ?o_3) \land ?o_3 = True \land located\-In(?m, ?l) \rightarrow Low\-Machine\-Vi\-si\-bi\-li\-ty(?m)$.
 For this rule, the defined predicates behave as follows: for the conditions, $body_t(R_{Visibility})=\{Pre\-sence, Lu\-mi\-no\-si\-ty, Ac\-ti\-vi\-ty\}$, and for the deductions,  $head_t(R_{Visibility})= \{Low\-Ma\-chine\-Vi\-si\-bi\-li\-ty\}$. 
 $Location$ is a property type that is not considered by the deployment strategy implemented by \edrt.
-For $R_{ColdChain}$, represented in description logic in Section \textsection \ref{subs:factory_use_case}, the predicates results are $body_t(R_{ColdChain})=\{Tem\-pe\-ra\-ture, Ac\-ti\-vi\-ty\}$, and $head_t(R_{conveyor})= \{Cold\-Chain\-Bro\-ken\}$.
+For $R_{ColdChain}$, represented in description logic in Section \textsection \ref{subs:factory_use_case}, $body_t(R_{ColdChain})=\{Tem\-pe\-ra\-ture, Ac\-ti\-vi\-ty\}$, and $head_t(R_{conveyor})= \{Cold\-Chain\-Bro\-ken\}$.
 
 The deployment of $R_{Visibility}$ and $R_{ColdChain}$ by \edrt in an extract of the simulation topology is shown on Fig. \ref{fig:edrpt_deployment}.
 Both rules are submitted by the control center application to the Cloud node, and are deployed among Fog nodes.
@@ -925,25 +926,24 @@ For the sake of legibility, the SHACL representation of the rules is not reprodu
 
 The purpose of \edrt is to \textbf{transfer each rule to the lowest possible node in the architecture}, to be applied as early as possible. 
 The propagation of a rule $r_{x}$ from node $n$ to node $n'$ is considered relevant if $n' \in Lower(n) \land body_t(r_{x}) \subset productions(n')$, which brings it closer to sensors. 
-%This condition is expressed in Lst. \ref{lst:transferShape}, an extract of the SHACL shape constituting $r_{comfort}^{transfer}$.
+\Nicolas{Adapt listings to use cases}
+This condition is expressed in Lst. \ref{lst:transferShape}, an extract of the SHACL shape constituting $r_{ColdChain}^{transfer}$.
 %
-%\begin{lstlisting}[float, caption=$r_{comfort}^{transfer}$ shape, label=lst:transferShape]
-%SELECT $this
-%	WHERE {
-%	FILTER NOT EXISTS {
-%		$this a lmu:Node ;
-%		edr:producesDataOn adr:Temperature, adr:Luminosity ;
-%		lmu:hasUpstreamNode [a lmu:HostNode;].
-%		FILTER NOT EXISTS {
-%			{ex:officeLightComfortRule 
-%				edr:transferredTo $this.}
-%			UNION
-%			{ex:officeLightComfortRule 
-%				edr:transferableTo $this.}
-%		}
-%	}
-%}
-%\end{lstlisting}
+\begin{lstlisting}[float, caption=$r_{ColdChain}^{transfer}$ shape, label=lst:transferShape]
+SELECT $this
+	WHERE {
+	FILTER NOT EXISTS {
+		$this a lmu:Node ;
+		edr:producesDataOn adr:Temperature,
+			adr:MachineState ;
+		lmu:hasUpstreamNode [a lmu:HostNode;].
+		FILTER NOT EXISTS {
+			{ex:coldChainRule 
+				edr:transferredTo $this.}
+			UNION
+			{ex:coldChainRule 
+				edr:transferableTo $this.}}}}
+\end{lstlisting}
 
 Since it is assumed that rules are initially submitted to the Cloud node, the neighbor-to-neighbor propagation is only considered downwards in the topology.
 Each node that handles the rule in the deployment process keeps its representation in its \gls{kb}.
@@ -962,82 +962,80 @@ Such a node is represented on Fig. \ref{fig:edrpt_deployment} with gray dashes c
 In order to apply a rule $r$, a node $n$ must be the lowest common ancestor to the producers of property types in the rule body. 
 Such node has a set $\mathcal{P}$ of children (either sensors or other Fog nodes) partially producing the rule head. 
 Individually, none of the children produce all the elements of the rule head, but combined, their productions enable the processing of the rule. 
-It is characterized as such: $\exists \mathcal{P}$, such as $\forall n_c\in \mathcal{P}$, \triplet{$n$}{\concept{lmu}{hasDownstreamNode}}{$n_c$} and $\exists \{\rho_t, \rho'_t\} \subseteq body(r)$, \triplet{$n_c$}{\concept{edr}{producesDataOn}}{$\rho_t$} and $\neg\exists$ \triplet{$n_c$}{\concept{edr}{producesDataOn}}{$\rho'_t$}, and $\forall \rho_t \in body(r), \exists n_c\in \mathcal{P},$\triplet{$n_c$}{edr:producesDataOn}{$\rho_t$}.
-%Lst. \ref{lst:activationShape} gives a SPARQL implementation of these conditions applied to $r_{comfort}^{activation}$. 
-%
-%\begin{lstlisting}[float, caption=$r_{comfort}^{activation}$ shape, label=lst:activationShape]
-%SELECT $this
-%	WHERE {
-%		FILTER NOT EXISTS {
-%			$this a lmu:HostNode.
-%			$this lmu:hasDownstreamNode ?temperatureProvider,
-%			?luminosityProvider.
-%			?temperatureProvider edr:producesDataOn adr:Temperature.
-%			?luminosityProvider	edr:producesDataOn adr:Luminosity.
-%			FILTER EXISTS {
-%				$this lmu:hasDownstreamNode ?lowerNode.
-%				FILTER(
-%					?lowerNode = ?luminosityProvider 
-%					|| ?lowerNode = ?temperatureProvider
-%				)
-%				FILTER NOT EXISTS {
-%					?lowerNode edr:producesDataOn 
-%						adr:Temperature, adr:Luminosity.
-%				}
-%			}
-%		}
-%	}
-%}
-%\end{lstlisting}
+It is characterized as such: $\exists \mathcal{P}$, such as $\forall n_c\in \mathcal{P}$, \triplet{$n$}{\concept{lmu}{has\-Down\-stream\-Node}}{$n_c$} and $\exists \{\rho_t, \rho'_t\} \subseteq body(r)$, \triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$} and $\neg\exists$ \triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho'_t$}, and $\forall \rho_t \in body(r), \exists n_c\in \mathcal{P},$\triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}.
+Lst. \ref{lst:activationShape} gives a SPARQL implementation of these conditions applied to $r_{ColdChain}^{activation}$. 
+
+\begin{lstlisting}[float, caption=$r_{ColdChain}^{activation}$ shape, label=lst:activationShape]
+SELECT $this
+	WHERE {
+		FILTER NOT EXISTS {
+			$this a lmu:HostNode.
+			$this lmu:hasDownstreamNode ?tempProvider,
+			?activityProvider.
+			?tempProvider edr:producesDataOn 
+				adr:Temperature.
+			?activityProvider edr:producesDataOn 
+				adr:MachineState.
+			FILTER EXISTS {
+				$this lmu:hasDownstreamNode ?lowerNode.
+				FILTER(
+					?lowerNode = ?activityProvider 
+					|| ?lowerNode = ?tempProvider)
+				FILTER NOT EXISTS {
+					?lowerNode edr:producesDataOn 
+						adr:Temperature, adr:MachineState.}}}}}
+\end{lstlisting}
 
 If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, some deductions are inferred. 
 The activity of rule $r$ is made explicit by the triplet \triplet{$r$}{\concept{edr}{isRuleActive}}{true}, and the nodes $n'\in \mathcal{P}$ are identified as providers of the data type which $r$ now consumes. 
-The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partialDataProvider} triple in the SHACL rule.
+The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partial\-Data\-Provider} triple in the SHACL rule.
 The object of the interest, represented as a reified statement, will be bound to any partial production of the rule head by a child of $n$.
-The interest of the rule originator $o$ is also denoted with \triplet{$o$}{\concept{edr}{consumesResult}}{$r$}.
+The interest of the rule originator $o$ is also denoted with \triplet{$o$}{\concept{edr}{consumes\-Result}}{$r$}.
 These inferences enable both the \textbf{rule application} and the \textbf{rule result forwarding mechanisms} as described in Section \textsection \ref{subs:edr_vocabulary}.
-%The SPARQL CONSTRUCT embedded in the SHACL rule for the $r_{comfort}^{activation}$ module is provided in Lst. \ref{lst:activationRule}.
+The SPARQL CONSTRUCT embedded in the SHACL rule for the $r_{ColdChain}^{activation}$ module is provided in Lst. \ref{lst:activationRule}.
 The focus of the SHACL shape, materialized by the \texttt{\$this} variable, captures the \gls{iri} of the node applying the rule in its own \gls{kb}.
 It is defined in the SHACL documentation as the only element shared natively between the SHACL conditional shape and the SHACL rule said shape conditions: the \texttt{\$this} captures the node violating the shape defined in the condition. 
-%\Nicolas{Attention r\_comfort}
-That is why some elements characterizing the child nodes of the current node need to be recaptured in the WHERE clause of the $r_{Visibility}^{activation}$ rule, while the \texttt{\$this} is already bound to the current node.
+That is why some elements characterizing the child nodes of the current node need to be recaptured in the WHERE clause of the $r_{ColdChain}^{activation}$ rule, while the \texttt{\$this} is already bound to the current node.
 
-%\begin{lstlisting}[float, caption=$r_{comfort}^{activation}$ rule, label=lst:activationRule]
-%CONSTRUCT {
-%	$this edr:isInterestedIn adr:Luminosity, adr:Temperature.
-%	$this edr:producesDataOn ex:Symptom1.
-%	?interest a rdf:Statement;
-%	rdf:subject $this;
-%	rdf:predicate edr:isInterestedIn;
-%	rdf:object ?partialProduction;
-%	edr:announceTo ?partialDataProvider.
-%	ex:R1 edr:isRuleActive "true"^^xsd:boolean.
-%	?originator edr:consumesResult ex:R1.
-%} WHERE {
-%	$this a lmu:HostNode.
-%	{
-%		$this lmu:hasDownstreamNode ?partialDataProvider.
-%		?partialDataProvider edr:producesDataOn ?partialProduction.
-%		FILTER NOT EXISTS {
-%			?partialDataProvider edr:producesDataOn
-%			adr:Luminosity,
-%			adr:Temperature.
-%		}
-%	} UNION {
-%		ex:R1 edr:isRuleActivable "true"^^xsd:boolean.
-%	}
-%	ex:R1 edr:ruleOriginatedFrom ?originator.
-%	OPTIONAL{ex:R1 edr:isRuleActive "false"^^xsd:boolean.}
-%	BIND(STRAFTER(str(?partialProduction), "#") AS ?productionName)
-%	BIND(URI(CONCAT(str($this), ?productionName, "Interest"))
-%	AS ?interest)
-%}
-%\end{lstlisting}
+\begin{lstlisting}[float, caption=$r_{ColdChain}^{activation}$ rule, label=lst:activationRule]
+CONSTRUCT {
+	$this edr:isInterestedIn adr:MachineState, 
+		adr:Temperature.
+	$this edr:producesDataOn ex:ColdChainBroken.
+	?interest a rdf:Statement;
+	rdf:subject $this;
+	rdf:predicate edr:isInterestedIn;
+	rdf:object ?partialProduction;
+	edr:announceTo ?partialDataProvider.
+	ex:coldChainRule edr:isRuleActive 
+		"true"^^xsd:boolean.
+	?originator edr:consumesResult ex:coldChainRule.
+} WHERE {
+	$this a lmu:HostNode.
+	{
+		$this lmu:hasDownstreamNode 
+			?partialDataProvider.
+		?partialDataProvider edr:producesDataOn 
+			?partialProduction.
+		FILTER NOT EXISTS {
+			?partialDataProvider edr:producesDataOn
+				adr:MachineState, adr:Temperature.
+		}
+	} UNION {
+		ex:coldChainRule edr:isRuleActivable 
+			"true"^^xsd:boolean.
+	}
+	ex:R1 edr:ruleOriginatedFrom ?originator.
+	BIND(STRAFTER(str(?partialProduction), "#") 
+		AS ?productionName)
+	BIND(URI(CONCAT(str($this), ?productionName, 
+		"Interest")) AS ?interest)}
+\end{lstlisting}
 
 \subsubsection{Result delivery module}
 
 In \edrt, the condition of the result delivery module checks if a node expressed interest for the type of deductions yielded by the rule. 
-If there exists a triple \triplet{$n'$}{\concept{edr}{interestedIn}}{$\rho_t$}, with $n'$ a remote node and $\rho_t$ an element of the rule $r$'s head $head(r)$, then the result transfer module infers that \triplet{$n'$}{edr:consumesResult}{$r$}. 
+If there exists a triple \triplet{$n'$}{\concept{edr}{interest\-ed\-In}}{$\rho_t$}, with $n'$ a remote node and $\rho_t$ an element of the rule $r$'s head $head(r)$, then the result transfer module infers that \triplet{$n'$}{edr:consumes\-Result}{$r$}. 
 
 \subsection{Unraveling the main steps of \edrt}
 \label{subs:edrpt_algo}
@@ -1064,14 +1062,14 @@ The use of these modules is similar when a new rule is received, as it is descri
 \Nicolas{Garder le diagramme de séquence ? si oui, adapter au use case}
 The propagation of $r_{TemperatureGap}$ in the illustrative deployment provided in Fig. \ref{fig:edrpt_deployment} is represented as a sequence diagram on Fig. \ref{fig:seq_temperaturegap}.
 
-\begin{figure*}
-	\centering
-	\caption{Propagation of $r_{TemperatureGap}$}
-	\label{fig:seq_temperaturegap}
-	\scalebox{0.8}{
-		\input{figures/diagrams/edrpt_temperaturegap_propagation.tex}
-	}
-\end{figure*}
+%\begin{figure*}
+%	\centering
+%	\caption{Propagation of $r_{TemperatureGap}$}
+%	\label{fig:seq_temperaturegap}
+%	\scalebox{0.8}{
+%		\input{figures/diagrams/edrpt_temperaturegap_propagation.tex}
+%	}
+%\end{figure*}
 
 \paragraph{When receiving a rule}
 
