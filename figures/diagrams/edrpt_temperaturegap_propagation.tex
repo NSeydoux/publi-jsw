@@ -6,16 +6,16 @@
 %	\umlobject[x=12, no ddots, fill=white]{R111}
 	\umlobject[x=12, no ddots, fill=white]{Datacenter}
 	\umlobject[x=7.5, no ddots, fill=white]{F100}
-	\umlobject[x=3.5, no ddots, fill=white]{G110}
-	\umlobject[x=0, no ddots, fill=white]{R111}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces temperature\\production}}, dt=8]{R111}{G110}\end{umlcall}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces thermostat\\production, proxies\\temperature production}}]{G110}{F100}\end{umlcall}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Proxies thermostat\\and temperature\\productions}}]{F100}{Datacenter}\end{umlcall}
-	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{TG}$ modules}]{Datacenter}\end{umlcallself}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Propagate $r_{TG}$}}]{Datacenter}{F100}\end{umlcall}
-	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{TG}$ modules}]{F100}\end{umlcallself}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Propagate $r_{TG}$}}]{F100}{G110}\end{umlcall}
-	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{TG}$ modules}]{G110}\end{umlcallself}
-	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces temperature consumption}}, dt=4.5]{G110}{R111}\end{umlcall}
+	\umlobject[x=3.5, no ddots, fill=white]{C120}
+	\umlobject[x=0, no ddots, fill=white]{M121}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces \scalebox{0.7}{\presence, \off}\\production}}, dt=8]{M121}{C120}\end{umlcall}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces \scalebox{0.7}{\temperature},\\Proxies \scalebox{0.7}{\presence, \off}\\production}}]{C120}{F100}\end{umlcall}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Proxies \scalebox{0.7}{\temperature, \presence, \off}\\productions}}]{F100}{Datacenter}\end{umlcall}
+	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{C}$ modules}]{Datacenter}\end{umlcallself}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Propagate $r_{C}$}}]{Datacenter}{F100}\end{umlcall}
+	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{C}$ modules}]{F100}\end{umlcallself}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Propagate $r_{C}$}}]{F100}{C120}\end{umlcall}
+	\begin{umlcallself}[op=\pbox{2cm}{\Centering Processes $r_{C}$ modules}]{C120}\end{umlcallself}
+	\begin{umlcall}[op={\pbox{4.5cm}{\Centering Announces  \scalebox{0.7}{\off}\\consumption}}, dt=4.5]{C120}{M121}\end{umlcall}
 \end{umlseqdiag}
 \end{tikzpicture}

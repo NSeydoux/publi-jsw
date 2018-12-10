@@ -184,9 +184,9 @@ This paper is concluded in \textsection \ref{sec:conclusion}.
 \section{Desirable characteristics for the proposed solution}
 \label{sec:edr_characteristics}
 
-\Nicolas{Intro pourrie}
-In order to capture the main characteristics of the contribution presented in \textsection \ref{sec:edr} and \textsection \ref{sec:edrpt}, an illustrative use case is introduced. 
+In order to capture the main characteristics of the contribution presented in \textsection \ref{sec:edr} and \textsection \ref{sec:edrpt}, an illustrative industry 4.0 use case is introduced. 
 This use case is also the drive for the evaluations in \textsection \ref{sec:experimentations}.
+The different elements considered in the use case are then generalized to extract the main desirable characteristics of the proposed approach.
 
 \subsection{Illustrative smart factory use case}
 \label{sec:distribution_use_case}
@@ -211,10 +211,8 @@ For instance, %``the activation of a machine creating sparks in an atmosphere lo
 ``The presence of a worker near an operating conveyor in a low luminosity environment is a personal security hazard'' is a potential rule.
 Some rules are also dedicated to quality insurance: sensors available in the factory, such as temperature sensors, or sensors integrated to machines and to the conveyor, enable the continuous control of production quality.
 Some operations are temperature-sensitive, and a quality insurance rule is ``The detection of a temperature above a certain threshold while machines are operating is a break in the cold chain''.
-
-\Nicolas{Copied from elsewhere}
 Safety and quality insurance are time-sensitive applications, which is why the processing of the rules should be as fast as possible.
-Moreover, the mobility of some sensors (\textit{e.g.,} workers wearable), combined to the modularity of the factory floors, are suitable for a dynamic solution adaptative to their evolution over time.
+Moreover, the mobility of some sensors (\textit{e.g.,} workers wearable), combined to the modularity of the factory floors, create a dynamic network topology that evolves over time.
 
 \subsection{Scalability}
 
@@ -259,7 +257,7 @@ Moreover, some of the considered devices are attached to workers that are mobile
 Therefore, the placement of rules in the network should adapt to the evolution of topology: the last characteristic that we want for \gls{edr} is \textbf{dynamicity}.
 Depending on the devices available at a given moment on a given node of the network, all the applicative rules will not necessarily be relevant to this node.
 If a rule requires observations from a sensor that disconnects, carrying on applying this rule is a waste of resources. 
-\Nicolas{voir commentaires pour plus de détails qui me paraissent redondants avec l'overview EDR}
+%\Nicolas{voir commentaires pour plus de détails qui me paraissent redondants avec l'overview EDR}
 
 %The criteria for this relevance is specific to the application that submitted the rule, and to the the distribution strategy this application aims to implement.
 %Therefore, focusing on a single deployment strategy only supports the deployment of applications sharing the same requirements.
@@ -333,7 +331,6 @@ The authors make a distinction between two types of actions stored in the \gls{k
 High-level actions, which are policies chosen by the user, and low-level actions, which are the actual implementations of the former, built by domain experts to hide the complexity of the system to the end-user.
 User preferences are expressed through a GUI, and converted from the GUI to \gls{kb} individuals. 
 During this conversion, appropriate low-level actions are selected to implement user-generated policies.
-\Nicolas{cf commentaire, voir si garder pour l'ouverture}%The authors also introduce an ad-hoc approach to lowering (\textit{c.f.} Section \textsection \ref{par:lowering}), with dedicated adapters transforming rich actuations representations into raw commands to be sent to actuators.
 The actual deployment topology is not presented, but the absence of any element indicating a distribution of the underlying platform leads to the conclusion that it is executed on a central node.
 
 Production rules are used for context-awareness in a smart user space in \cite{Hussein2016}.
@@ -388,15 +385,13 @@ The placement of rule in the Fog architecture is not dynamic, however ad-hoc mec
 	\item The \textbf{dynamism} of rule deployment in the \gls{swot} system at runtime, constantly adapting to the state of the topology in an event-driven behavior.
 \end{itemize} 
 
-\section[EDR, approach for distributed reasoning]{EDR, a generic approach to dynamically distributed rule-based reasoning}
+\section[Distributing reasoning with EDR]{EDR, a generic approach to dynamically distributed rule-based reasoning}
 \label{sec:edr}
 
 In this section, \gls{edr}, a generic approach to dynamically distributed rule-based reasoning supported by semantic Fog computing, is introduced. 
 \gls{edr} is based on architectural assumptions that are presented in Section \textsection \ref{subs:edr_asumptions}.
 \gls{edr}'s functional overview is depicted in Section \textsection \ref{subs:edr_overview}, before presenting the vocabulary used to describe \gls{edr} core functionalities in Section \textsection \ref{subs:edr_vocabulary}.
 Modular rules are at the core of \gls{edr}, the formalisms used to represent them and the roles of their modules is described in Section \textsection \ref{subs:edr_rules}.
-Once the main components of the \gls{edr} mechanisms are described, the relationship between \gls{edr}'s characteristics and semantic Fog computing are discussed in Section \textsection \ref{sec:edr_characteristics}.
-\Nicolas{cf commentaire : voir si positionnement par rapport à edr nécessaire ici}
 
 \subsection{Assumptions on the underlying architecture}
 \label{subs:edr_asumptions}
@@ -404,12 +399,10 @@ Once the main components of the \gls{edr} mechanisms are described, the relation
 \gls{edr} is based on the hypothesis of a \textbf{hierarchical network topology}: nodes are organized in a tree-like structure, and only communicate with neighboring nodes.
 This assumption is made because such topologies are frequent in \gls{iot} networks, represented in studies such as \cite{Rodriguez2010}, \cite{Zanella2014}, \cite{Alaya2015} (based on the oneM2M standard), \cite{Szilagyi2016}, or \cite{Su2018}. 
 
-%Such hierarchical topology is related to the Cloud-Fog-Device architectural pattern: the tree root is a Cloud node, leaves are devices, and nodes in between are Fog nodes.
-
 Applications are not deployed on a Cloud node belonging to the \gls{iot} topology: they are executed remotely on personal devices such as smartphones or laptops.
 \textbf{Rules represent applicative needs}: when deductions from sensor observations are required by an application, it injects the rule in the network in order to be provided directly with the deductions, instead of being forwarded raw data by the network and applying the rules itself.
 
-It is assumed therefore that Fog nodes can communicate with applications directly.
+It is therefore assumed that \textbf{Fog nodes can communicate with applications directly}.
 Rules are initially submitted by applications to the Cloud node, so it is the only node they know \textit{a priori}. 
 The Cloud infrastructure provides a unique permanent interface to the network, the dynamic Fog topology underneath is therefore transparent for applications.
 
@@ -435,7 +428,7 @@ Such implementation is described with a refinement of \gls{edr}, \edrt, introduc
 \begin{figure*}
 	\centering
 	\caption{EDR node-centric functional overview}
-	\includegraphics[width=0.9\textwidth]{figures/overview.eps}
+	\includegraphics[width=0.85\textwidth]{figures/overview.eps}
 	\label{fig:node_overview}
 \end{figure*}
 
@@ -464,7 +457,7 @@ A node is able to:
 How these node functionalities are related to the \gls{kb} in the core \gls{edr} mechanism to enable the propagation of observations and rules is described in Section \textsection \ref{subs:edr_vocabulary}.
 The modular rule representation embedding the deployment strategy, and the updates of the \gls{kb} they trigger, are detailed in Section \textsection \ref{subs:edr_rules}.
 
-\subsection{A deployment mechanism based on a dedicated vocabulary}
+\subsection{A vocabulary driving the deployment mechanism}
 \label{subs:edr_vocabulary}
 
 Nodes behavior is made on purpose quite simple, in order to decorrelate the rule-specific deployment strategy from the core algorithm on which \gls{edr} is based.
@@ -472,7 +465,7 @@ Rule deployment strategies are dedicated to a particular purpose, \textit{e.g.,}
 In order support the genericity of \gls{edr} with a knowledge-driven method, nodes functionalities are based on a dedicated vocabulary, used to describe knowledge in the node's \gls{kb}.
 
 For instance, this vocabulary captures the hierarchical nature of the topology.
-The relation between a node $n_p$ and its child $n_c$ is expressed with the triplet \triplet{$n_p$}{lmu:hasDownstreamNode}{$n_c$}\footnote{Namespaces are available on \url{http://prefix.cc}\Nicolas{rajouter lmu sur prefix}}\footnote{Individuals such as $n_p$ and $n_c$ are identified with an \gls{iri} in the triplets}, based on a nomenclature presented in \cite{Seydoux2017}. 
+The relation between a node $n_p$ and its child $n_c$ is expressed with the triplet \triplet{$n_p$}{lmu:hasDownstreamNode}{$n_c$}\footnote{Namespaces are available on \url{http://prefix.cc}}\footnote{Individuals such as $n_p$ and $n_c$ are identified with an \gls{iri} in the triplets}, based on a nomenclature presented in \cite{Seydoux2017}. 
 The inverse relation exists, to express the connection between a node $n_c$ and its parent $n_p$: \triplet{$n_c$}{lmu:has\-Upstream\-Node}{$n_p$}.
 
 A description of all the functionalities of the nodes, and of the vocabulary that drives them, is provided in Section \textsection \ref{subsubs:basic_functionalities}. 
@@ -522,7 +515,7 @@ The notification of the interest is considered as a characteristic of the node, 
 A node sends a rule to one of its neighbor if it considers that this neighbor is capable of applying the rule, such consideration being part of the rule deployment strategy. 
 It the case where rule $r$ should be propagated towards node $n_{target}$ by $n$, the triplet \triplet{$r$}{edr:transferable\-To}{$n_{target}$} is present in $n$'s \gls{kb}.
 
-\subsubsection{Controlling the propagation of nodes characteristics}
+\subsubsection{Controlling nodes' characteristics propagation}
 \label{subsubs:annouce}
 
 The \gls{edr} algorithm depends on the exchanges between neighboring nodes of their mutual descriptions.
@@ -555,7 +548,7 @@ The interest of a node for a type of data, denoted by the predicate \concept{edr
 Therefore, depending on the deployment strategy, the interest of nodes is classified as one of the subclasses of \concept{edr}{Children\-Announced\-Property}.
 More details about this particular predicate is provided in Section \textsection \ref{sec:edrpt}, with the instantiation of a concrete deployment strategy.
 
-\subsubsection{Propagating knowledge beyond direct neighbors}
+\subsubsection{Propagating knowledge beyond neighbors}
 \label{subsubs:proxying}
 
 The basic functionalities only enable the communication of a node with its direct neighbors in the hierarchy, either parents or children (with the exception of deduction delivery).
@@ -679,7 +672,7 @@ The result delivery module of a rule $r$ is denoted $r^{delivery}$.
 %The relationship between node functionalities (represented in Fig. \ref{fig:node_overview}), the \gls{edr} vocabulary and the rule modules is shown in Fig. \ref{fig:node_rule}. 
 
 \subsubsection{Dynamically managing modules activation}
-\Nicolas{L'impact de cette technique (présenté brièvement dans coopis) n'est pas mesuré dans les résultats, est-ce qu'on en garde la description ? Si non, mettre à jour l'algo}
+
 The rule core must be computed each time a new observation is received by the node, in order to check if new deductions may be inferred.
 However, it is worth noting that the other rule modules only need to be evaluated when the rule is received, or when the topology evolves, \textit{e.g.,} with new productions by children, new consumptions by parents, or nodes connecting/disconnecting.
 
@@ -716,7 +709,7 @@ The marking and propagation of deductions is discussed in Section \textsection \
 
 \subsubsection{Leveraging the unique identification of rules}
 \label{subsubs:unique_identification}
-\Nicolas{Extension par rapport à coopis}
+
 \gls{edr} rules are compliant with the Linked Rules principles \cite{Khandelwal2011}, and in particular they are uniquely identified by an \gls{iri}.
 The identification of rules being shared among all nodes, provenance can be traced for a given deduction.
 Two purposes have been identified for this traceability: the avoidance of redundant computation, and the update of rules at runtime.
@@ -759,7 +752,6 @@ This version information is then attached to deductions made with the rule, so t
 
 As it has been said in the previous section \textsection \ref{sec:edr}, \gls{edr} is a \textbf{generic} approach to rule deployment among semantic-enabled Fog nodes, agnostic to the criteria according to which rules are propagated in the topology.
 In order to demonstrate the applicability of \gls{edr}, the present section is dedicated to \textbf{\edrt, an approach refining \gls{edr} by implementing a deployment strategy}.
-\Nicolas{cf commentaire : garder le graphe de mots-clé ?}
 %For the sake of clarity, an overview of keywords is introduced in Fig. \ref{fig:edr_keywords}.
 
 After introducing the \edrt core principle in Section \textsection \ref{subs:overview_edrt}, the knowledge required by nodes executing \edrt is described in Section \textsection \ref{subs:edrt_knowledge}.
@@ -776,7 +768,7 @@ The behavior of nodes executing \edrt is detailed in Section \textsection \ref{s
 
 \subsection{Implementing a deployment strategy based on property types with \edrt}
 \label{subs:overview_edrt}
-%\Nicolas{Exprimer simplement l'objectif d'edrt en intro de la section, et joindre cette description plus détaillée avec son implémentation par les règles}
+
 The purpose of \edrt is to \textbf{bring rules as deep as possible in the topology, in order for them to be processed as soon as possible}, while limiting unnecessary message exchanges.
 Therefore, \edrt is meant to reduce the delay between the moment observations able to trigger a deduction by a rule are produced by devices, and the moment said deduction is received by the rule originator.
 Due to the assumed hierarchical nature of the network, the deeper a node is in the topology, the fewer descendants it has.
@@ -926,12 +918,11 @@ For the sake of legibility, the SHACL representation of the rules is not reprodu
 
 The purpose of \edrt is to \textbf{transfer each rule to the lowest possible node in the architecture}, to be applied as early as possible. 
 The propagation of a rule $r_{x}$ from node $n$ to node $n'$ is considered relevant if $n' \in Lower(n) \land body_t(r_{x}) \subset productions(n')$, which brings it closer to sensors. 
-\Nicolas{Adapt listings to use cases}
+
 This condition is expressed in Lst. \ref{lst:transferShape}, an extract of the SHACL shape constituting $r_{ColdChain}^{transfer}$.
 %
 \begin{lstlisting}[float, caption=$r_{ColdChain}^{transfer}$ shape, label=lst:transferShape]
-SELECT $this
-	WHERE {
+SELECT $this WHERE {
 	FILTER NOT EXISTS {
 		$this a lmu:Node ;
 		edr:producesDataOn adr:Temperature,
@@ -966,24 +957,23 @@ It is characterized as such: $\exists \mathcal{P}$, such as $\forall n_c\in \mat
 Lst. \ref{lst:activationShape} gives a SPARQL implementation of these conditions applied to $r_{ColdChain}^{activation}$. 
 
 \begin{lstlisting}[float, caption=$r_{ColdChain}^{activation}$ shape, label=lst:activationShape]
-SELECT $this
-	WHERE {
-		FILTER NOT EXISTS {
-			$this a lmu:HostNode.
-			$this lmu:hasDownstreamNode ?tempProvider,
-			?activityProvider.
-			?tempProvider edr:producesDataOn 
-				adr:Temperature.
-			?activityProvider edr:producesDataOn 
-				adr:MachineState.
-			FILTER EXISTS {
-				$this lmu:hasDownstreamNode ?lowerNode.
-				FILTER(
-					?lowerNode = ?activityProvider 
-					|| ?lowerNode = ?tempProvider)
-				FILTER NOT EXISTS {
-					?lowerNode edr:producesDataOn 
-						adr:Temperature, adr:MachineState.}}}}}
+SELECT $this WHERE {
+	FILTER NOT EXISTS {
+		$this a lmu:HostNode.
+		$this lmu:hasDownstreamNode ?tempProvider,
+		?activityProvider.
+		?tempProvider edr:producesDataOn 
+			adr:Temperature.
+		?activityProvider edr:producesDataOn 
+			adr:MachineState.
+		FILTER EXISTS {
+			$this lmu:hasDownstreamNode ?lowerNode.
+			FILTER(
+				?lowerNode = ?activityProvider 
+				|| ?lowerNode = ?tempProvider)
+			FILTER NOT EXISTS {
+				?lowerNode edr:producesDataOn 
+					adr:Temperature, adr:MachineState.}}}}}
 \end{lstlisting}
 
 If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, some deductions are inferred. 
@@ -1059,17 +1049,16 @@ In the case when the node already held some rules, their placement might need to
 In order to adjust the rule deployment accordingly, rule modules dedicated to such deployment, namely application, transfer and delivery modules, are activated, processed in a reasoning step, before being deactivated again as detailed in Fig. \ref{fig:edr_algo}.
 The deductions yielded by this reasoning step, based on the \textit{edr} vocabulary, are used to control the node behavior as described previously.
 The use of these modules is similar when a new rule is received, as it is described in the next section.
-\Nicolas{Garder le diagramme de séquence ? si oui, adapter au use case}
-The propagation of $r_{TemperatureGap}$ in the illustrative deployment provided in Fig. \ref{fig:edrpt_deployment} is represented as a sequence diagram on Fig. \ref{fig:seq_temperaturegap}.
+A part of the propagation of $r_{Visibility}$ in the illustrative deployment provided in Fig. \ref{fig:edrpt_deployment} is represented as a sequence diagram on Fig. \ref{fig:seq_temperaturegap}.
 
-%\begin{figure*}
-%	\centering
-%	\caption{Propagation of $r_{TemperatureGap}$}
-%	\label{fig:seq_temperaturegap}
-%	\scalebox{0.8}{
-%		\input{figures/diagrams/edrpt_temperaturegap_propagation.tex}
-%	}
-%\end{figure*}
+\begin{figure*}
+	\centering
+	\caption{Propagation of $r_{ColdChain}$}
+	\label{fig:seq_temperaturegap}
+	\scalebox{0.8}{
+		\input{figures/diagrams/edrpt_temperaturegap_propagation.tex}
+	}
+\end{figure*}
 
 \paragraph{When receiving a rule}
 
@@ -1281,8 +1270,9 @@ Three components of delay have been identified:
 \subsection{Use case details}
 \label{subs:factory_use_case}
 
-\Nicolas{Copié d'ailleurs. Refaire le lien avec le use case initialement introduit dans les motivations}
-The rule's SHACL representation is available online\footnote{\url{https://w3id.org/laas-iot/edr/iiot/iiot.tar.gz}}
+The use case considered for the evaluation is the industry 4.0 scenario introduced in Section \textsection \ref{sec:distribution_use_case}.
+Table \ref{tab:factory_rules} summarizes the rules driving the scenario. 
+All the rules' SHACL representation are available online\footnote{\url{https://w3id.org/laas-iot/edr/iiot/iiot.tar.gz}}.
 
 \begin{table*}
 	\centering
@@ -1302,189 +1292,6 @@ The rule's SHACL representation is available online\footnote{\url{https://w3id.o
 	\caption{Safety and quality rules}
 	\label{tab:factory_rules}
 \end{table*}
-
-\subsection{Impact of distribution on responsiveness}
-\label{subs:factory_distribution}
-\subsubsection{Simulation topology}
-
-\begin{figure}
-	\centering
-	\caption{Reference topology for d*}
-	\label{fig:factory_distrib_topologies}
-	\scalebox{0.95}{
-		\input{figures/topologies/edrpt_factory_distrib_topologies.tex}
-	}
-\end{figure}
-
-\begin{table}
-	\centering
-	\caption{Machines hosts for distribution experiments}
-	\label{tab:distrib_hosts}
-	\scalebox{0.92}{
-		\begin{tabular}{|c|c|c|c|c|}
-			\hline
-			\textbf{Virtual node}	&Datacenter	&Floor	&Conveyor		&Machine \\ \hline
-			\textbf{Physical host}	&Server		&Laptop	&Raspberry Pi	&Server\\ \hline
-		\end{tabular}
-	}
-\end{table}
-
-\Nicolas{Copied from initial implementation}
-To measure how distribution impacts responsiveness, four topologies were distinguished, labeled d1 to d4 and further on simply denoted d*. Each of these topologies is constituted of 47 identical nodes, and processes data according to four rules, r1 to r4.
-The difference between the four d* topologies is the location of sensors, as depicted in Fig. \ref{fig:dstar}. 
-Sensors producing data of the type $\gamma_{1}$ are directly attached to the top node in d1, while they are attached to its children in d2. 
-Since $body_t(r1)=\{\gamma_{1}, \gamma_{4}\}$, $r1$ is applied at a maximum depth of 1 in d1, but is propagated to nodes of depth 2 in d2, hence a ``more decentralized'' execution is performed in d2 than in d1.
-Rule execution depths are given in Tab. \ref{tab:factory_distrib_topologies}: in d4, all sensors are connected to leaf nodes, and the distribution is maximal.
-
-\begin{figure}
-	\centering
-	\caption{d* topologies}
-	\Nicolas{Mettre à jour pour factory use case}
-	\label{fig:dstar}
-	\subcaption{d1}
-	\scalebox{0.75}{
-		\input{figures/topologies/d1.tex}
-	}
-	
-	\centering
-	\subcaption{d2}
-	\scalebox{0.75}{
-		\input{figures/topologies/d2.tex}
-	}
-	
-%	\centering
-%	\subcaption{d3}
-%	\scalebox{0.9}{\input{figures/topologies/d3.tex}}
-%	
-%	\centering
-%	\subcaption{d4}
-%	\scalebox{0.9}{\input{figures/topologies/d4.tex}}
-\end{figure}
-
-A factor to be considered is that this experiment is entierly run on the server which characteristics are given in Tab. \ref{tab:setup}: no constrained nodes are included in this evaluation.
-It would be wrong to assume that the decentralization towards nodes of lesser computing power has no impact on the results, that is why this question is addressed in Section \textsection \ref{subs:factory_distribution}.
-
-To assess the impact of distribution, the same sensors are deployed from topology d'0 to d'4, but they are not situated at the same level, enabling the control of the level at which rules are processed.
-Sensors are situated in d'* topologies so that the rules are processed at the depths depicted in Tab. \ref{tab:factory_distrib_topologies}.
-The simulation topology is composed of 42 nodes in total (including sensors), hosted on the physical machines as detailed on Fig. \ref{tab:distrib_hosts}.
-Fig. \ref{fig:factory_distribution_single-host} displays results for single-host approaches, and Fig. \ref{fig:factory_distribution_multi-host} for multi-host approaches, both showing centralized and distributed reasoning. 
-
-\begin{table}
-	\centering
-	\caption{Depth of rule processing for d'*}
-	\label{tab:factory_distrib_topologies}
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
-		\hline
-		&\textbf{R1}&\textbf{R2}&\textbf{R3}&\textbf{R4}&\textbf{R5}&\textbf{R6}&\textbf{R7}\\ \hline
-		\textbf{d'0}& 0& 0& 0& 0& 0& 0& 0\\ \hline
-		\textbf{d'1}& 0& 1& 0& 1& 1& 0& 0\\ \hline
-		\textbf{d'2}& 1& 1& 0& 1& 1& 0& 0\\ \hline
-		\textbf{d'3}& 1& 1& 0& 3& 3& 1& 3\\ \hline
-		\textbf{d'4}& 3& 2& 2& 3& 3& 2& 3\\ \hline
-	\end{tabular}
-\end{table}
-
-\subsubsection{Results}
-
-\begin{figure*}
-	\Centering
-	\caption{\Centering Distribution experiments, single-host execution}
-	\label{fig:factory_distribution_single-host}
-	\begin{minipage}{0.395\textwidth}
-		\Centering
-		\subcaption{\Centering Centralized reasoning}
-		\label{fig:factory_distribution_raw_syn}
-		\scalebox{0.8}{
-			\input{figures/results/factory/boxplot_distrib_raw_syn.pgf}
-		}
-	
-	\end{minipage}
-	\begin{minipage}{0.595\textwidth}
-		\Centering
-		\subcaption{\Centering Distributed reasoning}
-		\label{fig:factory_distribution_processed_syn}
-		\scalebox{0.8}{
-			\input{figures/results/factory/boxplot_distrib_processed_syn.pgf}
-		}
-	\end{minipage}
-\end{figure*}
-	
-\begin{figure*}
-	\Centering
-	\caption{\Centering Distribution experiments, multi-host execution}
-	\label{fig:factory_distribution_multi-host}
-	
-	\begin{minipage}{0.395\textwidth}
-		\Centering
-		\subcaption{\Centering Centralized reasoning}
-		\label{fig:factory_distribution_raw_rpi}
-		\scalebox{0.8}{
-			\input{figures/results/factory/boxplot_distrib_raw_rpi.pgf}
-		}
-	\end{minipage}
-%	\Centering
-%	\caption{\Centering Distribution experiments, distributed reasoning}
-%	\label{fig:factory_distribution_processed}
-	\begin{minipage}{0.595\textwidth}
-		\Centering
-		\subcaption{Distributed reasoning}
-		\label{fig:factory_distribution_processed_rpi}
-		\scalebox{0.8}{
-			\input{figures/results/factory/boxplot_distrib_processed_rpi.pgf}
-		}
-	\end{minipage}
-\end{figure*}
-
-With the centralized reasoning delivery mechanisms, there is little impact of the distribution on performances as seen on Fig. \ref{fig:factory_distribution_raw_syn}.
-The best performances are measured in the most centralized topology, d'0, when the sensors are directly connected to the reasoning node, thus minimizing the transit time, as it is shown on Fig. \ref{fig:factory_distribution_raw_syn} and Fig. \ref{fig:factory_distribution_raw_rpi}.
-Moreover, for this completely centralized topology, the delays measured with the decentralized delivery mechanisms (\gls{cdp}, \gls{cip}, \gls{adp}) are comparable to the centralized ones (\gls{cir}, \gls{cdr}), which is an expected result: since all the sensors are connected to a single node, there is no difference between rule deployments.
-It should also be noted that there are no significant differences between the centralized and decentralized executions.
-Since all reasoning, which is the most computing-intense process of the simulation, is located in both cases on the most powerful node, it is also an observation consistent with our expectations.
-
-\begin{figure}
-
-\end{figure}
-
-For the decentralized delivery mechanisms, where rules are propagated into the network according to the \edrt technique, the distribution has indeed an impact on deduction delivery delay, seen on Fig. \ref{fig:factory_distribution_processed}.
-In the single-host execution environment (Fig. \ref{fig:factory_distribution_processed_syn}), where all the nodes have comparable capabilities, there is a correlation between the depth at which rules can be executed (denoting a more important distribution of processing), and the delivery delay decreases.
-In this case, each node takes a increasing share of the reasoning in charge, leading to a relative decrease of the idle time compared to the reasoning time as seen on Fig. \ref{fig:factory_distribution_breakout_syn}.
-
-However, Fig. \ref{fig:factory_distribution_processed} shows a discrepancy between the simulation in a single-host and a multi-host-host environment, the latter actually including constrained nodes.
-For \gls{adp} and \gls{cip} on Fig. \ref{fig:factory_distribution_processed_rpi}, at the d'3 topology, the third and fourth quartiles show an increase in the delays.
-The median delay is compliant with the expected decreasing trend for \gls{adp}, but it begins increasing for \gls{cip}.
-For the d'4 topology on Fig. \ref{fig:factory_distribution_processed_rpi}, where the distribution is maximal, there is an important increase of delays for all decentralized delivery mechanisms, exceeding the delays measured even for d'0.
-\Nicolas{Move the following explanation to a dedicated "Discussion" section}
-An explanation for this phenomenon is the saturation of the Fog node passed a certain work load, the tipping point being crossed around d'3. 
-The progressive relative increase of the idle time when increasing distribution, seen when comparing d'3 an d'4 on Fig. \ref{fig:factory_distribution_breakout_syn} and Fig. \ref{fig:factory_distribution_breakout_rpi}, supports this hypothesis.
-To this regard, the \edrt technique has a naive approach, where the capabilities of the Fog nodes are not considered in the deployment process.
-Moreover, the nature of SHACL rules requires the node to evaluate every active rules when a new observation is received, event if the new information is not relevant for the new rule.
-This prevents optimizations that were possible in the initial implementation, where rules were individually processed: the generality of the \gls{edr} approach is traded for the efficiency of the implementation. 
-
-\Nicolas{Garder la suite ?}
-The technological choices made for the implementation of \edrt are also factors to be considered in the observed results. 
-Overall, \edrt is still a proof of concept, and some choices in the implementation should be rethinked for performance: 
-\begin{itemize}
-	\item The HTTP framework used (Jersey\footnote{\url{https://jersey.github.io/}}) has been chosen for convenience for the flexibility of development it allows, but it adds a certain overhead in the memory print and execution time which is not negligible in a constrained environment.
-	\item The SHACL engine used in our experimentations is described by its creators as "not really optimized for performance, just for correctness"\footnote{\url{https://github.com/TopQuadrant/shacl}}.
-	It is possible that in the future, better performances will be reached by sheer improvement of the SHACL engine.
-	This engine was chosen because, to the best of our knowledge, it was the only Jena-compatible SHACL implementation at the time of implementation.
-	\item Knowledge is exchanged between nodes serialized in RDF Turtle. 
-	Other more compact RDF serializations exist \cite{Su2015}, and switching to such a format would reduce the communication overhead when messages are exchanged.
-\end{itemize}
-
-\begin{figure*}
-	\Centering
-	\caption{Distribution experiments delays breakout (single-host execution)}
-	\label{fig:factory_distribution_breakout_syn}
-	\scalebox{0.78}{
-		\input{figures/results/factory/breakout_delays_distrib_syn.pgf}
-	}
-	\caption{Distribution experiments delays breakout (multi-host execution)}
-	\label{fig:factory_distribution_breakout_rpi}
-	\scalebox{0.78}{
-		\input{figures/results/factory/breakout_delays_distrib_rpi.pgf}
-	}
-\end{figure*}
 
 \subsection{Scalability of the proposed approach}
 \label{subs:factory_scalability}
@@ -1564,21 +1371,16 @@ Due to scaling issues, results are separated in several figures:
 \begin{figure}
 	\caption{Scalability measures, centralized reasoning}
 	\label{fig:factory_scala_processed}
-%	\begin{minipage}{0.25\textwidth}
-		\Centering
-		\subcaption{Multi-host execution}
-		\label{fig:factory_scala_raw_rpi}
-		\scalebox{1}{
-			\input{figures/results/factory/boxplot_scala_raw_rpi.pgf}
-		}
-%	\end{minipage}
+	\Centering
+	\subcaption{Multi-host execution}
+	\label{fig:factory_scala_raw_rpi}
+	\scalebox{1}{
+		\input{figures/results/factory/boxplot_scala_raw_rpi.pgf}
+	}
 \end{figure}
 
 \begin{figure*}
-%	\Centering
 	\caption{Scalability measures, decentralized reasoning}
-%	\begin{minipage}{0.5\textwidth}
-%	\Centering
 	\vfill
 	\noindent
 	
@@ -1597,7 +1399,7 @@ Due to scaling issues, results are separated in several figures:
 			\input{figures/results/factory/boxplot_scala_processed_rpi_1.pgf}
 		}
 	\end{minipage}
-%	\end{minipage}
+	%	\end{minipage}
 	\begin{minipage}{0.329\textwidth}
 		\Centering
 		\subcaption{\Centering Multi-host execution (RPi 2)}
@@ -1607,17 +1409,6 @@ Due to scaling issues, results are separated in several figures:
 		}
 	\end{minipage}
 \end{figure*}
-
-%\begin{figure}
-%\begin{minipage}{0.195\textwidth}
-%		\Centering
-%		\subcaption{Decentralized execution (RPi 2)}
-%		\label{fig:factory_scala_cip_rpi2}
-%		\scalebox{1}{
-%			\input{figures/results/factory/boxplot_scala_processed_rpi2.pgf}
-%		}
-%\end{minipage}
-%\end{figure}
 
 The gain in scalability provided by the decentralized approaches appears in the results. 
 In topology s'1, the discrepancy between delivery delay for distributed and centralized reasoning approaches is reduced, especially in the single-host execution setting, with a median around 0.65s for \gls{cir} and \gls{cdr}, and 0.065s for \gls{cdp}, \gls{cip} and \gls{adp}.
@@ -1636,40 +1427,203 @@ This conclusion is also strengthen by the fact that, if the Raspberry Pis 3 are 
 On Fig. \ref{fig:breakout_delays_rpi}, among the three decentralized delivery mechanisms, \gls{cip} has the least important relative transfer time dedicated to reasoning.
 This is coherent with the fact that more deductions are forwarded by the constrained nodes rather than deduced directly by it, since it is at depth 1 in the topology, and it is only connected to few sensors compared to conveyor or machine nodes.
 
-%Approaches promoting direct communication, \textit{i.e.} \gls{cdr} and \gls{cdp}, perform better that their indirect counterparts, respectively \gls{cir}, \gls{cip}.
-%This is an expected result, as direct communication reduces the number of hops required for a message (be it an observation or a deduction) to reach its target.
-%The average composition of delays is broken down in Fig. \ref{fig:breakout_delays_syn} and \ref{fig:breakout_delays_rpi}, after normalization: each bar represents the share of the delay type in the global delay.
+Approaches promoting direct communication, \textit{i.e.} \gls{cdr} and \gls{cdp}, perform better that their indirect counterparts, respectively \gls{cir}, \gls{cip}.
+This is an expected result, as direct communication reduces the number of hops required for a message (be it an observation or a deduction) to reach its target.
 
-\Nicolas{Voir graphe en commentaire, pas référencé dans l'analyse initiale}
-%\begin{figure*}
-%	\centering
-%	\caption{Breakout of delays (normalized, single-host execution)}
-%	\label{fig:breakout_delays_syn}
-%	\scalebox{0.9}{
-%		\input{figures/results/factory/breakout_delays_scala_syn.pgf}
-%	}
-%	\caption{Breakout of delays (normalized, multi-host execution)}
-%	\label{fig:breakout_delays_rpi}
-%	\scalebox{0.9}{
-%		\input{figures/results/factory/breakout_delays_scala_rpi.pgf}
-%	}
-%\end{figure*}
+\begin{figure*}
+	\caption{Breakout of delays (normalized, multi-host execution)}
+	\label{fig:breakout_delays_rpi}
+	\scalebox{0.75}{
+		\input{figures/results/factory/breakout_delays_scala_rpi.pgf}
+	}
+\end{figure*}
 
 A trend that can be observed in the breakout is the increase of the share of transfer time in centralized strategies compared to decentralized ones. 
 An explanation for this phenomenon is the saturation of the network link, combined to an overhead on the central node induced by the necessity to perform all the reasoning. 
 The central node has less CPU time available to declare reception of messages, and therefore the time between the emission event and the reception event is increased.
 Overall, the limited increase of delays and the balance of the delays breakdown in the distributed settings support our claim that \edrt is a scalable approach to rule-base reasoning based on semantic Fog computing.
 
-\subsection{Discussion}
+\subsection{Impact of distribution on responsiveness}
+\label{subs:factory_distribution}
+\subsubsection{Simulation topology}
 
-It is notable that with a decentralized approach, such an increase of distribution has improved performances up to certain point, but when executed on constrained nodes, has eventually led to a \gls{qos} degradation.
-This degradation is a drawback of \edrt that have been revealed by the conducted experimentations.
-Not considering the capabilities of Fog nodes in the deployment process is a naive approach that reaches its limitations when overloading constrained nodes.
+\begin{figure}
+	\centering
+	\caption{Reference topology for d*}
+	\label{fig:factory_distrib_topologies}
+	\scalebox{0.95}{
+		\input{figures/topologies/edrpt_factory_distrib_topologies.tex}
+	}
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Machines hosts for distribution experiments}
+	\label{tab:distrib_hosts}
+	\scalebox{0.92}{
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Virtual node}	&Datacenter	&Floor	&Conveyor		&Machine \\ \hline
+			\textbf{Physical host}	&Server		&Laptop	&Raspberry Pi	&Server\\ \hline
+		\end{tabular}
+	}
+\end{table}
+
+To measure how distribution impacts responsiveness, four topologies were distinguished, labeled d1 to d4 and further on simply denoted d*. Each of these topologies is constituted of 42 identical nodes, and processes data according to four rules, r1 to r4.
+The difference between the four d* topologies is the location of sensors, as depicted in Fig. \ref{fig:dstar}. 
+Sensors producing data of the type $\gamma_{1}$ are directly attached to the top node in d1, while they are attached to its children in d2. 
+Since $body_t(r1)=\{\gamma_{1}, \gamma_{4}\}$, $r1$ is applied at a maximum depth of 1 in d1, but is propagated to nodes of depth 2 in d2, hence a ``more decentralized'' execution is performed in d2 than in d1.
+Rule execution depths are given in Tab. \ref{tab:factory_distrib_topologies}: in d4, all sensors are connected to leaf nodes, and the distribution is maximal.
+
+\begin{figure}
+	\centering
+	\caption{d* topologies}
+	\label{fig:dstar}
+	\subcaption{d1}
+	\scalebox{0.75}{
+		\input{figures/topologies/d1.tex}
+	}
+	
+	\centering
+	\subcaption{d2}
+	\scalebox{0.75}{
+		\input{figures/topologies/d2.tex}
+	}
+	
+%	\centering
+%	\subcaption{d3}
+%	\scalebox{0.9}{\input{figures/topologies/d3.tex}}
+%	
+%	\centering
+%	\subcaption{d4}
+%	\scalebox{0.9}{\input{figures/topologies/d4.tex}}
+\end{figure}
+
+To assess the impact of distribution, the same sensors are deployed from topology d'0 to d'4, but they are not situated at the same level, enabling the control of the level at which rules are processed.
+Sensors are situated in d'* topologies so that the rules are processed at the depths depicted in Tab. \ref{tab:factory_distrib_topologies}.
+The simulation topology is composed of 42 nodes in total (including sensors), hosted on the physical machines as detailed on Fig. \ref{tab:distrib_hosts}.
+Fig. \ref{fig:factory_distribution_single-host} displays results for single-host approaches, and Fig. \ref{fig:factory_distribution_multi-host} for multi-host approaches, both showing centralized and distributed reasoning. 
+
+\begin{table}
+	\centering
+	\caption{Depth of rule processing for d'*}
+	\label{tab:factory_distrib_topologies}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+		&\textbf{R1}&\textbf{R2}&\textbf{R3}&\textbf{R4}&\textbf{R5}&\textbf{R6}&\textbf{R7}\\ \hline
+		\textbf{d'0}& 0& 0& 0& 0& 0& 0& 0\\ \hline
+		\textbf{d'1}& 0& 1& 0& 1& 1& 0& 0\\ \hline
+		\textbf{d'2}& 1& 1& 0& 1& 1& 0& 0\\ \hline
+		\textbf{d'3}& 1& 1& 0& 3& 3& 1& 3\\ \hline
+		\textbf{d'4}& 3& 2& 2& 3& 3& 2& 3\\ \hline
+	\end{tabular}
+\end{table}
+
+\subsubsection{Results}
+
+\begin{figure*}
+	\Centering
+	\caption{\Centering Distribution experiments, single-host execution}
+	\label{fig:factory_distribution_single-host}
+	\begin{minipage}{0.395\textwidth}
+		\Centering
+		\subcaption{\Centering Centralized reasoning}
+		\label{fig:factory_distribution_raw_syn}
+		\scalebox{0.8}{
+			\input{figures/results/factory/boxplot_distrib_raw_syn.pgf}
+		}
+	
+	\end{minipage}
+	\begin{minipage}{0.595\textwidth}
+		\Centering
+		\subcaption{\Centering Distributed reasoning}
+		\label{fig:factory_distribution_processed_syn}
+		\scalebox{0.8}{
+			\input{figures/results/factory/boxplot_distrib_processed_syn.pgf}
+		}
+	\end{minipage}
+\end{figure*}
+	
+\begin{figure*}
+	\Centering
+	\caption{\Centering Distribution experiments, multi-host execution}
+	\label{fig:factory_distribution_multi-host}
+	
+	\begin{minipage}{0.395\textwidth}
+		\Centering
+		\subcaption{\Centering Centralized reasoning}
+		\label{fig:factory_distribution_raw_rpi}
+		\scalebox{0.8}{
+			\input{figures/results/factory/boxplot_distrib_raw_rpi.pgf}
+		}
+	\end{minipage}
+	\begin{minipage}{0.595\textwidth}
+		\Centering
+		\subcaption{Distributed reasoning}
+		\label{fig:factory_distribution_processed_rpi}
+		\scalebox{0.8}{
+			\input{figures/results/factory/boxplot_distrib_processed_rpi.pgf}
+		}
+	\end{minipage}
+\end{figure*}
+
+With the centralized reasoning delivery mechanisms, there is little impact of the distribution on performances as seen on Fig. \ref{fig:factory_distribution_raw_syn}.
+The best performances are measured in the most centralized topology, d'0, when the sensors are directly connected to the reasoning node, thus minimizing the transit time, as it is shown on Fig. \ref{fig:factory_distribution_raw_syn} and Fig. \ref{fig:factory_distribution_raw_rpi}.
+Moreover, for this completely centralized topology, the delays measured with the decentralized delivery mechanisms (\gls{cdp}, \gls{cip}, \gls{adp}) are comparable to the centralized ones (\gls{cir}, \gls{cdr}), which is an expected result: since all the sensors are connected to a single node, there is no difference between rule deployments.
+It should also be noted that there are no significant differences between the centralized and decentralized executions.
+Since all reasoning, which is the most computing-intense process of the simulation, is located in both cases on the most powerful node, it is also an observation consistent with our expectations.
+
+For the decentralized delivery mechanisms, where rules are propagated into the network according to the \edrt technique, the distribution has indeed an impact on deduction delivery delay, seen on Fig. \ref{fig:factory_distribution_processed_syn}.
+In the single-host execution environment (Fig. \ref{fig:factory_distribution_processed_syn}), where all the nodes have comparable capabilities, there is a correlation between the depth at which rules can be executed (denoting a more important distribution of processing), and the delivery delay decreases.
+In this case, each node takes a increasing share of the reasoning in charge, leading to a relative decrease of the idle time compared to the reasoning time as seen on Fig. \ref{fig:factory_distribution_breakout_syn}.
+
+\begin{figure*}
+	\Centering
+	\caption{Distribution experiments delays breakout (single-host execution)}
+	\label{fig:factory_distribution_breakout_syn}
+	\scalebox{0.78}{
+		\input{figures/results/factory/breakout_delays_distrib_syn.pgf}
+	}
+	\caption{Distribution experiments delays breakout (multi-host execution)}
+	\label{fig:factory_distribution_breakout_rpi}
+	\scalebox{0.78}{
+		\input{figures/results/factory/breakout_delays_distrib_rpi.pgf}
+	}
+\end{figure*}
+
+However, comparing Fig. \ref{fig:factory_distribution_single-host} and \ref{fig:factory_distribution_multi-host} shows a discrepancy between the simulation in a single-host and a multi-host-host environment, the latter actually including constrained nodes.
+For \gls{adp} and \gls{cip} on Fig. \ref{fig:factory_distribution_processed_rpi}, at the d'3 topology, the third and fourth quartiles show an increase in the delays.
+The median delay is compliant with the expected decreasing trend for \gls{adp}, but it begins increasing for \gls{cip}.
+For the d'4 topology on Fig. \ref{fig:factory_distribution_processed_rpi}, where the distribution is maximal, there is an important increase of delays for all decentralized delivery mechanisms, exceeding the delays measured even for d'0.
+This is discussed in details in Section \textsection \ref{subs:discussion}
+
+\subsection{Discussion}
+\label{subs:discussion}
+
+When increasing the distribution of rule execution in the multi-host experimentation environment, a degradation of the performances is observed.
+An explanation for this phenomenon is the saturation of the Fog node passed a certain work load, the tipping point being crossed around d'3 (see Fig. \ref{fig:factory_distribution_processed_rpi}). 
+Rules executed deeper are processed by constrained Fog nodes, and passed a certain load, the benefits of the distribution are compensated by the limitations of their processing capabilities.
+
+The progressive relative increase of the idle time when increasing distribution, seen when comparing d'3 an d'4 on Fig. \ref{fig:factory_distribution_breakout_syn} and Fig. \ref{fig:factory_distribution_breakout_rpi}, supports this hypothesis.
+To this regard, the \edrt technique has a naive approach, where the capabilities of the Fog nodes are not considered in the deployment process.
+The obtained results are encouraging, especially in terms of scalability, and moreover the proposed experimentation aims at creating extreme conditions, by distributing the rules as much as possible.
+The obtained topology is not necessarily an accurate reflection of what would be deployed in a real-world application, and it is designed to show a trend rather than to be applied as is.
+
+The technological choices made for the implementation of \edrt are also factors to be considered in the observed results. 
+Overall, \edrt is still a proof of concept, and some choices in the implementation should be rethinked for performance: 
+\begin{itemize}
+	\item The HTTP framework used (Jersey\footnote{\url{https://jersey.github.io/}}) has been chosen for convenience for the flexibility of development it allows, but it adds a certain overhead in the memory print and execution time which is not negligible in a constrained environment.
+	\item The SHACL engine used in our experimentations is described by its creators as "not really optimized for performance, just for correctness"\footnote{\url{https://github.com/TopQuadrant/shacl}}.
+	It is possible that in the future, better performances will be reached by sheer improvement of the SHACL engine.
+	This engine was chosen because, to the best of our knowledge, it was the only Jena-compatible SHACL implementation at the time of implementation.
+	\item Knowledge is exchanged between nodes serialized in RDF Turtle. 
+	Other more compact RDF serializations exist \cite{Su2015}, and switching to such a format would reduce the communication overhead when messages are exchanged.
+\end{itemize}
+
 Moreover, due to technical constraints, the experiments we conducted could not be performed at a large scale on constrained nodes.
 This introduces a bias in the measured results, since the simulated nodes are ran on machines much more powerful than the Fog nodes should be. 
 We are aware of this bias, and the experiments are designed in such way that it has an impact as reduced as possible.
 For future experiments, we intend to set up a network of virtual machines, emulating the actual capabilities of physical nodes, rather than mere processes.
-
 
 \section{Conclusion and future work}
 \label{sec:conclusion}
@@ -1687,7 +1641,6 @@ This vocabulary is used by rule modules to \textbf{implement deployment strategi
 Rule \textbf{deployment strategies aim at optimizing rule placement for customizable criteria}, such as response time or energy consumption, based on the knowledge stored in each node's \gls{kb}.
 Such knowledge include a description of its neighbors, the current state of the environment based on sensor observations, and background knowledge.
 Overall, \gls{edr} enables, in a purely \textbf{decentralized and emergent} manner, the \textbf{deployment of rule}, the \textbf{propagation of data} and the \textbf{delivery of deductions} inferred when applying the rules once they have been deployed.
-%\gls{edr} has been accepted for publication in \cite{Seydoux2018_coopis}.
 
 In order to enforce its genericity, \gls{edr} itself is made agnostic to individual deployment strategies.
 Therefore, it has to be refined by injecting \textbf{rules embedding their own deployment strategy}, selected according to application-level requirements.
@@ -1696,7 +1649,6 @@ To this end, we proposed \edrt, an \gls{edr} refinement implementing a deploymen
 Rules are thus propagated toward sensors producing the \textbf{type of data} they consume, \textbf{as deep as possible} in the topology. 
 The propagation stops when the rule is deployed on the Fog node being the closest common ancestor to these sensors in the topology.
 To enforce the locality of decisions, node capabilities are announced through the network thanks to a proxying mechanism, where data productions and consumptions are propagated.
-%An early implementation of \edrt has been proposed in \cite{Seydoux2018_itl}, and a deeper description has been accepted for publication in \cite{Seydoux2018_wi}.
 
 The genericity and the dynamicity of the \gls{edr} approach are achieved by design, while its scalability and the improvement brought by distribution for responsiveness have been measured through experimentations.
 A simulated smart factory use case has been considered, executed on a powerful server or distributed across constrained nodes.
