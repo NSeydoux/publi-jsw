@@ -171,21 +171,24 @@ Rules are a common way to capture business-level logic: a rule is a self-contain
 Following to these considerations, the contribution in this article considers rule-based reasoning: rules are used as representation of business logic, applied in a \gls{kb} capturing the environment of the node.
 
 The contribution in this paper is \gls{edr}, a \textbf{generic approach to the dynamic distribution of rule-based reasoning in a Cloud-Fog \gls{iot} architecture}.
-\Khalil{Peut-etre il vaut mieux parler du contenu en citant ou non ces papiers en intro et les citer dans les autres sections plus tard. C’est risqué de limiter la description des contribs du papiers à ces citations et extension : l’idéal c’est de développer quitte à réduire avant si problème de place}
-The work presented in this paper is an extension two conference articles, \cite{wi2018} and \cite{coopis2018}, where some aspects of \gls{edr} and its refinements have been introduced.
+\gls{edr} aims at harnessing scalability and latency issues by distributing reasoning rules among Fog nodes, while benefiting from the Cloud stability and permanent availability. 
+Strategies for rule distribution are often application-dependant, with a wide variety of requirements due to the heterogeneity of gls{iot} application domains.
+That is why \gls{edr} is a generic approach, that can be specialized depending on the desired rule distribution strategy.
+%\Khalil{Peut-etre il vaut mieux parler du contenu en citant ou non ces papiers en intro et les citer dans les autres sections plus tard. C’est risqué de limiter la description des contribs du papiers à ces citations et extension : l’idéal c’est de développer quitte à réduire avant si problème de place}
+The work presented in this paper completes and extends two conference articles, \cite{wi2018} and \cite{coopis2018}, where some aspects of \gls{edr} and its refinements have been introduced.
 Novel work include the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Open Rules \cite{Khandelwal2011} principles. 
 Complementary evaluations regarding the impact of distribution, and the impact of the execution of \edr on a constrained hardware are included, leading to a discussion analyzing the light shed by the obtained results on the Cloud-Fog complementarity. 
 The scientific challenge we faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, and dynamicity. 
 These characteristics are presented in details in \textsection \ref{sec:edr_characteristics}.
-In \textsection \ref{sec:related_work_distribution}, existing work is introduced, to identify the added value of the present contribution.
-The core contribution is detailed in \textsection \ref{sec:edr} and \ref{sec:edrpt}, and it is evaluated in \textsection \ref{sec:experimentations}.
-This paper is concluded in \textsection \ref{sec:conclusion}.
+In Section \textsection \ref{sec:related_work_distribution}, existing work is introduced, to identify the added value of the present contribution.
+The core contribution is detailed in \textsection \ref{sec:edr} and Section \textsection \ref{sec:edrpt}, and it is evaluated in Section \textsection \ref{sec:experimentations}.
+This paper is concluded in Section \textsection \ref{sec:conclusion}.
 
 \section{Desirable characteristics for the proposed solution}
 \label{sec:edr_characteristics}
 
 In order to capture the main characteristics of the contribution presented in \textsection \ref{sec:edr} and \textsection \ref{sec:edrpt}, an illustrative industry 4.0 use case is introduced. 
-This use case is also the drive for the evaluations in \textsection \ref{sec:experimentations}.
+This use case is also the drive for the evaluations in Section \textsection \ref{sec:experimentations}.
 The different elements considered in the use case are then generalized to extract the main desirable characteristics of the proposed approach.
 
 \subsection{Illustrative smart factory use case}
@@ -193,7 +196,7 @@ The different elements considered in the use case are then generalized to extrac
 
 \begin{figure}
 	\centering
-	\scalebox{0.45}{
+	\scalebox{0.43}{
 		\includegraphics[width=\textwidth]{figures/use_case2.eps}
 	}
 	\caption{Fog-enabled smart factory}
@@ -220,7 +223,7 @@ Due to the modularity of the factory, the number of devices in the environment i
 In the specific industry 4.0 use case, this device count is unlikely to increase by multiple order of magnitudes, but from a more general point of view, application domains of the \gls{iot} include smart city or connected vehicles, where large volumes of devices are involved.
 
 Therefore, \textbf{scalability} is an important characteristic for a \gls{swot} system, and the decentralization of reasoning is a enabler of such scalability \cite{Maarala2017}.
-However, the difference of computing power between Cloud and Fog nodes should not be neglected: Cloud architectures' intrinsic capabilities enable a resource upscale which is not possible for Fog architectures.
+However, the difference of computing power between Cloud and Fog nodes should not be neglected: Cloud architectures' intrinsic capabilities enable a resource upscale impossible for Fog architectures.
 Moreover, Cloud infrastructures provide a stability that is complementary to the dynamic nature of Fog architectures.
 Therefore, we propose to leverage both the distributed nature of Fog computing and the permanent, powerful nature of Cloud computing by adopting a mixed approach. 
 
@@ -228,7 +231,7 @@ Therefore, we propose to leverage both the distributed nature of Fog computing a
 
 In the proposed use case, the rules deployed in the system are used to detect potentially harmul situations, requiring the inferred notifications to be received by the control center as soon as possible. 
 The proposed system should be able to reduce as much as possible the time from the appearance of an undesirable situation, and the moment where the control center is notified of such situation. 
-Therefore, \textbf{responsivity} is another characteristic we want to observe in our contribution.
+Therefore, \textbf{responsivity} is another desirable characteristic for our contribution.
 
 Fog-enabled architectures trade computational power for proximity with data sources, which is interesting for situations where increasing the proximity with data sources decreases the complexity of reasoning.
 When decentralizing processing, the individual computational load is reduced for each node compared to a centralized approach, which can yield better performances \cite{Su2018}.
@@ -252,7 +255,7 @@ Instead of funnelling all the data towards the Cloud before inferring higher lev
 In the smart factory use case we introduced, the modularity of the factory floors might lead to changes in the network.
 More frequently, failures might happen, disconnecting a device. 
 For energy saving purposes, all the machines might also not be powered permanently.
-Moreover, some of the considered devices are attached to workers that are mobile: they will be connected to different machines over time, leading to a dynamic network topology.
+Moreover, some devices are attached to workers that are mobile: they will be connected to different machines over time, leading to a dynamic network topology.
 
 Therefore, the placement of rules in the network should adapt to the evolution of topology: the last characteristic that we want for \gls{edr} is \textbf{dynamicity}.
 Depending on the devices available at a given moment on a given node of the network, all the applicative rules will not necessarily be relevant to this node.
