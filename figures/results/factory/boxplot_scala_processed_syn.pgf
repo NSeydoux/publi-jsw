@@ -151,7 +151,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.894167in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'0}%
+\pgftext[x=1.894167in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s0}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.886806in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -176,7 +176,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.158611in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'1}%
+\pgftext[x=2.158611in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s1}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.151250in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -201,7 +201,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.423056in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'2}%
+\pgftext[x=2.423056in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s2}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.415694in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -226,7 +226,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.687500in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'0}%
+\pgftext[x=2.687500in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s0}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.656944in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont adp}%
@@ -251,7 +251,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.951944in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'1}%
+\pgftext[x=2.951944in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s1}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.921389in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont adp}%
@@ -276,7 +276,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=3.216389in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s'2}%
+\pgftext[x=3.216389in,y=0.180389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont s2}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=3.185833in,y=0.037778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont adp}%

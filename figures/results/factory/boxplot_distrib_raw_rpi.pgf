@@ -76,7 +76,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.397861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'0}%
+\pgftext[x=0.397861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d0}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=0.413139in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cir}%
@@ -101,7 +101,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.658861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'1}%
+\pgftext[x=0.658861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d1}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=0.674139in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cir}%
@@ -126,7 +126,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.919861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'2}%
+\pgftext[x=0.919861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d2}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=0.935139in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cir}%
@@ -151,7 +151,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.180861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'3}%
+\pgftext[x=1.180861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d3}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.196139in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cir}%
@@ -176,7 +176,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.441861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'4}%
+\pgftext[x=1.441861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d4}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.457139in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cir}%
@@ -201,7 +201,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.702861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'0}%
+\pgftext[x=1.702861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d0}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.698833in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cdr}%
@@ -226,7 +226,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.963861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'1}%
+\pgftext[x=1.963861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d1}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.959833in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cdr}%
@@ -251,7 +251,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.224861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'2}%
+\pgftext[x=2.224861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d2}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.220833in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cdr}%
@@ -276,7 +276,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.485861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'3}%
+\pgftext[x=2.485861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d3}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.481833in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cdr}%
@@ -301,7 +301,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.746861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'4}%
+\pgftext[x=2.746861in,y=0.206389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d4}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.742833in,y=0.063778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cdr}%

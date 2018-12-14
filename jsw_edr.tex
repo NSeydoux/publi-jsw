@@ -1495,23 +1495,23 @@ Rule execution depths are given in Tab. \ref{tab:factory_distrib_topologies}: in
 %	\scalebox{0.9}{\input{figures/topologies/d4.tex}}
 \end{figure}
 
-To assess the impact of distribution, the same sensors are deployed from topology d'0 to d'4, but they are not situated at the same level, enabling the control of the level at which rules are processed.
-Sensors are situated in d'* topologies so that the rules are processed at the depths depicted in Tab. \ref{tab:factory_distrib_topologies}.
+To assess the impact of distribution, the same sensors are deployed from topology d0 to d4, but they are not situated at the same level, enabling the control of the level at which rules are processed.
+Sensors are situated in d* topologies so that the rules are processed at the depths depicted in Tab. \ref{tab:factory_distrib_topologies}.
 The simulation topology is composed of 42 nodes in total (including sensors), hosted on the physical machines as detailed on Tab. \ref{tab:distrib_hosts}.
 Fig. \ref{fig:factory_distribution_single-host} displays results for single-host approaches, and Fig. \ref{fig:factory_distribution_multi-host} for multi-host approaches, both showing centralized and distributed reasoning. 
 
 \begin{table}
 	\centering
-	\caption{Depth of rule processing for d'*}
+	\caption{Depth of rule processing for d*}
 	\label{tab:factory_distrib_topologies}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
 		\hline
 		&\textbf{R1}&\textbf{R2}&\textbf{R3}&\textbf{R4}&\textbf{R5}&\textbf{R6}&\textbf{R7}\\ \hline
-		\textbf{d'0}& 0& 0& 0& 0& 0& 0& 0\\ \hline
-		\textbf{d'1}& 0& 1& 0& 1& 1& 0& 0\\ \hline
-		\textbf{d'2}& 1& 1& 0& 1& 1& 0& 0\\ \hline
-		\textbf{d'3}& 1& 1& 0& 3& 3& 1& 3\\ \hline
-		\textbf{d'4}& 3& 2& 2& 3& 3& 2& 3\\ \hline
+		\textbf{d0}& 0& 0& 0& 0& 0& 0& 0\\ \hline
+		\textbf{d1}& 0& 1& 0& 1& 1& 0& 0\\ \hline
+		\textbf{d2}& 1& 1& 0& 1& 1& 0& 0\\ \hline
+		\textbf{d3}& 1& 1& 0& 3& 3& 1& 3\\ \hline
+		\textbf{d4}& 3& 2& 2& 3& 3& 2& 3\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -1564,7 +1564,7 @@ Fig. \ref{fig:factory_distribution_single-host} displays results for single-host
 \end{figure*}
 
 With the centralized reasoning delivery mechanisms, there is little impact of the distribution on performances as seen on Fig. \ref{fig:factory_distribution_raw_syn}.
-The best performances are measured in the most centralized topology, d'0, when the sensors are directly connected to the reasoning node, thus minimizing the transit time, as it is shown on Fig. \ref{fig:factory_distribution_raw_syn} and Fig. \ref{fig:factory_distribution_raw_rpi}.
+The best performances are measured in the most centralized topology, d0, when the sensors are directly connected to the reasoning node, thus minimizing the transit time, as it is shown on Fig. \ref{fig:factory_distribution_raw_syn} and Fig. \ref{fig:factory_distribution_raw_rpi}.
 Moreover, for this completely centralized topology, the delays measured with the decentralized delivery mechanisms (\gls{cdp}, \gls{cip}, \gls{adp}) are comparable to the centralized ones (\gls{cir}, \gls{cdr}), which is an expected result: since all the sensors are connected to a single node, there is no difference between rule deployments.
 It should also be noted that there are no significant differences between the centralized and decentralized executions.
 Since all reasoning, which is the most computing-intense process of the simulation, is located in both cases on the most powerful node, it is also an observation consistent with our expectations.
@@ -1588,9 +1588,9 @@ In this case, each node takes a increasing share of the reasoning in charge, lea
 \end{figure*}
 
 However, comparing Fig. \ref{fig:factory_distribution_single-host} and \ref{fig:factory_distribution_multi-host} shows a discrepancy between the simulation in a single-host and a multi-host-host environment, the latter actually including constrained nodes.
-For \gls{adp} and \gls{cip} on Fig. \ref{fig:factory_distribution_processed_rpi}, at the d'3 topology, the third and fourth quartiles show an increase in the delays.
+For \gls{adp} and \gls{cip} on Fig. \ref{fig:factory_distribution_processed_rpi}, at the d3 topology, the third and fourth quartiles show an increase in the delays.
 The median delay is compliant with the expected decreasing trend for \gls{adp}, but it begins increasing for \gls{cip}.
-For the d'4 topology on Fig. \ref{fig:factory_distribution_processed_rpi}, where the distribution is maximal, there is an important increase of delays for all decentralized delivery mechanisms, exceeding the delays measured even for d'0.
+For the d4 topology on Fig. \ref{fig:factory_distribution_processed_rpi}, where the distribution is maximal, there is an important increase of delays for all decentralized delivery mechanisms, exceeding the delays measured even for d0.
 This is discussed in details in Section \textsection \ref{subs:discussion}
 
 \subsection{Discussion}

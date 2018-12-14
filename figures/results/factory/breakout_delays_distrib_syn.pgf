@@ -6846,7 +6846,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.299182in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'0}%
+\pgftext[x=1.299182in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d0}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=1.303071in,y=0.203778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -6971,7 +6971,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.439272in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'1}%
+\pgftext[x=2.439272in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d1}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=2.443161in,y=0.203778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -7096,7 +7096,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=3.579361in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'2}%
+\pgftext[x=3.579361in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d2}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=3.583250in,y=0.203778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -7221,7 +7221,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=4.719451in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'3}%
+\pgftext[x=4.719451in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d3}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=4.723339in,y=0.203778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
@@ -7346,7 +7346,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=5.859540in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d'4}%
+\pgftext[x=5.859540in,y=0.346389in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont d4}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgftext[x=5.863429in,y=0.203778in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont cip}%
