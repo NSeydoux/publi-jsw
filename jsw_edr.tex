@@ -124,7 +124,7 @@ and
 The successful deployment of the Semantic Web of Things (SWoT) requires the adaptation of the Semantic Web principles and technologies to the constraints of the IoT domain, which is the challenging research direction we address here. 
 In this context we promote distributed reasoning approaches in IoT systems by implementing a hybrid deployment of reasoning rules relying on the complementarity of Cloud and Fog computing.  
 Our solution benefits from the remote powerful Cloud computation resources, essential to the deployment of scalable IoT applications while avoiding low-latency decision making by including the local distributed constrained Fog computation resources, close to data producers.
-Moreover, IoT networks being open and constituted of potentially mobile nodes, the computation should be dynamically distributed across Fog nodes according to the evolution of the network topology.
+Moreover, IoT networks being open and composed of potentially mobile nodes, the computation should be dynamically distributed across Fog nodes according to the evolution of the network topology.
 For this purpose, we propose the Emergent Distributed Reasoning (EDR) approach, implementing a dynamic distributed deployment of reasoning rules in a Cloud-Fog IoT architecture.
 We elaborated mechanisms enabling the genericity and the dynamicity of EDR.
 We evaluated its scalability and applicability in a simulated smart factory use-case.
@@ -146,29 +146,30 @@ The domain at the interface between the \gls{sw} and the \gls{iot} is called the
 Even though the \gls{swot} has been envisioned as soon as the fundamental article of the \gls{sw} \cite{Berners-Lee2001}, where smart agents interact with devices in the user's environment, practical \gls{swot} achievements where proposed in recent years only\cite{Pfisterer2011}.
 In particular, a core challenge the \gls{swot} is facing is the deployment of \gls{sw} technologies, which are resource-consuming, into \gls{iot} networks, characterized by constrained devices. 
 
-The integration of the \gls{sw} stack to an \gls{iot} architecture is often centered on remote, powerful machines as in \cite{Gyrard2017} or \cite{Wang2018}. 
+The integration of the \gls{sw} stack to an \gls{iot} architecture is often centered on remote and powerful machines as in \cite{Gyrard2017} or \cite{Wang2018}. 
 \gls{iot} data is centralized on such machines before being processed using \gls{sw} technologies, in a Cloud computing approach \cite{Mell2011}.
 %Managing powerful servers with little concern about their computing resources is one of the main characteristics of Cloud computing, a concept which definitive definition is provided by the NIST in \cite{Mell2011}.
 %However, \gls{swot} architectures are characterized by the presence of constrained nodes, which limited communicating capabilities might prevent from accessing remote Cloud servers in a timely fashion \cite{Maarala2017}, if not at all. 
 \gls{swot} deployment architectures consider pervasively distributed devices, with potentially limited computation and communication capabilities. 
-Transporting data from these local devices to remote Cloud servers rely on multiple middle nodes, which introduces a delay in data processing, and degrades applications' responsivity.
+Transporting data from these local devices to remote Cloud servers relies on multiple middle nodes.
+It introduces a delay in data processing, and can degrade applications' responsivity.
 
 %One way of tackling the issues of the centralized, Cloud-based approach to the \gls{swot} is the distribution 
 Distributing the \gls{sw} stack among the multiple middle nodes between the Cloud servers and the \gls{iot} devices allows the \gls{swot} architecture to avoid the drawbacks of a Cloud-centered processing.
-Doing so allows the architectures to evolve towards the Fog computing paradigm \cite{Bonomi2012} that promotes data storage and processing \textbf{at the edge of the network}\cite{Patel2017}.
+By doing so the architectures to evolve towards the Fog computing paradigm \cite{Bonomi2012} that promotes data storage and processing \textbf{at the edge of the network}\cite{Patel2017}.
 However, Fog computing is not introduced as a paradigm meant to replace Cloud computing: its limited computing capabilities, as well as the locality of the scale of its deployments, are not suited to support Cloud computing use cases.
 \textbf{Cloud and Fog computing are two complementary approaches} that, when associated, enable the deployment of complex \gls{swot} applications \cite{Sahni2017}.
 
-The purpose of semantic processing is, thanks to knowledge captured in ontologies, to \textbf{process data in order to produce meaningful business information}. 
+In the scope on this paper, the  purpose of semantic processing is, thanks to knowledge captured in ontologies, to \textbf{process data in order to produce meaningful business information}. 
 %In order to face the diversity of applications potentially interested in the data of an \gls{iot} deployment, 
 One can suppose that knowledge about the deployed \gls{iot} system and its environment modeled beforehand by the system administrators.
-However, this requires injecting business-specific knowledge into the reasoning system, while this information is not known at design-time.
-Knowledge must therefore be modeled as self-contained bundles, and inserted into the system at runtime.
+However, business-specific knowledge needs may not have been identified when the IoT system is designed and might need to be injected into to reasoning system at runtine.
+Business-specific knowledge must therefore be modeled as self-contained bundles, and inserted into the system at when needed runtime.
 Moreover, when considering a distributed approach, all of the business knowledge might not be relevant in the context of all the nodes. 
-If packaged into bundles that can be moved from node to node, business-level knowledge may be opportunistically distributed in the network. 
+If packaged into bundles that can be moved from node to node, business knowledge may be opportunistically distributed in the network. 
 Inspired from the application bursting approach introduced in \cite{Charrada2016}, we propose to consider modular applications to enable the distribution of some of their modules.
 Rules are a common way to capture business-level logic: a rule is a self-contained representation of a logical process.
-Following to these considerations, the contribution in this article considers rule-based reasoning: rules are used as representation of business logic, applied in a \gls{kb} capturing the environment of the node.
+Following these considerations, the contribution in this article considers rule-based reasoning: rules are used as representation of business logic, applied in a \gls{kb} capturing the environment of the node.
 
 The contribution in this paper is a \textbf{generic approach to the dynamic distribution of rule-based reasoning in a Cloud-Fog \gls{iot} architecture}, called \gls{edr}.
 \gls{edr} aims at harnessing scalability and latency issues by distributing reasoning rules among Fog nodes, while benefiting from the Cloud stability and permanent availability. 
@@ -179,9 +180,9 @@ The work presented in this paper completes and extends two conference articles, 
 Novel work include a more extensive presentation of related work, the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Open Rules \cite{Khandelwal2011} principles. 
 Complementary evaluations regarding the impact of distribution, and the impact of the execution of \edr on a constrained hardware are included, leading to a discussion analyzing the light shed by the obtained results on the Cloud-Fog complementarity. 
 The scientific challenge we faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, and dynamicity. 
-These characteristics are presented in details in \textsection \ref{sec:edr_characteristics}.
+These characteristics are presented in detail in Section \textsection \ref{sec:edr_characteristics}.
 In Section \textsection \ref{sec:related_work_distribution}, existing work is introduced, to identify the added value of the present contribution.
-The core contribution is detailed in \textsection \ref{sec:edr} and Section \textsection \ref{sec:edrpt}, and it is evaluated in Section \textsection \ref{sec:experimentations}.
+The core contribution is detailed in Section \textsection \ref{sec:edr} and Section \textsection \ref{sec:edrpt}, and it is evaluated in Section \textsection \ref{sec:experimentations}.
 This paper is concluded in Section \textsection \ref{sec:conclusion}.
 
 \section{Desirable characteristics for the proposed solution}
@@ -215,14 +216,14 @@ For instance, %``the activation of a machine creating sparks in an atmosphere lo
 Some rules are also dedicated to quality insurance: sensors available in the factory, such as temperature sensors, or sensors integrated to machines and to the conveyor, enable the continuous control of production quality.
 Some operations are temperature-sensitive, and a quality insurance rule is ``The detection of a temperature above a certain threshold while machines are operating is a break in the cold chain''.
 Safety and quality insurance are time-sensitive applications, which is why the processing of the rules should be as fast as possible.
-Moreover, the mobility of some sensors (\textit{e.g.,} workers wearable), combined to the modularity of the factory floors, create a dynamic network topology that evolves over time.
+Moreover, the mobility of some sensors (\textit{e.g.,} worker wearables), combined to the modularity of the factory floors, create a dynamic network topology that evolves over time.
 
 \subsection{Scalability}
 
 Due to the modularity of the factory, the number of devices in the environment is not bounded a priori. 
-In the specific industry 4.0 use case, this device count is unlikely to increase by multiple order of magnitudes, but from a more general point of view, application domains of the \gls{iot} include smart city or connected vehicles, where large volumes of devices are involved.
+In the specific industry 4.0 use case, this device count is unlikely to increase by multiple order of magnitudes, but from a more general point of view, application domains of the \gls{iot} include smart cities or connected vehicles, where large volumes of devices are involved.
 
-Therefore, \textbf{scalability} is an important characteristic for a \gls{swot} system, and the decentralization of reasoning is a enabler of such scalability \cite{Maarala2017}.
+Therefore, \textbf{scalability} is an important characteristic for a \gls{swot} system, and the decentralization of reasoning is an enabler of such scalability \cite{Maarala2017}.
 However, the difference of computing power between Cloud and Fog nodes should not be neglected: Cloud architectures' intrinsic capabilities enable a resource upscale impossible for Fog architectures.
 Moreover, Cloud infrastructures provide a stability that is complementary to the dynamic nature of Fog architectures.
 Therefore, we propose to leverage both the distributed nature of Fog computing and the permanent, powerful nature of Cloud computing by adopting a mixed approach. 
@@ -251,7 +252,7 @@ Instead of funneling all the data towards the Cloud before inferring higher leve
 
 \subsection{Dynamicity}
 
-\gls{iot} systems are dynamic by nature: they are open systems, where devices can appear and disappear, as well as move from a point to the other. 
+\gls{iot} systems are dynamic by nature: they are open systems, where devices can appear and disappear, as well as move from one point to the other. 
 In the smart factory use case we introduced, the modularity of the factory floors might lead to changes in the network.
 More frequently, failures might happen, disconnecting a device. 
 For energy saving purposes, all the machines might also not be powered permanently.
@@ -350,10 +351,10 @@ In this case, rules could be executed directly on Fog nodes.
 
 \subsection{Distributing rule processing on Fog nodes}
 
-The centralized architecture of the previously described papers raises multiple issues, such as the cost of semantic reasoning that increases rapidly with the size of the \gls{kb} \cite{Maarala2017}.
+The centralized architecture of the previously described papers raises issues, such as the cost of semantic reasoning that increases rapidly with the size of the \gls{kb} \cite{Maarala2017}.
 Fog computing offers a low-latency, resilient alternative for rule processing, even though the constrained nature of Fog nodes (compared to Cloud nodes) must be taken into account: processing power or bandwidth are critical resources.
 Centralization also requires all the content collected by \gls{iot} devices to be processed in the same place, while Fog computing makes computing power available closer to \gls{iot} devices.
-Therefore, Fog computing enables to process content with rules \textbf{where it is produced}, rather than requiring it to be transported to a remote node to be processed by Cloud computing.
+Fog computing enables to process content with rules \textbf{where it is produced}, rather than requiring it to be transported to a remote node to be processed by Cloud computing.
 That is why rule placement in Fog architectures is a topic of interest for the \gls{swot}
 
 Most approaches for processing on constrained nodes focus on optimizations enabling such processing for a single node without considering the other.
@@ -1099,15 +1100,15 @@ Therefore, applications are notified continuously by the nodes as those nodes ap
 \section{Experimentation}
 \label{sec:experimentations}
 \gls{edr} being a generic approach, it cannot be subjected to a quantitative evaluation by itself: it must be refined by a concrete approach implementing a deployment strategy. 
-Therefore, the evaluations presented in this section are dedicated to \edrt, refining \gls{edr} with a a deployment strategy aiming at reducing the deduction delivery delay.
+Therefore, the evaluations presented in this section are dedicated to \edrt, refining \gls{edr} with a a deployment strategy aiming at \textbf{reducing the deduction delivery delay}.
 
-In order to compare the proposed contribution to baselines qualified by diverse properties, different delivery mechanisms are introduced in Section \textsection \ref{sec:deductions_propagation_strategies}. 
+In order to compare the proposed contribution to a panel of baselines, different delivery mechanisms are introduced in Section \textsection \ref{sec:deductions_propagation_strategies}. 
 By default, \edrt delivers deductions directly to applications. 
 The proposed alternative delivery mechanisms implement variations of this approach, by propagating deliveries differently across the network.
 A centralized deduction baseline is also introduced.
 
 The setup in which the evaluations were performed is described in Section \textsection \ref{sec:setup}, along with the references to the code used for running the experiments.
-Two characteristics of \edrt are then assessed: its responsivity in Section \textsection\ref{subs:factory_distribution}, and its scalability in Section \textsection\ref{subs:factory_scalability}.
+Two characteristics of \edrt are then assessed: its scalability in Section \textsection\ref{subs:factory_scalability}, and its responsivity in Section \textsection\ref{subs:factory_distribution}.
 %Two sets of experimentation are then introduced, assessing two different implementations of \edrt, respectively in Section \textsection \ref{sec:initial_impl} and Section \textsection \ref{sec:second_implementation}.
 %These two groups of experimentation have been initially published in \cite{Seydoux2018_itl}, \cite{Seydoux2018_wi} and \cite{Seydoux2018_coopis}.
 
@@ -1124,7 +1125,7 @@ In order to limit the impact of transfer time, and focus on processing time, new
 Similarly, for centralized processing, Fog nodes should be able to deliver raw data to Cloud nodes, instead of an indirect propagation.
 These different configurations are referred to as ``Deductions delivery mechanisms''.
 
-Unlike rule deployment strategies, deductions delivery mechanisms are decorrelated from the rules: they are variations of the ``Deduction delivery'' functionality described in Section \textsection \ref{par:deduction_delivery}.
+Unlike rule deployment strategies, deductions delivery mechanisms are \textbf{decorrelated from the rules}: they are variations of the ``Deduction delivery'' functionality described in Section \textsection \ref{par:deduction_delivery}.
 Therefore, the propagation of rules, the deductions they yielded and data is described as intended according to ad-hoc strategies (here, \edrt) through the \gls{edr} vocabulary, but for experimental purpose this propagation can be altered at the node level, preventing rule deployment or rerouting deduction delivery.
 Five deduction delivery mechanisms are compared in our experiments: 
 
@@ -1151,7 +1152,7 @@ Five deduction delivery mechanisms are compared in our experiments:
 	To implement \gls{cdp}, when forwarding a rule it has received, the Cloud node declares itself as the originator instead of the application.
 	Deductions can also be propagated among Fog nodes if a node explicitly expressed its interest.
 	
-	\item \textbf{\gls{adp}} is the purely decentralized strategy that we propose for \edrt, where rules are processed based on semantic Fog computing and deductions are delivered directly to applications that submitted the rules. 
+	\item \textbf{\gls{adp}} is the purely decentralized strategy that we propose for \edrt, where rules are processed based on semantic Fog computing and deductions are delivered directly to applications. 
 	In this case only, a deduction that has been inferred in the network will not be hosted by the Cloud node before being delivered.
 \end{itemize}
 
@@ -1162,12 +1163,12 @@ The characteristics of the different delivery mechanisms are summarized in Tab. 
 	\item whether Fog nodes communicate with the Cloud node or directly with applications. 
 \end{itemize}  
 
-All these characteristics are illustrated in an example on Fig. \ref{fig:delivery_mechanisms}, where the propagation of raw data and deductions according to the different delivery mechanisms is represented. 
-In the case of deductions delivery, it is assumed for the sake of clarity that deductions are made in the lowest Fog nodes. 
-The considered topology comes from the smart building use case described in Section \textsection \ref{sec:distribution_use_case}, with a hierarchical deployment of nodes in a floor, galleries and rooms, respectively designated as FXXX, CXXX and MXXX on the figure.
-The manipulation of the \gls{edr} behavior by implementing different delivery mechanisms enables the comparison of centralized (\gls{cir} and \gls{cdr}) and distributed approaches (\gls{cip}, \gls{cdp}, \gls{adp}), and the comparison of approaches based on direct (\gls{cdp}, \gls{cdr}) and indirect (\gls{cir}, \gls{cip}) communication with the Cloud node. 
-
 \input{tables/delivery_mechanisms.tex}	
+
+All these characteristics are illustrated in an example and illustrated on Fig. \ref{fig:delivery_mechanisms}, where the propagation of raw data and deductions according to the different delivery mechanisms is represented. 
+In the case of deductions delivery, it is assumed for the sake of clarity that deductions are made in the lowest Fog nodes. 
+%The considered topology comes from the smart building use case described in Section \textsection \ref{sec:distribution_use_case}, with a hierarchical deployment of nodes in a floor, galleries and rooms, respectively designated as FXXX, CXXX and MXXX on the figure.
+The manipulation of the \gls{edr} behavior by implementing different delivery mechanisms enables the comparison of centralized (\gls{cir} and \gls{cdr}) and distributed approaches (\gls{cip}, \gls{cdp}, \gls{adp}), and the comparison of approaches based on direct (\gls{cdp}, \gls{cdr}) and indirect (\gls{cir}, \gls{cip}) communication with the Cloud node. 
 
 \begin{figure}
 	\centering
@@ -1214,7 +1215,7 @@ In order to measure the tradeoff between decentralization and the loss of comput
 
 \subsubsection{Software setup}
 
-The topologies introduced in the use cases are simulated for the experiments.
+The use case topology is simulated for the experiments.
 Simulated nodes are organized in a tree-like hierarchy, with a Cloud node at the root, sensors at the leaves, and Fog nodes in between.
 Each sensor pushes a random observation to its parent every two seconds.
 Each physical machine running the simulation hosts multiple virtual nodes, composed of an HTTP server, a \gls{kb}, a SPARQL engine, and a code base\footnote{The code is available at \url{https://framagit.org/nseydoux/edr}}.
@@ -1224,7 +1225,7 @@ To enable the deployment on multiple machines, each node is implemented as a sta
 To enable scalable experiments, sensors are implemented as multiple threads of one process, otherwise the RAM overhead for having an HTTP stack deployed for each sensor prevents from deploying large topologies.
 Therefore, to enable replaying exactly the same sequence of observations, it would have been necessary to synchronize more than 400 threads since the order in which observations are received impacts the obtained result. 
 We were not able to ensure such synchronization without reducing the rate at which observations are produced by sensors.
-That is why all the results were collected on simulated topologies.
+That is why all the results are collected on simulated topologies.
 
 \subsubsection{Measured results}
 
@@ -1235,10 +1236,10 @@ Two aspects of \gls{edr} have been evaluated:
 \end{itemize} 
 
 To measure the responsiveness of applications enabled by \gls{edr}, the \textbf{delay between the moment observations are captured} by sensors \textbf{and the delivery of the deduction} these observation triggered is measured.
-Precisely, the delay for the processing of a rule is characterized as the time difference between the moment when the most recent data used in the body of the rule is produced, and the moment when the rule head is deduced.
+Precisely, the delay for the processing of a rule is characterized as the time difference between the moment when the most recent data used in the body of the rule is produced, and the moment when the rule head is received by the application.
 A dedicated timestamp is associated to each observation once it has been enriched, in order to avoid any impact of the enrichment process on the measure.
 For instance, if a luminosity observation observed at $t_{1}$ and a temperature observation observed at $t_{2}$ match $r_{comfort}$ and trigger a deduction that is delivered to the application at $t_{3}$, the delivery delay for this particular deduction will be $t_3 - max(t_1, t_2)$.
-The clock of all the machines used for the experiment are synchronized to a local server using \gls{ntp}\footnote{\url{http://www.ntp.org/}}, in order to ensure a minimal time difference between the different nodes.
+The clock of all the machines used for the experiment are synchronized to a local server using \gls{ntp}\footnote{\url{http://www.ntp.org/}}, in order to ensure a minimal time difference between the different distributed nodes.
 
 Experimental measures showed that, for each simulation, the number of deductions is consistent between centralized and distributed approaches: \textbf{there is no knowledge loss when applying \edrt under our assumptions} of bound between the Fog topology and the correlation between data.
 
@@ -1336,16 +1337,16 @@ Fig. \ref{fig:factory_scala_raw} shows results for centralized approaches, and F
 Due to scaling issues, results are separated in several figures: 
 \begin{itemize}
 	\item Results for centralized deduction delivery mechanisms (\textit{i.e.} \gls{cir} and \gls{cdr}) are shown on Fig. \ref{fig:factory_scala_raw_syn} for single-host execution, and on Fig. \ref{fig:factory_scala_raw_rpi} for multi-host execution.
-	\item Results for distributed deduction delivery mechanisms (\textit{i.e.} \gls{cip}, \gls{cdp} and \gls{adp}), are shown on Fig. \ref{fig:scalability_processed_syn} for single-host execution, and on Fig. \ref{fig:scalability_processed_rpi} for multi-host execution.
+	\item Results for distributed deduction delivery mechanisms (\textit{i.e.} \gls{cip}, \gls{cdp} and \gls{adp}), are shown on Fig. \ref{fig:scalability_processed_syn} for single-host execution, and on Fig. \ref{fig:scalability_processed_rpi} and \ref{fig:scalability_processed_rpi2} for multi-host execution.
 \end{itemize}
 
 \begin{figure*}
 	\Centering
-	\caption{Scalability measures, centralized reasoning}
+	\caption{Scalability measures, single-host execution}
 	\label{fig:factory_scala_raw}
 	\begin{minipage}{0.395\textwidth}
 		\Centering
-		\subcaption{Single-host execution}
+		\subcaption{Centralized reasoning}
 		\label{fig:factory_scala_raw_syn}
 		\scalebox{1}{
 			\input{figures/results/factory/boxplot_scala_raw_syn.pgf}
@@ -1353,7 +1354,7 @@ Due to scaling issues, results are separated in several figures:
 	\end{minipage}
 	\begin{minipage}{0.595\textwidth}
 		\Centering
-		\subcaption{Single-host execution}
+		\subcaption{Distributed reasoning}
 		\label{fig:scalability_processed_syn}
 		\scalebox{1}{
 			\input{figures/results/factory/boxplot_scala_processed_syn.pgf}
@@ -1389,6 +1390,7 @@ Due to scaling issues, results are separated in several figures:
 	\begin{minipage}{0.33\textwidth}
 		\Centering
 		\subcaption{Multi-host execution}
+		\label{fig:scalability_processed_rpi2}
 		\scalebox{0.9}{
 			\input{figures/results/factory/boxplot_scala_processed_rpi_1.pgf}
 		}
@@ -1408,7 +1410,7 @@ The gain in scalability provided by the decentralized approaches appears in the 
 In topology s'1, the discrepancy between delivery delay for distributed and centralized reasoning approaches is reduced, especially in the single-host execution setting, with a median around 0.65s for \gls{cir} and \gls{cdr}, and 0.065s for \gls{cdp}, \gls{cip} and \gls{adp}.
 
 However, in topologies s'2 and s'3, the gap between centralized and distributed approaches increases dramatically. 
-The deduction time is multiplied by more than 20 from s'0 to s'2, while the relative share of reasoning time contributing to the delay decreases, as shown on Figs. \ref{fig:breakout_delays_rpi} and \ref{fig:breakout_delays_rpi}.
+The deduction time is multiplied by more than 20 from s'0 to s'2, while the relative share of reasoning time contributing to the delay decreases, as shown on Fig. \ref{fig:breakout_delays_rpi}.
 The transit times are the ones to increase relatively the most, which denotes a network overflow over a computing saturation on the centralized reasoning node.
 
 An delay increase is also observed for distributed delivery strategies in the single-host execution environment, but it is much smaller, as seen on Fig. \ref{fig:scalability_processed_syn}.
@@ -1495,7 +1497,7 @@ Rule execution depths are given in Tab. \ref{tab:factory_distrib_topologies}: in
 
 To assess the impact of distribution, the same sensors are deployed from topology d'0 to d'4, but they are not situated at the same level, enabling the control of the level at which rules are processed.
 Sensors are situated in d'* topologies so that the rules are processed at the depths depicted in Tab. \ref{tab:factory_distrib_topologies}.
-The simulation topology is composed of 42 nodes in total (including sensors), hosted on the physical machines as detailed on Fig. \ref{tab:distrib_hosts}.
+The simulation topology is composed of 42 nodes in total (including sensors), hosted on the physical machines as detailed on Tab. \ref{tab:distrib_hosts}.
 Fig. \ref{fig:factory_distribution_single-host} displays results for single-host approaches, and Fig. \ref{fig:factory_distribution_multi-host} for multi-host approaches, both showing centralized and distributed reasoning. 
 
 \begin{table}
