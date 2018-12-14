@@ -1292,11 +1292,11 @@ All the rules' SHACL representation are available online\footnote{\url{https://w
 \label{subs:factory_scalability}
 \subsubsection{Simulation topologies}
 
-In order to assess the scalability of the proposed strategy for \gls{edr}, performances have been measured on three topologies, denoted s'1, s'2 and s'3\footnote{Topology representations are available at \url{https://w3id.org/laas-iot/edr/iiot/scala_syndream/clone_f_<0,1,2>.ttl} respectively}, and collectively as s'*, as represented on Fig. \ref{fig:factory_scala_topologies}. 
-All s'* topologies mimic the use case architecture presented in Fig. \ref{fig:usecase}, with variations in the number of floors.
+In order to assess the scalability of the proposed strategy for \gls{edr}, performances have been measured on three topologies, denoted s0, s1 and s2\footnote{Topology representations are available at \url{https://w3id.org/laas-iot/edr/iiot/scala_syndream/clone_f_<0,1,2>.ttl} respectively}, and collectively as s*, as represented on Fig. \ref{fig:factory_scala_topologies}. 
+All s* topologies mimic the use case architecture presented in Fig. \ref{fig:usecase}, with variations in the number of floors.
 A floor is constituted of two conveyors, each of which supports two machines, with sensors distributed as shown on a JSON blueprint provided online\footnote{\url{https://w3id.org/laas-iot/edr/iiot/clone_f_0_blueprint.json}}, leading to a total of 30 nodes (including both reasoning nodes and sensors).
 The rules described in Section \textsection \ref{subs:factory_use_case} are used.
-The number of nodes is increased by duplicating floors: s'0 has one, s'1 two, and s'2 three floors, for a total number of respectively 31, 61 and 91 nodes (as summarized on Tab. \ref{tab:scalability_factory_size}).
+The number of nodes is increased by duplicating floors: s0 has one, s1 two, and s2 three floors, for a total number of respectively 31, 61 and 91 nodes (as summarized on Tab. \ref{tab:scalability_factory_size}).
 Fig. \ref{fig:factory_scala_raw} shows results for centralized approaches, and Fig. \ref{fig:factory_scala_processed} for distributed reasoning, both showing single-host and multi-host execution.
 
 \begin{table}
@@ -1305,14 +1305,14 @@ Fig. \ref{fig:factory_scala_raw} shows results for centralized approaches, and F
 	\label{tab:scalability_factory_size}
 	\begin{tabular}{|c|c|c|c|}
 		\hline 
-		\textbf{Topology} 	& s'1 & s'2 & s'3 \\ \hline
+		\textbf{Topology} 	& s0 & s1 & s2 \\ \hline
 		\textbf{Nodes} 		& 31 & 61 & 91 \\ \hline
 	\end{tabular}
 \end{table}
 
 \begin{figure}
 	\centering
-	\caption{Simulation topology s'*}
+	\caption{Simulation topology s*}
 	\label{fig:factory_scala_topologies}
 	\scalebox{0.75}{
 		\input{figures/topologies/edrpt_factory_scala_topologies.tex}
@@ -1407,10 +1407,10 @@ Due to scaling issues, results are separated in several figures:
 \end{figure*}
 
 The gain in scalability provided by the decentralized approaches appears in the results. 
-In topology s'1, the discrepancy between delivery delay for distributed and centralized reasoning approaches is reduced, especially in the single-host execution setting, with a median around 0.65s for \gls{cir} and \gls{cdr}, and 0.065s for \gls{cdp}, \gls{cip} and \gls{adp}.
+In topology s0, the discrepancy between delivery delay for distributed and centralized reasoning approaches is reduced, especially in the single-host execution setting, with a median around 0.65s for \gls{cir} and \gls{cdr}, and 0.065s for \gls{cdp}, \gls{cip} and \gls{adp}.
 
-However, in topologies s'2 and s'3, the gap between centralized and distributed approaches increases dramatically. 
-The deduction time is multiplied by more than 20 from s'0 to s'2, while the relative share of reasoning time contributing to the delay decreases, as shown on Fig. \ref{fig:breakout_delays_rpi}.
+However, in topologies s1 and s2, the gap between centralized and distributed approaches increases dramatically. 
+The deduction time is multiplied by more than 20 from s0 to s2, while the relative share of reasoning time contributing to the delay decreases, as shown on Fig. \ref{fig:breakout_delays_rpi}.
 The transit times are the ones to increase relatively the most, which denotes a network overflow over a computing saturation on the centralized reasoning node.
 
 An delay increase is also observed for distributed delivery strategies in the single-host execution environment, but it is much smaller, as seen on Fig. \ref{fig:scalability_processed_syn}.
