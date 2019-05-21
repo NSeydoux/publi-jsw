@@ -491,9 +491,9 @@ Rule deployment strategies are dedicated to a particular purpose, \textit{e.g.,}
 In order to support the genericity of \gls{edr} with a knowledge-driven method, nodes functionalities are based on a dedicated vocabulary, used to describe knowledge in the node's \gls{kb}.
 
 For instance, this vocabulary captures the hierarchical nature of the topology.
-Let the parent of a node $n$ be noted $Upper(n)$, and its children referred to as $Lower(n)$.
-The relation between a node $n_p$ and any $n_c\in Lower(n)$ is expressed with the triple \triplet{$n_p$}{\concept{lmu}{has\-Downstream\-Node}}{$n_c$}\footnote{Namespaces are available in Appendix \ref{app:namespaces}}$^,$\footnote{Individuals such as $n_p$ and $n_c$ are identified with an \gls{iri} in the triples}, based on a nomenclature presented in \cite{Seydoux2017}. 
-The inverse relation exists, to express the connection between a node $n_c$ and its parent $n_p\in Upper(n)$: \triplet{$n_c$}{\concept{lmu}{has\-Upstream\-Node}}{$n_p$}.
+Let the parent of a node $n$ be noted \added{$Parent(n)$}, and its children referred to as $\added{Children(n)}$.
+The relation between a node $n$ and any $n_c\in \added{Children(n)}$ is expressed with the triple \triplet{$n$}{\concept{lmu}{has\-Downstream\-Node}}{$n_c$}\footnote{Namespaces are available in Appendix \ref{app:namespaces}}$^,$\footnote{Individuals such as $n$ and $n_c$ are identified with an \gls{iri} in the triples}, based on a nomenclature presented in \cite{Seydoux2017}. 
+The inverse relation exists, to express the connection between a node $n$ and its parent $n_p\in \added{Parent(n)}$: \triplet{$n$}{\concept{lmu}{has\-Upstream\-Node}}{$n_p$}.
 
 A description of all the functionalities of the nodes, and of the vocabulary that drives them, is provided in Section \textsection \ref{subsubs:basic_functionalities}. 
 Further details about the announcement functionality are provided in Section \textsection \ref{subsubs:annouce}, especially with regard to the consumption of data.
@@ -519,7 +519,7 @@ A particular node characteristic that is declared in the announcement functional
 The announcement functionality is extended by the mechanisms described in Section \textsection \ref{subsubs:annouce} to control which characteristics of the node are propagated, and the scope of this propagation in Section \textsection \ref{subsubs:proxying}.
 
 \paragraph{Apply rules:}
-When a node $n$ receives a new observation, either from its own sensors or lower nodes, $n$ executes the rules $r$ stored in its \gls{kb} if the description of $r$ contains \triplet{$r$}{\concept{edr}{is\-Rule\-Active}}{true}.
+When a node $n$ receives a new observation, either from its own sensors or children, $n$ executes the rules $r$ stored in its \gls{kb} if the description of $r$ contains \triplet{$r$}{\concept{edr}{is\-Rule\-Active}}{true}.
 
 \paragraph{Deliver deduction:}
 \label{par:deduction_delivery}
@@ -530,7 +530,7 @@ The deduction delivery functionality is separated from the interest notification
 
 \paragraph{Send data:}
 \label{par:data_transfer}
-When node $n$ receives an observation of type $\rho_t$, if $n_p \in Upper(n)$ has declared its interest for this type, the observation is forwarded toward $n_{p}$.
+When node $n$ receives an observation of type $\rho_t$, if $n_p \in \added{Parent(n)}$ has declared its interest for this type, the observation is forwarded toward $n_{p}$.
 Observations are exchanged lazily: if a node $n$ receives an observation of type $\rho_t$, and knows no other node interest in such type, the observation is not forwarded.
 Such interest is represented in node $n$ \gls{kb} with the triple \triplet{$n_{p}$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}.
 The notification of the interest is considered as a characteristic of the node, managed in the announcement functionality.
@@ -563,8 +563,8 @@ Therefore, the class \concept{edr}{Children\-Announced\-Property} has two subcla
 This distinction is made to give flexibility to the deployment strategy designers.
 
 In the case of a characteristic captured by a predicate of type \concept{edr}{Some\-Children\-Announced\-Property}, each child eligible to be proxyied the new characteristic must be represented explicitly with the predicate \concept{edr}{announce\-To}, which requires the reification of the announced characteristic.
-In order to be announced towards child node $n_{child}$, the triple \triplet{$n_{parent}$}{$has\-Charac$}{$\nu$} is transformed into the following reified statement: 
-$statement$ $rdf$:$subject$ $n_{child};$ $rdf$:$predicate$ $c;$ $rdf$:$object$ $\nu;$ $edr$:$announceTo$ $n_{child}$. 
+In order to be announced towards child node $n_{c}\in \added{Children(n)}$, the triple \triplet{$n$}{$has\-Charac$}{$\nu$} is transformed into the following reified statement: 
+$statement$ $rdf$:$subject$ $n_{c};$ $rdf$:$predicate$ $has\-Charac;$ $rdf$:$object$ $\nu;$ $edr$:$announceTo$ $n_{c}$. 
 The choice of the children to which the characteristic should be announced is application-specific, and is therefore part of the deployment strategy.
 As the rest of the deployment strategy, it is embedded in rules as it is described in Section \textsection \ref{subs:edr_rules}.
 
@@ -575,40 +575,41 @@ More details about this particular predicate is provided in Section \textsection
 \subsubsection{Propagating knowledge beyond neighbors}
 \label{subsubs:proxying}
 
-\gls{edr} is designed for neighbor-to-neighbor rule and data propagation : a node only communicates with its direct neighbors in the hierarchy, either parent or children (with the exception of deduction delivery).
+\gls{edr} is designed for neighbor-to-neighbor rule and data propagation : a node $n$ only communicates with $n'\in Parent(n)\cup Children(n)$ (with the exception of deduction delivery).
 However, such design may hamper the propagation of rules, by preventing the diffusion of knowledge required by the deployment strategy to make decisions so as to where the rules should be placed.
-If the characteristics of a node $n_{child}\in Lower(n)$ makes it adequate to apply a rule which is held by $n_{parent}\in Upper(n)$, but $n$ cannot apply the rule, $n_{parent}$ will not propagate the rule to $n$, preventing its eventual propagation to $n_{child}$.
+If the characteristics of a node $n_{c}\in \added{Children(n)}$ makes it adequate to apply a rule which is held by $n_{p}\in \added{Parent(n)}$, but $n$ cannot apply the rule, $n_{p}$ will not propagate the rule to $n$, preventing its eventual propagation to $n_{c}$.
 A complementary functionality is thus described by the \gls{edr} vocabulary to enable such diffusion of knowledge describing nodes capabilities: \textbf{proxying}.
 
 The proxying mechanism implemented in \gls{edr} is inspired from \cite{Nikoli2011}, where reasoning nodes act as proxy for the capabilities of legacy nodes unable to process enriched data. 
 In \gls{edr}, each reasoning-enabled node has a similar role, and proxies capabilities of its neighbors. 
 Such proxying is bidirectional: the capabilities of a nodes parent are proxied towards its children, and the other way around.
-Specifically, node $n$ proxying a capability of $n_{parent}\in Upper(n)$ towards any $n_{child}\in Lower(n)$ means that $n$ announces such capability to $n_{child}$ as if it were its own.
+Specifically, node $n$ proxying a capability of $n_{p}\in \added{Parent(n)}$ towards any $n_{c}\in \added{Children(n)}$ means that $n$ announces such capability to $n_{c}$ as if it were its own.
 An example of proxied node characteristics, detailed in Section \textsection \ref{subsub:topology}, is the interest of a node for a data type, briefly introduced here for the sake of illustration.
-If a node $n$ wants to be notified whenever a temperature observation is available, it notifies its children $n_{child}\in Lower(n)$ of such interest. 
-If any child $n_{child}$ collects temperature observations, it will forward such observation towards $n$. 
-Moreover, each $n_{child}$ will in turn notify that it is \textbf{itself} interested in temperature observations to any node $n_{child}'\in Lower(n_{child})$.
-Any node $n_{child}'$ collecting a temperature observation will therefore send it to $n_{child}$, which will itself send such observation to $n$.
-The characteristic of the initial node $n$ (here, the interest in temperature) has indeed been proxied to $n_{child}'$ by $n_{child}$: $n_{child}'$ only has knowledge of $n_{child}$, and communication is kept strictly between direct neighbors.
+\Nicolas{XXX redondance ?}
+If a node $n$ wants to be notified whenever a temperature observation is available, it notifies its children $n_{c}\in \added{Children(n)}$ of such interest. 
+If any $n_{c}$ collects temperature observations, it will forward such observation towards $n$. 
+Moreover, each $n_{c}$ will in turn notify that it is \textbf{itself} interested in temperature observations to any node $n_{cc}\in Children(n_c)$.
+Any node $n_{cc}$ collecting a temperature observation will therefore send it to $n_{c}$, which will itself send such observation to $n$.
+The characteristic of the initial node $n$ (here, the interest in temperature) has indeed been proxied to $n_{cc}$ by $n_{c}$: $n_{cc}$ only has knowledge of $n_{c}$, and communication is kept strictly between direct neighbors.
 To support this mechanism, two classes of properties are defined in the \gls{edr} vocabulary: \concept{edr}{Parent\-Proxied\-Property}, and \concept{edr}{Children\-Proxied\-Property}.
 
 \paragraph{Characteristics proxied from children to parent:}
-Let us assume that node $n$ has a child $n_{child}$, and that $n_{child}$ has a characteristic expressed by the triple \triplet{$n_{child}$}{$has\-Cha\-racteri\-stic$}{$\nu$}, that should be proxied towards $n_{parent}\in Upper(n)$.
+Let us assume that $n_{c}\in Children(n)$, and that $n_{c}$ has a characteristic expressed by the triple \triplet{$n_{c}$}{$has\-Cha\-racteri\-stic$}{$\nu$}, that should be proxied towards $n_{p}\in \added{Parent(n)}$.
 Such information about the predicate $\nu$ is materialized by the triple \triplet{$has\-Characteri\-stic$}{\concept{rdf}{type}}{\concept{edr}{Parent\-Proxied\-Property}}.
-When receiving description of $n_{child}$, $n$ checks for the presence of properties classified as \concept{edr}{Parent\-Proxied\-Property}. 
-Since $has\-Characteristic$ is such a property, the node $n$ updates its own representation towards its parent by sending the triple \triplet{$n$}{$has\-Characteri\-stic$}{$\nu$}, therefore proxying the capacity of $n_{child}$.
+When receiving the description of $n_{c}$, $n$ checks for the presence of properties classified as \concept{edr}{Parent\-Proxied\-Property}. 
+Since $has\-Characteristic$ is such a property, the node $n$ updates its own representation towards $n_p$ by sending the triple \triplet{$n$}{$has\-Characteri\-stic$}{$\nu$}, therefore proxying the capacity of $n_{c}$.
 
 \paragraph{Characteristics proxied from parent to children:}
 The proxying mechanism from parent to children is similar to the one from children to parent.
 Contrarily to the case of the announcement functionality, the multiplicity of children is not considered: all the children are proxied any received parent characteristic.
 Such policy is made necessary by the locality of decision-making enforced by \gls{edr}. 
-On the one hand, a node $n$ receiving a characteristic to proxy from its parent $n_{parent}$ does not have the contextual knowledge that lead $n_{parent}$ to announce this particular characteristic to $n$.
-On the other hand, the node $n_{parent}$ does not have a detailed knowledge of the topology below its child $n$, and therefore cannot make any assumptions about to which children in particular $n$ should proxy the characteristic of $n_{parent}$.
+On the one hand, a node $n$ receiving a characteristic to proxy $n_{p}\in Parent(n)$ does not have the contextual knowledge that lead $n_{p}$ to announce this particular characteristic to $n$.
+On the other hand, the node $n_{p}$ does not have a detailed knowledge of the topology below $n$, and therefore cannot make any assumptions about to which children in particular $n$ should proxy the characteristic of $n_{p}$.
 
 It is possible that the proxying mechanism and the announcement mechanism lead to conflicting behaviors.
 In particular, a node may have chosen not to announce a characteristic of its own to some of its children, but be required to proxy the same characteristic in the stead of one of its parent.
 In this case, the proxying mechanism supersedes the announcement mechanism, and any proxied characteristic is processed as a \concept{edr}{All\-Children\-Announced\-Property}.
-For instance, if a node $n$ did not announce its interest for a data type $\rho_t$ to its child $n_{child}$, $n$ will nonetheless announce such interest to $n_{child}$ if the parent of $n$, $n_{parent}$, notifies $n$ of its own interest for $\rho_t$, and requires $n$ to proxy such interest.
+For instance, if a node $n$ did not announce its interest for a data type $\rho_t$ to $n_{c}\in Children(n)$, $n$ will nonetheless announce such interest to $n_{c}$ if $n_{p}\in Parent(n)$ notifies $n$ of its own interest for $\rho_t$.
 
 \subsection{Rule representation and deployment}
 \label{subs:edr_rules}
@@ -762,7 +763,7 @@ If the newly received version of the rule is different from the version held by 
 However, it is possible that the new representation of the rule is no longer applicable by children of the current node, to which the former version of the rule had been previously propagated.
 In the regular \gls{edr} algorithm, the rule would not be forwarded to such children, but in this case this is an issue: two different mutually exclusive versions of the rule are executed in the topology.
 
-To tackle this issue, an object property is used: when a node $n$ transfers a rule $r$ to $n_{child}\in Lower(n)$, it adds the triple \triplet{$r$}{\concept{edr}{transferred\-To}}{$n_{child}$} to the rule description stored in its \gls{kb}.
+To tackle this issue, an object property is used: when a node $n$ transfers a rule $r$ to $n_{c}\in \added{Children(n)}$, it adds the triple \triplet{$r$}{\concept{edr}{transferred\-To}}{$n_{c}$} to the rule description stored in its \gls{kb}.
 When a node updates a rule representation, it transfers the new rule version towards the children which received the former version by searching for this property.
 If said children are not able to apply the new version of the rule (as determined by the application module of the rule), updating their rule representation enforces the consistency of the rule across the network. 
 The same process is carried on recursively from parent to child node in order to ensure that all the nodes of the topology eventually have an up-to-date representation of the rule.
@@ -824,55 +825,55 @@ Nodes applying the rules (\textit{e.g.,} machines M111 and M112 for $R_{Visibili
 
 \subsection{Node characteristics at stake in \edrt}
 \label{subs:edrt_knowledge}
+
 \subsubsection{Node's knowledge on itself}
 \label{subsub:self-knowledge}
 
 A node $n$ has in its \gls{kb} information about the property types of the data it produces, denoted by the predicate $own\_productions(n)$.
 Data produced by node $n$ is either collected by sensors to which $n$ is directly connected, or obtained as deductions when $n$ applies a rule.
 When a reasoning-enabled node is connected to a sensor, it enriches the raw observation, and propagates the enriched observation on the network, which ensures that the observation is only enriched once. 
-In the topology displayed on Fig. \ref{fig:edrpt_deployment}, the Fog node M111 is connected to a three sensors: $own\_productions(M111) = \{Presence, Luminosity, Activity\}$.
-An example of enriched observation is available online\footnote{\url{https://w3id.org/laas-iot/rules/observations/enriched_data.ttl}}.
-Observations and devices are described in each node's \gls{kb} using the IoT-O \cite{Seydoux2016} ontology for our experiments (\textit{c.f.} Section \textsection \ref{sec:experimentations}), but the proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata. 
+In the topology displayed on Fig. \ref{fig:edrpt_deployment}, node M111 is connected to three sensors: $own\_productions(M111) = \{Presence, Luminosity, Activity\}$.
 The production of observations by node $n$ for a property type $\rho_t$ is denoted \triplet{$n$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}. 
 
 \subsubsection{Node's knowledge on the topology}
 \label{subsub:topology}
 
 A node $n$ knows its parent in the network tree-like hierarchy. 
-On Fig. \ref{fig:edrpt_deployment}, $Lower(C110)=\{M111, M112\}$, and $Upper(C110)=\{F100\}$.
+On Fig. \ref{fig:edrpt_deployment}, $\added{Children(C110)}=\{M111, M112\}$, and $\added{Parent(C110)}=\{F100\}$.
 The node communicates its characteristics to these neighbors to support the deployment strategy implemented by \edrt.
 Such characteristics include the types of the data produced by the node, as well as the types of data consumed.
 
 \paragraph{Announcing productions:}
 The transmission of rules among nodes organized by \edrt is driven by the knowledge each node has on the network around itself.
 Productions are propagated from children to parent, denoted by the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
-Therefore, when a child node connects to its parent, it includes the triples denoting its productions in its self-description. 
+\removed{Therefore, when a child node connects to its parent, it includes the triples denoting its productions in its self-description.}
 
 In order to enable the propagation of rules towards nodes that are not direct neighbors, the proxying mechanism introduced in Section \textsection \ref{subsubs:proxying} is implemented for property types productions: \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Proxied\-Property}}.
-This mechanism makes a node aware of the types of properties produced by any node below its lower nodes while communicating only with its lower nodes, therefore ensuring the locality of its decisions.
-To illustrate the proxying in more details, let us define $productions(n)=own\_productions(n)\cup$\\$productions(Lower(n))$. 
-Node $n$ announces itself to its parent $n_{parent}$ as a producer of $\rho^{i}_t, \forall \rho^{i}_t\in productions(n)$, $\rho^{i}_t$ being the type of data produced by one of the sensors or lower nodes connected to $n$.
+\removed{This mechanism makes a node aware of the types of properties produced by any descendant of its child nodes, while communicating only with said children, therefore ensuring the locality of its decisions.}
+To illustrate the proxying in more details, let us define $productions(n)=own\_productions(n)\cup$\\$productions(\added{Children(n)})$. 
+Node $n$ announces itself to $n_{p}\in Parent(n)$ as a producer of $\rho^{i}_t, \forall \rho^{i}_t\in productions(n)$.\removed{, $\rho^{i}_t$ being the type of data produced by sensors or child nodes connected to $n$.}
 For instance, on Fig. \ref{fig:edrpt_deployment}, $productions(C120) = \{Activity, Temperature\}$, with\\$own\_productions(C120) = \{Temperature\}$.
-If the parent node $n_{parent}$ was not a producer of the property type $\rho_t$, it includes a new triple in its \gls{kb} \triplet{$n_{parent}$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}, and forwards this triple to its own parent.
-If node $n_{parent}$ was already a producer for $\rho_t$, its capabilities remain unchanged, and the information propagation stops.
+If $n_{p}$ was not a producer of the property type $\rho_t$, it includes a new triple in its \gls{kb} \triplet{$n_{p}$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}, and forwards this triple to $n_{pp}\in Parent(n_p)$.
+If node $n_{p}$ was already a producer for $\rho_t$, its capabilities remain unchanged, and the information propagation stops.
 
 \paragraph{Announcing consumptions:}
 As it has been discussed in Section \textsection \ref{par:data_transfer}, in order to limit unnecessary exchanges, data is exchanged lazily based on the node consumption announcement functionality.
-A node $n$ has to explicitly advertise its interest for a property type $\rho_{t}$ to each node belonging to $Lower(n)$ in order to be notified when new observations are received or new deductions are made. 
-In particular, a node is interested in a property type $\rho_{t}$ when it is in charge of applying a rule whose body includes $\rho_{t}$. 
-Identifying if $\rho_t \in body_t(r)$ is based on \gls{iri} comparisons. 
-The interest of a node $n$ for a property type $\rho_t$ is represented in the \gls{kb} by the triple \triplet{$n_p$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}, and \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Some\-Children\-Announced\-Property}}.
-Indeed, when a node applies a rule $r$ and is thus interested in the properties $\rho_t \in head_t(r)$, it does not necessarily notify this interest to all of its children.
+A node $n$ has to explicitly advertise its interest for a property type $\rho_{t}$ to each $n_c\in \added{Children(n)}$ in order to be notified when new observations are received or new deductions are made. 
+In particular, a node is interested in a property type $\rho_{t}$ when it applies a rule $r$ such that $\rho_{t}\in body_t(r)$. 
+%Identifying if $\rho_t \in body_t(r)$ is based on \gls{iri} comparisons. 
+The interest of a node $n$ for a property type $\rho_t$ is represented by the triple \triplet{$n$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}, and \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Some\-Children\-Announced\-Property}}.
+%Indeed, when a node applies a rule $r$ and is thus interested in the properties $\rho_t \in head_t(r)$, it does not necessarily notify this interest to all of its children.
 
-The interest of $n$ for $\rho_t$ is only announced to children of $n$ that are producers of $\rho_t$.
-Moreover, if some nodes $n^i_{child}\in Lower(n)$ are able to apply the rule $r$ themselves, node $n$ will forward $r$ to $n^i_{child}$, rather than notifying $n^i_{child}$ of its interest.
+The interest of $n$ for $\rho_t$ is only announced to $n_c\in Children(n)$ such that \triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}.
+Moreover, if some nodes $n^i_{c}\in \added{Children(n)}$ are able to apply the rule $r$ themselves, node $n$ will forward $r$ to $n^i_{c}$, rather than notifying $n^i_{c}$ of its interest for $\rho_t$.
 The details of the rule deployment strategy are provided in Section \textsection \ref{subs:edrt_modules}.
 In Fig. \ref{fig:edrpt_deployment}, M121 announced to C120 that it produced $Activity$, and C120 notified M121 of its interest for $Activity$ in order to receive future observations.
 
+\removed{
 Nodes interests are proxied towards children: \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Children\-Proxied\-Property}}.
-When a node $n$ receives a message from its parent $n_{parent}$ containing a triple \triplet{$n_{parent}$}{edr:is\-Interested\-In}{$\rho_t$}, $n$ announces to its children $n_{child}\in Lower(n)$ that \triplet{$n$}{edr:is\-Interested\-In}{$\rho_t$}.
+When a node $n$ receives a message from $n_{p}\in Parent(n)$ containing a triple \triplet{$n_{p}$}{edr:is\-Interested\-In}{$\rho_t$}, $n$ announces $n_{c}\in \added{Children(n)}$ that \triplet{$n$}{edr:is\-Interested\-In}{$\rho_t$}.
 Therefore, when one of the children produces a data of type $\rho_t$, $n$ is notified, and itself propagates the received data to $n_{parent}$.
-The knowledge of nodes about their environment is thus limited to their neighborhood, enabling purely local decisions.
+The knowledge of nodes about their environment is thus limited to their neighborhood, enabling purely local decisions.}
 
 \subsubsection{Exploiting the contextual locality of IoT data}
 \label{subsubs:topology_rules}
@@ -933,7 +934,7 @@ For the sake of legibility, the SHACL representation of the rules is not reprodu
 \subsubsection{Rule Transfer module}
 
 The purpose of \edrt is to \textbf{transfer each rule to the lowest possible node in the architecture}, to be applied as early as possible. 
-The propagation of a rule $r_{x}$ from node $n$ to node $n'$ is considered relevant if $n' \in Lower(n) \land body_t(r_{x}) \subset productions(n')$, which brings it closer to sensors. 
+The propagation of a rule $r_{x}$ from node $n$ to node $n'$ is considered relevant if $n' \in \added{Children(n)} \land body_t(r_{x}) \subset productions(n')$, which brings it closer to sensors. 
 
 This condition is expressed in Lst. \ref{lst:transferShape}, an extract of the SHACL shape constituting $r_{ColdChain}^{transfer}$.
 %
@@ -961,7 +962,7 @@ Incrementally, the rule $r$ will converge toward nodes such that, for any node $
 	\item $n$ can no longer \textbf{propagate} $r$, \textit{i.e.} $\forall n'\in Lo\-wer(n), body_t(r_{x})\not\subset pro\-du\-ctions(n')$,
 	\item $n$ is able to \textbf{apply} the rule $r$, \textit{i.e.} $body_t(r_{x})\subset productions(n)$.
 \end{itemize} 
-These are the nodes able to apply the rule that are the closest to the original data producing: propagating the rule lower in the hierarchy is not necessary.
+These are the nodes able to apply the rule that are the closest to the original data producing: propagating the rule \added{deeper} in the hierarchy is not necessary.
 Such a node is represented on Fig. \ref{fig:edrpt_deployment} with gray dashes connected to $R_{Visibility}$ and $R_{ColdChain}$. 
 
 \subsubsection{Activation module}
@@ -1098,16 +1099,16 @@ Different kinds of data can be received by node $n$:
 \begin{itemize}
 	\item raw observations directly produced by a sensor connected to $n$
 	%, as for the observation sent by the sensor to R111 on Fig. \ref{fig:seq_temperatureobservation}
-	\item enriched observation or deduction sent to $n$ by node $n_c \in Lower(n)$
+	\item enriched observation or deduction sent to $n$ by node $n_c \in \added{Children(n)}$
 	%, as for the observation sent by R111 to G110 on Fig. \ref{fig:seq_temperatureobservation}
 \end{itemize}
 If the received observation is raw, node $n$ enriches it by annotating it with an ontology before its processing as a new enriched observation. 
 If the piece of data is either an enriched observation or a deduction, it is directly integrated to its \gls{kb} and processed. 
 
-The data, of property type $\rho_{i}$, is in the first place sent to $Upper(n)$ if it is a consumer of $\rho_{i}$. 
+The data, of property type $\rho_{i}$, is in the first place sent to $\added{Parent(n)}$ if it is a consumer of $\rho_{i}$. 
 Then, node $n$ checks if new deductions can be obtained by applying the rules it has marked up as active.
 When receiving new data, a node does not need to activate the rule modules for activation, transfer or delivery: only the core of the rule is relevant.
-If the rule body matches the \gls{kb} of node $n$, and postconditions of type $\delta_{j}$ are deduced, these deductions are propagated to $Upper(n)$ if it is consumer of $\delta_{j}$.
+If the rule body matches the \gls{kb} of node $n$, and postconditions of type $\delta_{j}$ are deduced, these deductions are propagated to $\added{Parent(n)}$ if it is consumer of $\delta_{j}$.
 Since rules are applied on the local \gls{kb} of node $n$, there is no impact of data distribution on reasoning complexity. 
 A new reasoning loop is simply applied each time new data is received.
 The deductions yielded by rule $r$ are also \textbf{directly} sent to $r$'s originator(s).
@@ -1319,9 +1320,12 @@ For this use case, only a few properties were needed, as shown in Lst. \ref{lst:
 \lstinputlisting[float, caption=\added{Description of a node}, label=lst:node_desc]{listings/node_description.ttl}
 The description of the node mainly encompasses its neighbors (with \texttt{lmu:} properties), its API (with \concept{iotl}{exposes}), and its capabilities (\concept{edr}{producesDataOn}).
 As shown in a dump available online\footnote{\url{https://w3id.org/laas-iot/edrt/node_kb_dump.ttl}}, a node's knowledge base includes such a self-description along with ontologies, similar description for its neighbors, and observed data. 
-Lst. \ref{lst:observation} shows a snippet of observed data, mainly described with the legacy version of the \texttt{ssn:} ontology. 
+%Observations and devices are described in each node's \gls{kb} using mainly the SSN\footnote{\url{http://purl.oclc.org/NET/ssnx/ssn}} ontology (\textit{c.f.} Section \textsection \ref{sec:experimentations}). 
+%An example of enriched observation is available online\footnote{\url{https://w3id.org/laas-iot/rules/observations/enriched_data.ttl}}.
+Lst. \ref{lst:observation} shows a snippet of observed data, mainly described with the legacy version of the \texttt{SSN} ontology, and extensions of the IoT-O \cite{Seydoux2016} ontology for elements specific to our experiments. 
 \lstinputlisting[float, caption=\added{Exchanged sensor observations}, label=lst:observation]{listings/node_description.ttl}
-The proposed approach depends on the observation representation, that is why a standard vocabulary has been chosen. 
+%The proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata.
+The proposed approach depends on the observation representation, hard-coded in the current implementation, which is why standard vocabularies have been used as much as possible. 
 In future versions, \edr will be updated to be compliant with the updated version of SSN, SSN/SOSA\footnote{\url{http://www.w3.org/ns/sosa/}}. 
 In the implemented simulation, data is produced in the form of CSV records by sensors, that are sent over HTTP to the subscribing node's API.
 The CSV schema mimics the schema observed in the actual deployment of ADREAM, a smart building producing publicly available data\footnote{\url{https://syndream.laas.fr:8082/}}: \texttt{chrono,name,value,quality,comment}.
