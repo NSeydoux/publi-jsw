@@ -1,0 +1,14 @@
+ex:sensor0003e3dff9e3_obs
+        a ssn:Observation ;
+        ssn:observationResult ex:sensor0003e3dff9e3_out ;
+        ssn:observedBy ex:sensor0003 ;
+        ssn:observedProperty ex:floor0002presence ;
+        edr:receivedAt "2019-05-16T19:44:07"^^xsd:dateTime.
+
+ex:sensor0003e3dff9e3_out
+        a ssn:SensorOutput ;
+        ssn:hasValue ex:sensor0003e3dff9e3_val
+
+ex:sensor0003e3dff9e3_val
+        a ssn:ObservationValue ;
+        dul:hasDataValue "1.0"^^xsd:float .

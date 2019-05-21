@@ -1,0 +1,132 @@
+@prefix san:   <http://www.irit.fr/recherches/MELODI/ontologies/SAN#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix fn:    <http://w3id.org/sparql-generate/fn/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iter:  <http://w3id.org/sparql-generate/iter/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix iotl:  <http://iot.ee.surrey.ac.uk/fiware/ontologies/iot-lite#> .
+@prefix ssn:   <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix ioto:  <https://www.irit.fr/recherches/MELODI/ontologies/IoT-O#> .
+@prefix edr:   <http://w3id.org/laas-iot/edr#> .
+@prefix ex:    <http://example.com/ns#> .
+@prefix lmu:   <http://w3id.org/laas-iot/lmu#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dul:   <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+
+ex:building0001temperature
+        a                 <https://w3id.org/laas-iot/adream#Temperature> ;
+        ssn:isPropertyOf  ex:building0001feature .
+
+ex:sensor001296d6dd3a-1256-44b6-955b-75fb52079ce7_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor001296d6dd3a-1256-44b6-955b-75fb52079ce7_val .
+
+ex:building0001luminosity
+        a                 <https://w3id.org/laas-iot/adream#Luminosity> ;
+        ssn:isPropertyOf  ex:building0001feature .
+
+ex:sensor00111a0750d5-a13b-4e1c-bdab-9445e6de915c_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor00111a0750d5-a13b-4e1c-bdab-9445e6de915c_val .
+
+<https://w3id.org/laas-iot/adream#Temperature>
+        rdfs:subClassOf  ssn:Property .
+
+ex:sensor001296d6dd3a-1256-44b6-955b-75fb52079ce7_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor001296d6dd3a-1256-44b6-955b-75fb52079ce7_out ;
+        ssn:observedBy         ex:sensor0012 ;
+        ssn:observedProperty   ex:building0001temperature_request ;
+        edr:receivedAt         "2019-05-16T15:07:01.959+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T150701.94002 .
+
+ex:sensor0012  a             ssn:Sensor ;
+        ssn:observes         ex:building0001temperature_request ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#TemperatureRequest> ;
+        lmu:hasUpstreamNode  ex:building0001 ;
+        lmu:reasoningNode    false .
+
+ex:sensor00111a0750d5-a13b-4e1c-bdab-9445e6de915c_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor00111a0750d5-a13b-4e1c-bdab-9445e6de915c_out ;
+        ssn:observedBy         ex:sensor0011 ;
+        ssn:observedProperty   ex:building0001luminosity ;
+        edr:receivedAt         "2019-05-16T15:07:01.948+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T150701.88902 .
+
+ex:20190516T150701.94002
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T15:07:01.940+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T15:07:01.940+02"^^xsd:dateTime .
+
+ex:sensor0011  a             ssn:Sensor ;
+        ssn:observes         ex:building0001luminosity ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#Luminosity> ;
+        lmu:hasUpstreamNode  ex:building0001 ;
+        lmu:reasoningNode    false .
+
+<https://w3id.org/laas-iot/adream#TemperatureRequest>
+        rdfs:subClassOf  ssn:Property .
+
+ex:sensor0010c759ba66-cd72-486c-9d20-d7961570a5d5_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor0010c759ba66-cd72-486c-9d20-d7961570a5d5_val .
+
+ex:sensor001296d6dd3a-1256-44b6-955b-75fb52079ce7_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "21.661093"^^xsd:float .
+
+ex:sensor00111a0750d5-a13b-4e1c-bdab-9445e6de915c_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "1209.798"^^xsd:float .
+
+ex:sensor0010c759ba66-cd72-486c-9d20-d7961570a5d5_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor0010c759ba66-cd72-486c-9d20-d7961570a5d5_out ;
+        ssn:observedBy         ex:sensor0010 ;
+        ssn:observedProperty   ex:building0001temperature ;
+        edr:receivedAt         "2019-05-16T15:07:01.758+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T150701.72002 .
+
+ex:20190516T150701.72002
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T15:07:01.720+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T15:07:01.720+02"^^xsd:dateTime .
+
+ex:sensor0010  a             ssn:Sensor ;
+        ssn:observes         ex:building0001temperature ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#Temperature> ;
+        lmu:hasUpstreamNode  ex:building0001 ;
+        lmu:reasoningNode    false .
+
+ex:building0001  a             lmu:Node , lmu:HostNode ;
+        iotl:exposes           ex:building0001Service ;
+        edr:producesDataOn     <https://w3id.org/laas-iot/adream#Luminosity> , <https://w3id.org/laas-iot/adream#Temperature> , <https://w3id.org/laas-iot/adream#TemperatureRequest> ;
+        lmu:hasDownstreamNode  ex:sensor0012 , ex:sensor0011 , ex:sensor0010 ;
+        lmu:reasoningNode      true ;
+        ioto:hasId             "building0001" .
+
+ex:building0001Service
+        a              iotl:Service ;
+        iotl:endpoint  "http://localhost:6001"^^xsd:anyURI ;
+        iotl:isOnline  true .
+
+ex:building0001temperature_request
+        a                 <https://w3id.org/laas-iot/adream#TemperatureRequest> ;
+        ssn:isPropertyOf  ex:building0001feature .
+
+ex:sensor0010c759ba66-cd72-486c-9d20-d7961570a5d5_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "25.4533"^^xsd:float .
+
+<https://w3id.org/laas-iot/adream#Luminosity>
+        rdfs:subClassOf  ssn:Property .
+
+ex:20190516T150701.88902
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T15:07:01.889+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T15:07:01.889+02"^^xsd:dateTime .

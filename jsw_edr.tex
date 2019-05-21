@@ -14,8 +14,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage{times}%
+\usepackage{times}
 
+%\usepackage{bookmark}
+\usepackage[hidelinks]{hyperref}
+\usepackage[depth=4]{bookmark}
 \usepackage{natbib}
 %\usepackage[dvips]{hyperref}
 \usepackage{amsmath}
@@ -23,20 +26,25 @@
 \usepackage{graphics}
 \usepackage[toc, acronym, automake]{glossaries}
 \usepackage{algorithm, algpseudocode}
-\usepackage[hidelinks=true, breaklinks=true]{hyperref}
-\usepackage{url}
-\usepackage{multicol}
+%\usepackage[hyphens]{url} % must be before hyperref
+%\usepackage{url}
+%\usepackage[breaklinks=true]{hyperref}
 
+\usepackage{multicol}
+\usepackage{ulem}
 \usepackage{xspace}
 \newcommand{\edr}{EDR\xspace}
 \newcommand{\edrt}{EDR$_{\mathcal{T}}$\xspace}
-\newcommand{\Nathalie}[1]{\textcolor{red}{ Nathalie: \textbf{#1} }}
+%\newcommand{\Nathalie}[1]{\textcolor{red}{ Nathalie: \textbf{#1} }}
 \newcommand{\Nicolas}[1]{\textcolor{red}{ Nicolas: \textbf{#1} }}
-\newcommand{\Khalil}[1]{\textcolor{red}{ Khalil: \textbf{#1} }}
+%\newcommand{\Khalil}[1]{\textcolor{red}{ Khalil: \textbf{#1} }}
+\newcommand{\added}[1]{\textcolor{green}{\textbf{#1}}}
+\newcommand{\removed}[1]{\textcolor{red}{\sout{#1}}}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,calc}
-\usetikzlibrary{shapes.geometric} % required for the ellipse shape
+% required for the ellipse shape
+\usetikzlibrary{shapes.geometric} 
 \usetikzlibrary{er, positioning, backgrounds, hobby, positioning, intersections, snakes, arrows.meta}
 \usepackage{forest}
 % tikz-uml dependancies
@@ -59,8 +67,8 @@
 \newcommand{\particle}{\includegraphics[scale=0.6]{figures/topologies/icons/particle_sensor.eps}}
 
 \usepackage{pifont}
-\newcommand{\cmark}{\textcolor{green}{\ding{51}}}%
-\newcommand{\xmark}{\textcolor{red}{\ding{55}}}%
+\newcommand{\cmark}{\textcolor{green}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
 
 \usepackage{caption}
 \usepackage{subcaption}
@@ -99,7 +107,7 @@
 
 \begin{document}
 
-\begin{frontmatter}                           % The preamble begins here.
+\begin{frontmatter}                           
 	
 %\pretitle{Pretitle}
 \title{EDR: A Generic Approach for the Dynamic Distribution of Rule-Based Reasoning in a Cloud-Fog continuum}
@@ -142,8 +150,8 @@ The complementarity between Fog and Cloud in this context is assessed based on t
 The maturity of \gls{iot} communication technologies is fostering a wide variety of industrial and societal applications, including home automation and industry 4.0 scenarios. 
 However, the heterogeneity of \gls{iot} data and use cases raises interoperability issues constituting hurdles for the development of cross-domain \gls{iot} service platforms, leading to isolated application silos. 
 The \gls{sw} technologies and principles constitute an interoperability enabler providing expressive vocabularies to describe data and manipulate information.
-The domain at the interface between the \gls{sw} and the \gls{iot} is called the \gls{swot}, and it emergence is not trivial. 
-Even though the \gls{swot} has been envisioned as soon as the fundamental article of the \gls{sw} \cite{Berners-Lee2001}, where smart agents interact with devices in the user's environment, practical \gls{swot} achievements where proposed in recent years only\cite{Pfisterer2011}.
+The domain at the interface between the \gls{sw} and the \gls{iot} is called the \gls{swot}, and its emergence is not trivial. 
+Even though the \gls{swot} has been envisioned as soon as the fundamental article of the \gls{sw} \cite{Berners-Lee2001}, where smart agents interact with devices in the user's environment, practical \gls{swot} achievements where proposed in recent years only \cite{Pfisterer2011}.
 In particular, a core challenge the \gls{swot} is facing is the deployment of \gls{sw} technologies, which are resource-consuming, into \gls{iot} networks, characterized by constrained devices. 
 
 The integration of the \gls{sw} stack to an \gls{iot} architecture is often centered on remote and powerful machines as in \cite{Gyrard2017} or \cite{Wang2018}. 
@@ -156,7 +164,7 @@ It introduces a delay in data processing, and can degrade applications' responsi
 
 %One way of tackling the issues of the centralized, Cloud-based approach to the \gls{swot} is the distribution 
 Distributing the \gls{sw} stack among the multiple middle nodes between the Cloud servers and the \gls{iot} devices allows the \gls{swot} architecture to avoid the drawbacks of a Cloud-centered processing.
-By doing so the architectures to evolve towards the Fog computing paradigm \cite{Bonomi2012} that promotes data storage and processing \textbf{at the edge of the network}\cite{Patel2017}.
+By doing so the architectures to evolve towards the Fog computing paradigm \cite{Bonomi2012} that promotes data storage and processing \textbf{at the edge of the network} \cite{Patel2017}.
 However, Fog computing is not introduced as a paradigm meant to replace Cloud computing: its limited computing capabilities, as well as the locality of the scale of its deployments, are not suited to support Cloud computing use cases.
 \textbf{Cloud and Fog computing are two complementary approaches} that, when associated, enable the deployment of complex \gls{swot} applications \cite{Sahni2017}.
 
@@ -164,7 +172,7 @@ In the scope on this paper, the  purpose of semantic processing is, thanks to kn
 %In order to face the diversity of applications potentially interested in the data of an \gls{iot} deployment, 
 One can suppose that knowledge about the deployed \gls{iot} system and its environment modeled beforehand by the system administrators.
 However, business-specific knowledge needs may not have been identified when the IoT system is designed and might need to be injected into to reasoning system at runtine.
-Business-specific knowledge must therefore be modeled as self-contained bundles, and inserted into the system at when needed runtime.
+Business-specific knowledge must therefore be modeled as self-contained bundles, and inserted into the system at runtime when needed.
 Moreover, when considering a distributed approach, all of the business knowledge might not be relevant in the context of all the nodes. 
 If packaged into bundles that can be moved from node to node, business knowledge may be opportunistically distributed in the network. 
 Inspired from the application bursting approach introduced in \cite{Charrada2016}, we propose to consider modular applications to enable the distribution of some of their modules.
@@ -177,7 +185,7 @@ Strategies for rule distribution are often application-dependent, with a wide va
 That is why \gls{edr} is a generic approach, that can be specialized depending on the desired rule distribution strategy.
 %\Khalil{Peut-etre il vaut mieux parler du contenu en citant ou non ces papiers en intro et les citer dans les autres sections plus tard. C’est risqué de limiter la description des contribs du papiers à ces citations et extension : l’idéal c’est de développer quitte à réduire avant si problème de place}
 The work presented in this paper completes and extends two conference articles, \cite{wi2018} and \cite{coopis2018}, where some aspects of \gls{edr} and its refinements have been introduced.
-Novel work include a more extensive presentation of related work, the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Open Rules \cite{Khandelwal2011} principles. 
+Novel work include a more extensive presentation of related work, the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Rules \cite{Khandelwal2011} principles. 
 Complementary evaluations regarding the impact of distribution, and the impact of the execution of \edr on a constrained hardware are included, leading to a discussion analyzing the light shed by the obtained results on the Cloud-Fog complementarity. 
 The scientific challenge we faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, and dynamicity. 
 These characteristics are presented in detail in Section \textsection \ref{sec:edr_characteristics}.
@@ -188,9 +196,8 @@ This paper is concluded in Section \textsection \ref{sec:conclusion}.
 \section{Desirable characteristics for the proposed solution}
 \label{sec:edr_characteristics}
 
-In order to capture the main characteristics of the contribution presented in \textsection \ref{sec:edr} and \textsection \ref{sec:edrpt}, an illustrative industry 4.0 use case is introduced. 
-This use case is also the drive for the evaluations in Section \textsection \ref{sec:experimentations}.
-The different elements considered in the use case are then generalized to extract the main desirable characteristics of the proposed approach.
+In order to capture the main characteristics of the contribution presented in \textsection \ref{sec:edr} and \textsection \ref{sec:edrpt}, an illustrative industry 4.0 use case is introduced, that will drive the evaluations in Section \textsection \ref{sec:experimentations}.
+\added{Elements considered in the use case are then generalized into main desirable characteristics for the proposed approach.}
 
 \subsection{Illustrative smart factory use case}
 \label{sec:distribution_use_case}
@@ -208,10 +215,11 @@ Let us consider a production plant divided into two floors, processing different
 These floors are modular: the structure described thereafter is subject to change in order to adapt to new productions.
 Each floor is equipped with conveyor belts carrying products from machine to machine for transformation. 
 Devices are organized hierarchically: machines are connected to conveyors that are connected to the floor gateway, that collects and delivers data to the factory datacenter. 
-The factory is equipped with sensors in order to ensure the safety of workers: each floor is equipped with presence, luminosity particle and temperature sensors, and the workers are equipped with wearables communicating with nearby conveyors.
+The factory is equipped with sensors in order to ensure the safety of workers: each floor is equipped with presence, luminosity, particle and temperature sensors, and the workers are equipped with wearables communicating with nearby conveyors.
 Observations from the different sensors are used in order to identify potentially harmful situations, and then notify the control center, where actions can be taken remotely.
 Unsafe situations are described with deduction rules, based on the semantic description of observations and of the environment.
-For instance, %``the activation of a machine creating sparks in an atmosphere loaded with particles creates a detonation hazard'' is a potential rule.
+For instance, 
+%``the activation of a machine creating sparks in an atmosphere loaded with particles creates a detonation hazard'' is a potential rule.
 ``The presence of a worker near an operating conveyor in a low luminosity environment is a personal security hazard'' is a potential rule.
 Some rules are also dedicated to quality insurance: sensors available in the factory, such as temperature sensors, or sensors integrated to machines and to the conveyor, enable the continuous control of production quality.
 Some operations are temperature-sensitive, and a quality insurance rule is ``The detection of a temperature above a certain threshold while machines are operating is a break in the cold chain''.
@@ -221,7 +229,7 @@ Moreover, the mobility of some sensors (\textit{e.g.,} worker wearables), combin
 \subsection{Scalability}
 
 Due to the modularity of the factory, the number of devices in the environment is not bounded a priori. 
-In the specific industry 4.0 use case, this device count is unlikely to increase by multiple order of magnitudes, but from a more general point of view, application domains of the \gls{iot} include smart cities or connected vehicles, where large volumes of devices are involved.
+In the specific industry 4.0 use case, this device count is unlikely to increase by multiple orders of magnitudes, but from a more general point of view, application domains of the \gls{iot} include smart cities or connected vehicles, where large volumes of devices are involved.
 
 Therefore, \textbf{scalability} is an important characteristic for a \gls{swot} system, and the decentralization of reasoning is an enabler of such scalability \cite{Maarala2017}.
 However, the difference of computing power between Cloud and Fog nodes should not be neglected: Cloud architectures' intrinsic capabilities enable a resource upscale impossible for Fog architectures.
@@ -310,7 +318,7 @@ Production rules being explicit deduction representations, they have been consid
 
 With the goal of facilitating rule reuse, Linked Rules principles have been proposed \cite{Khandelwal2011}. 
 They apply to rules the basic principles of Linked Open Data and Linked Open Vocabularies: rules are designated by dereferencable \gls{iri}s, expressed in W3C-compliant standards, and they can be linked to each other.
-Inspired from the Linked Rules, the Sensor-based Linked Open Rules (S-LOR)\cite{Gyrard2017} is dedicated to rules re-usability for deductions based on sensor observations.
+Inspired from the Linked Rules, the Sensor-based Linked Open Rules (S-LOR) \cite{Gyrard2017} is dedicated to rules re-usability for deductions based on sensor observations.
 Production rules are a mechanism similar to \gls{cep} approaches, used for instance in \cite{ZangLi55}, but the rule representation shifts from an ad-hoc rule format in \gls{cep} to a unified format in the \gls{swot}. 
 
 \cite{Sun2014} proposes a classification of production rules for the \gls{iot}, in order to identify recurring patterns.
@@ -321,7 +329,7 @@ In our contribution, we want to go further than this distinction by manipulating
 
 In most existing approaches, \textit{i.e.} \cite{ZangLi55}, \cite{Gyrard2017} or \cite{xu2017network}, production rules are handled by Cloud nodes.
 An example of \gls{iiot} use case enabled by Cloud-based semantic rules processing is presented in \cite{Wang2018}.
-This paper proposes a self-configuring smart factory in which conveyors and machines produce data which is processed on a Cloud node where user rules are used to make reconfiguration decisions.
+This paper proposes a self-configuring smart factory: conveyors and machines produce data which is processed on a Cloud node where user rules are used to make reconfiguration decisions.
 Rules are expressed in SWRL.
 The same formalism is used in \cite{Rodriguez2010}, where production rules are computed in a central Cloud node in order to dynamically reconfigure the communication network topology between devices and the Cloud node.
 The inferred deductions are converted into network reconfiguration actions by ad-hoc agents.
@@ -402,7 +410,8 @@ Modular rules are at the core of \gls{edr}, the formalisms used to represent the
 \label{subs:edr_asumptions}
 
 \gls{edr} is based on the hypothesis of a \textbf{hierarchical network topology}: nodes are organized in a tree-like structure, and only communicate with neighboring nodes, \textit{i.e.} Cloud node and semantic-computing-enabled Fog nodes. 
-This assumption is made because such topologies are frequent in \gls{iot} networks, represented in studies such as \cite{Rodriguez2010}, \cite{Zanella2014}, \cite{Alaya2015} (based on the oneM2M standard), \cite{Szilagyi2016}, or \cite{Su2018}. 
+This assumption is made because such topologies are frequent in \gls{iot} networks, represented in studies such as \cite{Rodriguez2010}, \cite{Zanella2014}, \cite{Alaya2015} (based on the oneM2M standard), \cite{Szilagyi2016}, or \cite{Su2018}.
+\added{Based on this hypothesis, it can be assumed that there only is one path from any node to any of its ancestors, which simplifies our approach.}
 
 Applications are not deployed on a Cloud node belonging to the \gls{iot} topology: they are executed remotely on personal devices such as smartphones or laptops.
 \textbf{Rules represent applicative needs}: when deductions from sensor observations are required by an application, it injects the rule in the network in order to be provided directly with the deductions, instead of being forwarded raw data by the network and applying the rules itself.
@@ -411,18 +420,27 @@ It is therefore assumed that \textbf{Fog nodes can communicate with applications
 Rules are initially submitted by applications to the Cloud node, so it is the only node they know \textit{a priori}. 
 The Cloud infrastructure provides a unique permanent interface to the network, the dynamic Fog topology underneath is therefore transparent for applications.
 
+\added{We qualified the \edr as "dynamic", because nodes constantly re-evaluate their past decisions. 
+Whenever an event occurs that may impact the current distribution of the rules in the network, each node locally recomputes the decision algorithm shown on Fig. \ref{fig:edr_algo}, and introduced in the remainder of this section.
+However, the proposed approach will adapt to the evolutions of the underlying topology based on the assumptions that all events impacting the topology are observed by the appropriate nodes.
+In particular, the failure of a node should be captured by its parent, which should then propagate the consequences of this event on its own behavior to the rest of the network.
+Such failure management mechanism could be integrated to some existing standards, such as oneM2M, acting as a middleware.
+Therefore, we consider failure management to be handled in the middleware layer, and it does not need to be explicitly handled in the scope of the applicative layer proposed in this contribution.
+}
+
 \subsection{Overview of the EDR approach}
 \label{subs:edr_overview}
 
 In order to ensure decentralization, the algorithm of the \gls{edr} approach is executed in parallel on each node able to perform reasoning in the topology. 
 \gls{edr} considers a neighbor-to-neighbor rule and data propagation, enabling a reduction the nodes' knowledge of the topology to a limited subset of the complete deployment. 
-Thus, consistency of the knowledge only has to be maintained with immediate neighbors, which limits required knowledge-related exchanges between nodes, and improves scalability.
-Due to the potential mobility and variable availability of Fog nodes, \textbf{\gls{edr} is meant to foster decision making in a local context for each node, leading at a large scale to the emergence of a desirable behavior}.
+Thus, consistency of the knowledge only has to be maintained with neighbors, which limits required knowledge-related exchanges between nodes, and improves scalability.
+Due to the potential mobility and variable availability of Fog nodes, \textbf{\gls{edr} is meant to foster decision making in a local context for each node, leading at a large scale to the \added{dynamic} emergence of a desirable behavior}.
 
 A parent node propagates a rule to its child if the parent considers that the child is empowered to apply the rule.
-This decision is made by the parent based on a \textbf{deployment strategy} embedded in the rule, as well as on the knowledge it has of its child.
+This decision is made by the parent based on a \textbf{deployment strategy} embedded in the rule, as well as on the knowledge it has of said child.
 The deployment strategy captures the \textbf{criteria required for a node to process a rule}, and therefore characterizes if a child node is suitable to be forwarded said rule.
 In order to enable rule deployment, nodes exchange messages describing their capabilities, \textit{e.g.,} their location, the type of data they observe, or the type of data they are interested in.
+\added{To ensure the \textbf{dynamicity} of the rule deployment with respect to the \textbf{evolving network topology}, these messages are exchanged constantly, whenever the described information is modified.}
 When a node makes a new deduction based on a rule, it sends the result to all the nodes interested, including the application that submitted the rule.
 
 \textbf{The \gls{edr} approach itself is agnostic to the deployment strategy}, which is defined by the rule implementer: that is why we qualify \gls{edr} as \textbf{generic}. 
@@ -451,7 +469,7 @@ Featured knowledge includes:
 This knowledge is used to control the behavior of the node, composed of simple functionalities.
 A node is able to:
 \begin{itemize}
-	\item Send of a piece of data, typically a sensor observation, to a remote node,
+	\item Send a piece of data, typically a sensor observation, to a remote node,
 	\item Propagate a rule to a remote node,
 	\item Apply a rule on its knowledge base,
 	\item Announce a description of its own capabilities to a remote node,
@@ -460,17 +478,21 @@ A node is able to:
 
 How these node functionalities are related to the \gls{kb} in the core \gls{edr} mechanism to enable the propagation of observations and rules is described in Section \textsection \ref{subs:edr_vocabulary}.
 The modular rule representation embedding the deployment strategy, and the updates of the \gls{kb} they trigger, are detailed in Section \textsection \ref{subs:edr_rules}.
+\added{In this paper, the focus is on the propagation of rules, and on their execution, which leads to the production of new information. 
+How this information may be used by the nodes to trigger real-world actions is not in the scope of this contribution. 
+Using high-level deduction to trigger actions in an autonomic loop has been the topic of previous work \cite{Seydoux2016}.}
 
 \subsection{A vocabulary driving the deployment mechanism}
 \label{subs:edr_vocabulary}
 
 Nodes behavior is made on purpose quite simple, in order to decorrelate the rule-specific deployment strategy from the core algorithm on which \gls{edr} is based.
-Rule deployment strategies are dedicated to a particular purpose, \textit{e.g.,} response time reduction or privacy enforcement, while \gls{edr} is generic.%, and therefore agnostic to deployment strategies.
-In order support the genericity of \gls{edr} with a knowledge-driven method, nodes functionalities are based on a dedicated vocabulary, used to describe knowledge in the node's \gls{kb}.
+Rule deployment strategies are dedicated to a particular purpose, \textit{e.g.,} response time reduction or privacy enforcement, while \gls{edr} is generic.
+%, and therefore agnostic to deployment strategies.
+In order to support the genericity of \gls{edr} with a knowledge-driven method, nodes functionalities are based on a dedicated vocabulary, used to describe knowledge in the node's \gls{kb}.
 
 For instance, this vocabulary captures the hierarchical nature of the topology.
 Let the parent of a node $n$ be noted $Upper(n)$, and its children referred to as $Lower(n)$.
-The relation between a node $n_p$ and any $n_c\in Lower(n)$ is expressed with the triplet \triplet{$n_p$}{\concept{lmu}{has\-Downstream\-Node}}{$n_c$}\footnote{Namespaces are available on \url{http://prefix.cc}}\footnote{Individuals such as $n_p$ and $n_c$ are identified with an \gls{iri} in the triplets}, based on a nomenclature presented in \cite{Seydoux2017}. 
+The relation between a node $n_p$ and any $n_c\in Lower(n)$ is expressed with the triple \triplet{$n_p$}{\concept{lmu}{has\-Downstream\-Node}}{$n_c$}\footnote{Namespaces are available in Appendix \ref{app:namespaces}}$^,$\footnote{Individuals such as $n_p$ and $n_c$ are identified with an \gls{iri} in the triples}, based on a nomenclature presented in \cite{Seydoux2017}. 
 The inverse relation exists, to express the connection between a node $n_c$ and its parent $n_p\in Upper(n)$: \triplet{$n_c$}{\concept{lmu}{has\-Upstream\-Node}}{$n_p$}.
 
 A description of all the functionalities of the nodes, and of the vocabulary that drives them, is provided in Section \textsection \ref{subsubs:basic_functionalities}. 
@@ -480,12 +502,12 @@ Finally, the scope of the announces is studied in Section \textsection \ref{subs
 \subsubsection{Basic node functionalities}
 \label{subsubs:basic_functionalities}
 
-Each functionality relies on dedicated triplets, and a node implements its behavior based on the description held in its \gls{kb}.
-How this triplets are inferred from the deployment strategy is described in the next section \textsection \ref{subs:edr_rules}.
+Each functionality relies on dedicated triples, and a node implements its behavior based on the description held in its \gls{kb}.
+How this triples are inferred from the deployment strategy is described in the next section \textsection \ref{subs:edr_rules}.
 Before detailing how the strategy triggers nodes functionalities, let us examine the vocabulary describing said node functionalities.
 
 \paragraph{Announce self-description:}
-When a node connects, disconnects or changes capabilities, it notifies its neighbors of it self-representation.
+When a node connects, disconnects or changes capabilities, it notifies its neighbors of its self-representation.
 Since a notification is sent at each update of the state of the node, the perception of a node by its neighbors remains consistent with its evolution over time.
 Two mechanisms support this announce: 
 \begin{itemize}
@@ -493,8 +515,8 @@ Two mechanisms support this announce:
 	\item a complete update, in which the representation of the node is completely erased by the target before being updated.
 \end{itemize}
 These mechanisms allow to add information about a node by exchanging light messages containing partial representations, while enabling to remove outdated statements with the complete update. 
-A particular node characteristic that is declared in the announce functionality is the type of data in which a node is interested, captured with the predicate \concept{edr}{is\-Interested\-In}, which is used in the data sending functionality.
-The announce functionality is extended by the mechanisms described in Section \textsection \ref{subsubs:annouce} to control which characteristics of the node are propagated, and the scope of this propagation in Section \textsection \ref{subsubs:proxying}.
+A particular node characteristic that is declared in the announcement functionality is the type of data in which a node is interested, captured with the predicate \concept{edrt}{is\-Interested\-In}, which is used in the data sending functionality.
+The announcement functionality is extended by the mechanisms described in Section \textsection \ref{subsubs:annouce} to control which characteristics of the node are propagated, and the scope of this propagation in Section \textsection \ref{subsubs:proxying}.
 
 \paragraph{Apply rules:}
 When a node $n$ receives a new observation, either from its own sensors or lower nodes, $n$ executes the rules $r$ stored in its \gls{kb} if the description of $r$ contains \triplet{$r$}{\concept{edr}{is\-Rule\-Active}}{true}.
@@ -502,38 +524,37 @@ When a node $n$ receives a new observation, either from its own sensors or lower
 \paragraph{Deliver deduction:}
 \label{par:deduction_delivery}
 If the processing of an observation with rule $r$ by node $n$ leads to a deduction $\delta$, $\delta$ is sent to each node belonging to $\bigcup n_{consumer}$ where \triplet{$n_{consumer}$}{\concept{edr}{consumes\-Result}}{$r$} is in the \gls{kb} of $n$.
-Especially, the application that submitted the rule $r$ to the network is known as the rule originator $o$, and is represented by the triplet \triplet{$r$}{\concept{edr}{rule\-Originated\-From}}{$o$}.
+Especially, the application that submitted the rule $r$ to the network is known as the rule originator $o$, and is represented by the triple \triplet{$r$}{\concept{edr}{rule\-Originated\-From}}{$o$}.
 The originator of a rule is considered as a consumer of rule results, in order to enable deduction delivery to applications.
-The deduction delivery functionality is separated from the interest notification part of the announce functionality for flexibility.
+The deduction delivery functionality is separated from the interest notification part of the announcement functionality for flexibility.
 
 \paragraph{Send data:}
 \label{par:data_transfer}
 When node $n$ receives an observation of type $\rho_t$, if $n_p \in Upper(n)$ has declared its interest for this type, the observation is forwarded toward $n_{p}$.
 Observations are exchanged lazily: if a node $n$ receives an observation of type $\rho_t$, and knows no other node interest in such type, the observation is not forwarded.
-Such interest is represented in node $n$ \gls{kb} with the triplet \triplet{$n_{p}$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}.
-The notification of the interest is considered as a characteristic of the node, managed in the announce functionality.
+Such interest is represented in node $n$ \gls{kb} with the triple \triplet{$n_{p}$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}.
+The notification of the interest is considered as a characteristic of the node, managed in the announcement functionality.
 
 \paragraph{Propagate rule:}
 \label{par:send_rule}
 A node sends a rule to one of its neighbor if it considers that this neighbor is capable of applying the rule, such consideration being part of the rule deployment strategy. 
-In the case where rule $r$ should be propagated towards node $n_{target}$ by $n$, the triplet \triplet{$r$}{\concept{edr}{transferable\-To}}{$n_{target}$} is present in $n$'s \gls{kb}.
+In the case where rule $r$ should be propagated towards node $n_{target}$ by $n$, the triple \triplet{$r$}{\concept{edr}{transferable\-To}}{$n_{target}$} is present in $n$'s \gls{kb}.
 
 \subsubsection{Controlling nodes' characteristics propagation}
 \label{subsubs:annouce}
 
-The \gls{edr} algorithm depends on the exchanges between neighboring nodes of their mutual descriptions.
-The announcement functionality is dedicated to the exchange of such descriptions.
+The \gls{edr} algorithm depends on the exchanges between neighboring nodes of their mutual descriptions, enabled by the announcement functionality.
 However, presupposing of the nodes characteristics relevant to any deployment strategy that will be implemented to refine \gls{edr} is not possible.
 In order to remain agnostic to the deployment strategy, \gls{edr} relies on a dedicated vocabulary used to describe which of each node's characteristics should be announced to its neighbors. 
-A node has two types of neighbors: its parents, and its children, and since the parent is unique (according to our assumptions) while the children are potentially many, two approaches are devised.
+A node has two types of neighbors: its parent, and its children, and since the parent is unique (according to our assumptions) while the children are potentially many, two approaches are devised.
 
 \paragraph{Announcing characteristics to a node's parent:}
-Let us consider a node $n$, with a characteristic represented by a property $has\-Charac\-teris\-tic$ and captured in its knowledge base such that \triplet{$n$}{$has\-Charac\-teris\-tic$}{$\nu$}, with $\nu$ either a literal or an individual denoting the value of the characteristic for $n$.
-When announcing its characteristics to its parent, $n$ searches its \gls{kb} for all the triples where it is the subject, and the predicate is a predicate types as \concept{edr}{Parent\-Announced\-Property}.
+Let us consider a node $n$, with a characteristic represented by a property $has\-Charac\-teris\-tic$ and captured in its knowledge base such that \triplet{$n$}{$has\-Charac\-teris\-tic$}{$\nu$}, with $\nu$ either a literal or an individual. \removed{denoting the value of the characteristic for $n$}.
+When announcing its characteristics to its parent, $n$ searches its \gls{kb} for all the triples where it is the subject, and the predicate is typed as \concept{edr}{Parent\-Announced\-Property}.
 If the property $has\-Charac\-teris\-tic$ is such that \triplet{$has\-Charac\-teris\-tic$}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}, then the triple \triplet{$n$}{$has\-Charac\-teris\-tic$}{$\nu$} is part of the self description sent by the node $n$ to its parent because $has\-Charac\-teris\-tic$ is considered a relevant characteristic of $n$.
 
 \paragraph{Announcing characteristic to a node's children:}
-The announce mechanism from parent to children is quite similar to the one from children to parent, with the difference that children may be many.
+The announcement mechanism from parent to children is quite similar to the one from children to parent, with the difference that children may be many.
 Therefore, the class \concept{edr}{Children\-Announced\-Property} has two subclasses to distinguish two possible cases:
 \begin{itemize}
 	\item \concept{edr}{All\-Children\-Announced\-Property} denotes a characteristic that is systematically announced to all the node's children.
@@ -542,7 +563,7 @@ Therefore, the class \concept{edr}{Children\-Announced\-Property} has two subcla
 This distinction is made to give flexibility to the deployment strategy designers.
 
 In the case of a characteristic captured by a predicate of type \concept{edr}{Some\-Children\-Announced\-Property}, each child eligible to be proxyied the new characteristic must be represented explicitly with the predicate \concept{edr}{announce\-To}, which requires the reification of the announced characteristic.
-In order to be announced towards child node $n_{child}$, the triple \triplet{$n_{parent}$}{$hasCharacteristic$}{$\nu$} is transformed into the following reified statement: 
+In order to be announced towards child node $n_{child}$, the triple \triplet{$n_{parent}$}{$has\-Charac$}{$\nu$} is transformed into the following reified statement: 
 $statement$ $rdf$:$subject$ $n_{child};$ $rdf$:$predicate$ $c;$ $rdf$:$object$ $\nu;$ $edr$:$announceTo$ $n_{child}$. 
 The choice of the children to which the characteristic should be announced is application-specific, and is therefore part of the deployment strategy.
 As the rest of the deployment strategy, it is embedded in rules as it is described in Section \textsection \ref{subs:edr_rules}.
@@ -554,8 +575,7 @@ More details about this particular predicate is provided in Section \textsection
 \subsubsection{Propagating knowledge beyond neighbors}
 \label{subsubs:proxying}
 
-The basic functionalities only enable the communication of a node with its direct neighbors in the hierarchy, either parents or children (with the exception of deduction delivery).
-This enforces the neighbor-to-neighbor nature of the propagation enabled by \gls{edr}.
+\gls{edr} is designed for neighbor-to-neighbor rule and data propagation : a node only communicates with its direct neighbors in the hierarchy, either parent or children (with the exception of deduction delivery).
 However, such design may hamper the propagation of rules, by preventing the diffusion of knowledge required by the deployment strategy to make decisions so as to where the rules should be placed.
 If the characteristics of a node $n_{child}\in Lower(n)$ makes it adequate to apply a rule which is held by $n_{parent}\in Upper(n)$, but $n$ cannot apply the rule, $n_{parent}$ will not propagate the rule to $n$, preventing its eventual propagation to $n_{child}$.
 A complementary functionality is thus described by the \gls{edr} vocabulary to enable such diffusion of knowledge describing nodes capabilities: \textbf{proxying}.
@@ -565,7 +585,7 @@ In \gls{edr}, each reasoning-enabled node has a similar role, and proxies capabi
 Such proxying is bidirectional: the capabilities of a nodes parent are proxied towards its children, and the other way around.
 Specifically, node $n$ proxying a capability of $n_{parent}\in Upper(n)$ towards any $n_{child}\in Lower(n)$ means that $n$ announces such capability to $n_{child}$ as if it were its own.
 An example of proxied node characteristics, detailed in Section \textsection \ref{subsub:topology}, is the interest of a node for a data type, briefly introduced here for the sake of illustration.
-If a node $n$ wants to be notified whenever a temperature observation is available, it notifies its children $n_{child}\in Lower(n) $of such interest. 
+If a node $n$ wants to be notified whenever a temperature observation is available, it notifies its children $n_{child}\in Lower(n)$ of such interest. 
 If any child $n_{child}$ collects temperature observations, it will forward such observation towards $n$. 
 Moreover, each $n_{child}$ will in turn notify that it is \textbf{itself} interested in temperature observations to any node $n_{child}'\in Lower(n_{child})$.
 Any node $n_{child}'$ collecting a temperature observation will therefore send it to $n_{child}$, which will itself send such observation to $n$.
@@ -573,10 +593,10 @@ The characteristic of the initial node $n$ (here, the interest in temperature) h
 To support this mechanism, two classes of properties are defined in the \gls{edr} vocabulary: \concept{edr}{Parent\-Proxied\-Property}, and \concept{edr}{Children\-Proxied\-Property}.
 
 \paragraph{Characteristics proxied from children to parent:}
-Let us assume that node $n$ has a child $n_{child}$, and that $n_{child}$ has a characteristic expressed by the triplet \triplet{$n_{child}$}{$has\-Cha\-racteri\-stic$}{$\nu$}, that should be proxied towards $n_{parent}\in Upper(n)$.
-Such information about the predicate $\nu$ is materialized by the triplet \triplet{$has\-Characteri\-stic$}{\concept{rdf}{type}}{\concept{edr}{Parent\-Proxied\-Property}}.
+Let us assume that node $n$ has a child $n_{child}$, and that $n_{child}$ has a characteristic expressed by the triple \triplet{$n_{child}$}{$has\-Cha\-racteri\-stic$}{$\nu$}, that should be proxied towards $n_{parent}\in Upper(n)$.
+Such information about the predicate $\nu$ is materialized by the triple \triplet{$has\-Characteri\-stic$}{\concept{rdf}{type}}{\concept{edr}{Parent\-Proxied\-Property}}.
 When receiving description of $n_{child}$, $n$ checks for the presence of properties classified as \concept{edr}{Parent\-Proxied\-Property}. 
-Since $has\-Characteristic$ is such a property, the node $n$ updates its own representation towards its parents by sending the triple \triplet{$n$}{$has\-Characteri\-stic$}{$\nu$}, therefore proxying the capacity of $n_{child}$.
+Since $has\-Characteristic$ is such a property, the node $n$ updates its own representation towards its parent by sending the triple \triplet{$n$}{$has\-Characteri\-stic$}{$\nu$}, therefore proxying the capacity of $n_{child}$.
 
 \paragraph{Characteristics proxied from parent to children:}
 The proxying mechanism from parent to children is similar to the one from children to parent.
@@ -599,14 +619,15 @@ For instance, if a node $n$ did not announce its interest for a data type $\rho_
 Each of these modules enables some node functionalities:
 
 \begin{itemize}
+	\item The Rule propagation module triggers the rule forwarding functionality
+	\item The Result delivery module triggers the result delivery functionality
 	\item The Activation module triggers the rule application, the data consumption and the result delivery functionalities.
-	\item The Deduction delivery module triggers the result delivery functionality
-	\item The Rule transfer module triggers the rule forwarding functionality
+	\item The Rule core module contains the actual business logic of the rule
 \end{itemize}
 
 Therefore, the intelligence regarding rule deployment is located in the rules, and not hard-coded into \gls{edr} or statically attached to nodes. 
 The behavior of the algorithm at a global scale can thus be parameterized at a fine granularity, for each rule.
-Rules are represented in SHACL, and the modules are based on SHACL advances functionality named ``SHACL rules''.
+Rules are represented in SHACL, and the modules are based on SHACL advanced functionality named ``SHACL rules''.
 Each module is composed of two parts: a SHACL rule, that inserts deductions into the \gls{kb}, and a SHACL shape that determines whether the rule is applied or not. 
 An example rule is provided online \footnote{\url{https://w3id.org/laas-iot/edr/iiot/r1.ttl}}.
 In the remainder of this section, a generic description of these rule modules and their roles is given. 
@@ -634,7 +655,7 @@ The operational part of the rule, containing the application-dedicated inference
 The core module is based on a predicate logic rule used to deduce high-level information, similar to the rules introduced in the use case in Section \textsection \ref{sec:distribution_use_case}. 
 Let $r^{core}$ be such a rule core module, noted as $r^{core}: \Gamma_1 \land ... \land \Gamma_n \rightarrow \Delta_1 \land ... \land \Delta_m$, where $\Gamma_1 \land ... \land \Gamma_n$, designated as the \textbf{body} of $r^{core}$, is a conjunction of conditions and $\Delta_1 \land ... \land \Delta_m$, designated as the \textbf{head} of $r^{core}$, is a conjunction of deductions.
 The rule core module only encompasses applicative deduction logic: it is unrelated to the deployment of the rule.
-This module is only evaluated when the rule has been declared active on a node in the deployment process, \textit{i.e.} if the triple \triplet{$r$}{edr:is\-Rule\-Active}{true} is in the node's \gls{kb}.
+$r^{core}$ is only evaluated when the whole rule $r$ has been declared active on a node in the deployment process, \textit{i.e.} if the triple \triplet{$r$}{edr:is\-Rule\-Active}{true} is in the node's \gls{kb}.
 
 \paragraph{Rule transfer module}
 The \textbf{rule transfer module} determines on which remote nodes the rule may be deployed, according to a rule-specific deployment strategy.
@@ -655,7 +676,7 @@ The transfer module of a rule $r$ is denoted $r^{transfer}$.
 
 \paragraph{Rule activation module}
 The \textbf{activation module} detects if the current node is suitable to apply the rule itself. 
-If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, the activation of rule $r$ is made explicit by the triplet \triplet{$r$}{\concept{edr}{is\-Rule\-Active}}{true}.
+If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, the activation of rule $r$ is made explicit by the triple \triplet{$r$}{\concept{edr}{is\-Rule\-Active}}{true}.
 In the case where some node characteristics are conditionally proxied towards children (\concept{edr}{Some\-Children\-Proxied\-Property}), the rule activation module may infer reified statements as described in Section \textsection \ref{subsubs:proxying}. 
 This case is illustrated in more details in Section \textsection \ref{subs:edrt_modules}.
 The activation module of a rule $r$ is denoted $r^{activation}$.
@@ -678,9 +699,9 @@ If a remote node $n'$ is interested in the deductions made by rule $r$, the resu
 \subsubsection{Dynamically managing modules activation}
 
 The rule core must be computed each time a new observation is received by the node, in order to check if new deductions may be inferred.
-However, it is worth noting that the other rule modules only need to be evaluated when the rule is received, or when the topology evolves, \textit{e.g.,} with new productions by children, new consumptions by parents, or nodes connecting/disconnecting.
+However, it is worth noting that the other rule modules only need to be evaluated when the rule is received, or when the topology evolves, \textit{e.g.,} with new productions by children, new consumptions by parent, or nodes connecting/disconnecting.
 
-The SHACL standard is so that by default, when reasoning on a \gls{kb} containing SHACL shapes and rules, all of them are considered.
+The SHACL standard is so that by default, when reasoning on a \gls{kb} containing SHACL shapes and rules, all of them are considered\footnote{See Section \textsection 4.3 of the recommendation \url{https://www.w3.org/TR/shacl/\#validation-definition}}.
 In order to reduce the computation load, and to only process rule modules when needed, a SHACL functionality is used: the reasoner does not consider shapes or rules $r$ such that \triplet{$r$}{sh:deactivated}{true}.
 The modules of a rule $r$ are therefore only activated for a reasoning step when $r$ is received, or when the topology evolves.
 
@@ -811,7 +832,7 @@ Data produced by node $n$ is either collected by sensors to which $n$ is directl
 When a reasoning-enabled node is connected to a sensor, it enriches the raw observation, and propagates the enriched observation on the network, which ensures that the observation is only enriched once. 
 In the topology displayed on Fig. \ref{fig:edrpt_deployment}, the Fog node M111 is connected to a three sensors: $own\_productions(M111) = \{Presence, Luminosity, Activity\}$.
 An example of enriched observation is available online\footnote{\url{https://w3id.org/laas-iot/rules/observations/enriched_data.ttl}}.
-Observations and devices are described in each node's \gls{kb} using the IoT-O\cite{Seydoux2016} ontology for our experiments (\textit{c.f.} Section \textsection \ref{sec:experimentations}), but the proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata. 
+Observations and devices are described in each node's \gls{kb} using the IoT-O \cite{Seydoux2016} ontology for our experiments (\textit{c.f.} Section \textsection \ref{sec:experimentations}), but the proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata. 
 The production of observations by node $n$ for a property type $\rho_t$ is denoted \triplet{$n$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}. 
 
 \subsubsection{Node's knowledge on the topology}
@@ -824,23 +845,23 @@ Such characteristics include the types of the data produced by the node, as well
 
 \paragraph{Announcing productions:}
 The transmission of rules among nodes organized by \edrt is driven by the knowledge each node has on the network around itself.
-Productions are propagated from children to parents, denoted by the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
-Therefore, when a child node connects to its parent, it includes the triplets denoting its productions in its self-description. 
+Productions are propagated from children to parent, denoted by the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
+Therefore, when a child node connects to its parent, it includes the triples denoting its productions in its self-description. 
 
 In order to enable the propagation of rules towards nodes that are not direct neighbors, the proxying mechanism introduced in Section \textsection \ref{subsubs:proxying} is implemented for property types productions: \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Proxied\-Property}}.
 This mechanism makes a node aware of the types of properties produced by any node below its lower nodes while communicating only with its lower nodes, therefore ensuring the locality of its decisions.
 To illustrate the proxying in more details, let us define $productions(n)=own\_productions(n)\cup$\\$productions(Lower(n))$. 
 Node $n$ announces itself to its parent $n_{parent}$ as a producer of $\rho^{i}_t, \forall \rho^{i}_t\in productions(n)$, $\rho^{i}_t$ being the type of data produced by one of the sensors or lower nodes connected to $n$.
 For instance, on Fig. \ref{fig:edrpt_deployment}, $productions(C120) = \{Activity, Temperature\}$, with\\$own\_productions(C120) = \{Temperature\}$.
-If the parent node $n_{parent}$ was not a producer of the property type $\rho_t$, it includes a new triplet in its \gls{kb} \triplet{$n_{parent}$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}, and forwards this triplet to its own parent.
-If node $n_{parent}$ was already a producer for $rho_t$, its capabilities remain unchanged, and the information propagation stops.
+If the parent node $n_{parent}$ was not a producer of the property type $\rho_t$, it includes a new triple in its \gls{kb} \triplet{$n_{parent}$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}, and forwards this triple to its own parent.
+If node $n_{parent}$ was already a producer for $\rho_t$, its capabilities remain unchanged, and the information propagation stops.
 
 \paragraph{Announcing consumptions:}
 As it has been discussed in Section \textsection \ref{par:data_transfer}, in order to limit unnecessary exchanges, data is exchanged lazily based on the node consumption announcement functionality.
 A node $n$ has to explicitly advertise its interest for a property type $\rho_{t}$ to each node belonging to $Lower(n)$ in order to be notified when new observations are received or new deductions are made. 
 In particular, a node is interested in a property type $\rho_{t}$ when it is in charge of applying a rule whose body includes $\rho_{t}$. 
 Identifying if $\rho_t \in body_t(r)$ is based on \gls{iri} comparisons. 
-The interest of a node $n$ for a property type $\rho_t$ is represented in the \gls{kb} by the triplet \triplet{$n_p$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}, and \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Some\-Children\-Announced\-Property}}.
+The interest of a node $n$ for a property type $\rho_t$ is represented in the \gls{kb} by the triple \triplet{$n_p$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}, and \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Some\-Children\-Announced\-Property}}.
 Indeed, when a node applies a rule $r$ and is thus interested in the properties $\rho_t \in head_t(r)$, it does not necessarily notify this interest to all of its children.
 
 The interest of $n$ for $\rho_t$ is only announced to children of $n$ that are producers of $\rho_t$.
@@ -972,7 +993,7 @@ SELECT $this WHERE {
 \end{lstlisting}
 
 If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, some deductions are inferred. 
-The activity of rule $r$ is made explicit by the triplet \triplet{$r$}{\concept{edr}{isRuleActive}}{true}, and the nodes $n'\in \mathcal{P}$ are identified as providers of the data type which $r$ now consumes. 
+The activity of rule $r$ is made explicit by the triple \triplet{$r$}{\concept{edr}{isRuleActive}}{true}, and the nodes $n'\in \mathcal{P}$ are identified as providers of the data type which $r$ now consumes. 
 The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partial\-Data\-Provider} triple in the SHACL rule.
 The object of the interest, represented as a reified statement, will be bound to any partial production of the rule head by a child of $n$.
 The interest of the rule originator $o$ is also denoted with \triplet{$o$}{\concept{edr}{consumes\-Result}}{$r$}.
@@ -1075,8 +1096,10 @@ Based on the deductions produced by this reasoning step, some node functionaliti
 %The propagation of a new piece of data is represented as a sequence diagram on Fig. \ref{fig:seq_temperatureobservation}.
 Different kinds of data can be received by node $n$:
 \begin{itemize}
-	\item raw observations directly produced by a sensor connected to $n$%, as for the observation sent by the sensor to R111 on Fig. \ref{fig:seq_temperatureobservation}
-	\item enriched observation or deduction sent to $n$ by node $n_c \in Lower(n)$%, as for the observation sent by R111 to G110 on Fig. \ref{fig:seq_temperatureobservation}
+	\item raw observations directly produced by a sensor connected to $n$
+	%, as for the observation sent by the sensor to R111 on Fig. \ref{fig:seq_temperatureobservation}
+	\item enriched observation or deduction sent to $n$ by node $n_c \in Lower(n)$
+	%, as for the observation sent by R111 to G110 on Fig. \ref{fig:seq_temperatureobservation}
 \end{itemize}
 If the received observation is raw, node $n$ enriches it by annotating it with an ontology before its processing as a new enriched observation. 
 If the piece of data is either an enriched observation or a deduction, it is directly integrated to its \gls{kb} and processed. 
@@ -1100,7 +1123,7 @@ Therefore, applications are notified continuously by the nodes as those nodes ap
 \section{Experimentation}
 \label{sec:experimentations}
 \gls{edr} being a generic approach, it cannot be subjected to a quantitative evaluation by itself: it must be refined by a concrete approach implementing a deployment strategy. 
-Therefore, the evaluations presented in this section are dedicated to \edrt, refining \gls{edr} with a a deployment strategy aiming at \textbf{reducing the deduction delivery delay}.
+Therefore, the evaluations presented in this section are dedicated to \edrt, refining \gls{edr} with a deployment strategy aiming at \textbf{reducing the deduction delivery delay}.
 
 In order to compare the proposed contribution to a panel of baselines, different delivery mechanisms are introduced in Section \textsection \ref{sec:deductions_propagation_strategies}. 
 By default, \edrt delivers deductions directly to applications. 
@@ -1146,7 +1169,7 @@ Five deduction delivery mechanisms are compared in our experiments:
 	To modify the result delivery behavior, whenever a node propagates a rule, it declares itself as the originator of said rule instead of the previously registered originator.
 	Processing rules based on semantic Fog computing means that the propagation of observations is limited to the Fog nodes applying rules consuming such observations, instead of going all the way up the Cloud node.
 	
-	\item \textbf{\gls{cdp}} is a another hybrid mechanism where rules are processed by Fog nodes, but deductions are delivered directly to the Cloud node instead of applications.
+	\item \textbf{\gls{cdp}} is another hybrid mechanism where rules are processed by Fog nodes, but deductions are delivered directly to the Cloud node instead of applications.
 	It is the Cloud node that performs the delivery to applications.
 	In this case, the purpose is to measure the impact of centralized delivery in a decentralized reasoning context.
 	To implement \gls{cdp}, when forwarding a rule it has received, the Cloud node declares itself as the originator instead of the application.
@@ -1205,19 +1228,20 @@ In order to measure the tradeoff between decentralization and the loss of comput
 \begin{itemize}
 	\item In the first case, the complete topology is emulated on the same server, each node being run as an individual process. 
 	This environment is referred to as ``\textbf{single-host execution}''.
-	Such execution environment eases tests.
+	Such execution environment makes testing more practical.
 	\item In the second case, the topology is distributed across different machines listed on Tab. \ref{tab:setup}.
 	This environment is referred to as ``\textbf{multi-host execution}''.
 	Such execution environment is more realistic than single-host execution, since it includes constrained nodes.
-	However, the feasibility of large scale experimentation on such decentralized environments is limited, since it requires multiple machines.
-	The necessity to run the experiments on multiple machines at the same time also creates technical issues making the testing process more complex.
+	\added{However, large scale experimentation on such decentralized environments is harder to achieve, since it requires multiple machines.
+	Ideally, each node should be executed on a separate computing system, but this would require too much resources.
+	We compromised by executing multiple nodes on a single constrained machine.
+	The necessity to run the experiments on multiple machines at the same time also creates technical issues making the testing process more complex.}
 \end{itemize} 
 
 \subsubsection{Software setup}
 
 The use case topology is simulated for the experiments.
 Simulated nodes are organized in a tree-like hierarchy, with a Cloud node at the root, sensors at the leaves, and Fog nodes in between.
-Each sensor pushes a random observation to its parent every two seconds.
 Each physical machine running the simulation hosts multiple virtual nodes, composed of an HTTP server, a \gls{kb}, a SPARQL engine, and a code base\footnote{The code is available at \url{https://framagit.org/nseydoux/edr}}.
 
 Experiments are run by simulating a building setup with sensors generating raw data. 
@@ -1225,7 +1249,8 @@ To enable the deployment on multiple machines, each node is implemented as a sta
 To enable scalable experiments, sensors are implemented as multiple threads of one process, otherwise the RAM overhead for having an HTTP stack deployed for each sensor prevents from deploying large topologies.
 Therefore, to enable replaying exactly the same sequence of observations, it would have been necessary to synchronize more than 400 threads since the order in which observations are received impacts the obtained result. 
 We were not able to ensure such synchronization without reducing the rate at which observations are produced by sensors.
-That is why all the results are collected on simulated topologies.
+That is why all the results are \added{simulated by generating data.
+Each sensor pushes a random observation to its parent every two seconds, and each simulation is run for five minutes.}
 
 \subsubsection{Measured results}
 
@@ -1275,18 +1300,36 @@ All the rules' SHACL representation are available online\footnote{\url{https://w
 	\scalebox{0.95}{
 		\begin{tabular}{ll}
 			\textbf{Rule ID} & \multicolumn{1}{c}{\textbf{Rule core}} \\ \hline
-			\pbox{2cm}{\textbf{R1}: Low Machine Visibility}& \pbox{20cm}{$Location(?l) \land Presence(?l, ?o_1) \land ?o_1 = True \land Luminosity(?l, ?o_2) \land ?o_2 < 300L \land Machine(?m) $\\$ \land Activity(?m, ?o_3) \land ?o_3 = True \land locatedIn(?m, ?l) \rightarrow LowMachineVisibility(?m)$}\\ \hline
-			\pbox{2cm}{\textbf{R2}: Low Conveyor Visibility}& \pbox{20cm}{$Location(?l) \land Presence(?l, ?o_1) \land ?o_1 = True \land Luminosity(?l, ?o_2) \land ?o_2 < 300L \land Conveyor(?c) $\\$ \land Activity(?c, ?o_3) \land ?o_3 = True \land locatedIn(?c, ?l) \rightarrow LowConveyorVisibility(?c)$}\\ \hline
-			\pbox{2cm}{\textbf{R3}: No supervision}& \pbox{20cm}{$Location(?l) \land Presence(?l, ?o_1) \land ?o_1 = False \land Conveyor(?c) \land Activity(?c, ?o_3) \land ?o_3 = True $\\$ \land locatedIn(?c, ?l) \land SupervisorPost(?s) \land supervises(?s, ?c) \rightarrow NoSupervision(?c)$}\\ \hline
-			\pbox{2cm}{\textbf{R4}: Fire hazard}& \pbox{20cm}{$Location(?l) \land ParticleLevel(?l, ?o_1) \land ?o_1 > 25\% \land SparkMachine(?m) \land Activity(?m, ?o_3) \land $\\$ ?o_3 = True \land locatedIn(?m, ?l) \rightarrow Firehazard(?m) $}\\ \hline
-			\pbox{2cm}{\textbf{R5}: Cold chain broken}& \pbox{20cm}{$Location(?l) \land Temperature(?l, ?o_1) \land ?o_1>6^oC \land TemperatureSensitiveMachine(?m) \land  $\\$ Activity(?m, ?o_3) \land ?o_3 = True \land locatedIn(?l, ?m) \rightarrow ColdChainBroken(?m) $}\\ \hline
-			\pbox{2cm}{\textbf{R6}: Conveyor too fast}& \pbox{20cm}{$Conveyor(?c) \land Machine(?m) \land onConveyor(?m, ?c) \land MachineSpeed(?m, ?s_m) \land $\\$ ConveyorSpeed(?c, ?s_c)  \land ?s_c > ?s_m \rightarrow ConveyorTooFast(?c) $}\\ \hline
-			\pbox{2cm}{\textbf{R7}: Low quality product}& \pbox{20cm}{$Machine(?m) \land ProductQuality(?m, ?o_1) \land ?o_1 < 98.5 \rightarrow LowQualityProduct(?m) $}\\ \hline
+			\pbox{2cm}{\textbf{R1}: Low Machine Visibility}& \pbox{20cm}{$Location(?l) \land presence(?l, ?o_1) \land ?o_1 = True \land luminosity(?l, ?o_2) \land ?o_2 < 300L \land Machine(?m) $\\$ \land activity(?m, ?o_3) \land ?o_3 = True \land locatedIn(?m, ?l) \rightarrow LowMachineVisibility(?m)$}\\ \hline
+			\pbox{2cm}{\textbf{R2}: Low Conveyor Visibility}& \pbox{20cm}{$Location(?l) \land presence(?l, ?o_1) \land ?o_1 = True \land luminosity(?l, ?o_2) \land ?o_2 < 300L \land Conveyor(?c) $\\$ \land activity(?c, ?o_3) \land ?o_3 = True \land locatedIn(?c, ?l) \rightarrow LowConveyorVisibility(?c)$}\\ \hline
+			\pbox{2cm}{\textbf{R3}: No supervision}& \pbox{20cm}{$Location(?l) \land presence(?l, ?o_1) \land ?o_1 = False \land Conveyor(?c) \land activity(?c, ?o_3) \land ?o_3 = True $\\$ \land locatedIn(?c, ?l) \land SupervisorPost(?s) \land supervises(?s, ?c) \rightarrow NoSupervision(?c)$}\\ \hline
+			\pbox{2cm}{\textbf{R4}: Fire hazard}& \pbox{20cm}{$Location(?l) \land particleLevel(?l, ?o_1) \land ?o_1 > 25\% \land SparkMachine(?m) \land activity(?m, ?o_3) \land $\\$ ?o_3 = True \land locatedIn(?m, ?l) \rightarrow Firehazard(?m) $}\\ \hline
+			\pbox{2cm}{\textbf{R5}: Cold chain broken}& \pbox{20cm}{$Location(?l) \land temperature(?l, ?o_1) \land ?o_1>6^oC \land TemperatureSensitiveMachine(?m) \land  $\\$ activity(?m, ?o_3) \land ?o_3 = True \land locatedIn(?l, ?m) \rightarrow ColdChainBroken(?m) $}\\ \hline
+			\pbox{2cm}{\textbf{R6}: Conveyor too fast}& \pbox{20cm}{$Conveyor(?c) \land Machine(?m) \land onConveyor(?m, ?c) \land machineSpeed(?m, ?s_m) \land $\\$ conveyorSpeed(?c, ?s_c)  \land ?s_c > ?s_m \rightarrow ConveyorTooFast(?c) $}\\ \hline
+			\pbox{2cm}{\textbf{R7}: Low quality product}& \pbox{20cm}{$Machine(?m) \land productQuality(?m, ?o_1) \land ?o_1 < 98.5 \rightarrow LowQualityProduct(?m) $}\\ \hline
 		\end{tabular}
 	}
 	\caption{Safety and quality rules}
 	\label{tab:factory_rules}
 \end{table*}
+
+\added{
+As it is stated in Section \textsection \ref{subsubs:annouce}, the \edr approach, and by extension \edrt, is agnostic to the vocabulary used to describe nodes characteristics. 
+For this use case, only a few properties were needed, as shown in Lst. \ref{lst:node_desc}. 
+\lstinputlisting[float, caption=\added{Description of a node}, label=lst:node_desc]{listings/node_description.ttl}
+The description of the node mainly encompasses its neighbors (with \texttt{lmu:} properties), its API (with \concept{iotl}{exposes}), and its capabilities (\concept{edr}{producesDataOn}).
+As shown in a dump available online\footnote{\url{https://w3id.org/laas-iot/edrt/node_kb_dump.ttl}}, a node's knowledge base includes such a self-description along with ontologies, similar description for its neighbors, and observed data. 
+Lst. \ref{lst:observation} shows a snippet of observed data, mainly described with the legacy version of the \texttt{ssn:} ontology. 
+\lstinputlisting[float, caption=\added{Exchanged sensor observations}, label=lst:observation]{listings/node_description.ttl}
+The proposed approach depends on the observation representation, that is why a standard vocabulary has been chosen. 
+In future versions, \edr will be updated to be compliant with the updated version of SSN, SSN/SOSA\footnote{\url{http://www.w3.org/ns/sosa/}}. 
+In the implemented simulation, data is produced in the form of CSV records by sensors, that are sent over HTTP to the subscribing node's API.
+The CSV schema mimics the schema observed in the actual deployment of ADREAM, a smart building producing publicly available data\footnote{\url{https://syndream.laas.fr:8082/}}: \texttt{chrono,name,value,quality,comment}.
+The last two headers are ad-hoc to ADREAM, and they are not used in this experiment, and the other are self-explanatory.
+This raw data is enriched thanks to a SPARQL-Generate query, a sample of which is show in Lst. \ref{lst:enrichment}\footnote{\added{The complete query is available in the source code of EDR: node/\-queries/\-data/\-enrich\_data.sparql}}. 
+\lstinputlisting[float, caption=\added{Enrichment query snippet}, label=lst:enrichment]{listings/enrichment.sparql}
+}
+
 
 \subsection{Scalability of the proposed approach}
 \label{subs:factory_scalability}
@@ -1395,7 +1438,6 @@ Due to scaling issues, results are separated in several figures:
 			\input{figures/results/factory/boxplot_scala_processed_rpi_1.pgf}
 		}
 	\end{minipage}
-	%	\end{minipage}
 	\begin{minipage}{0.329\textwidth}
 		\Centering
 		\subcaption{\Centering Multi-host execution (RPi 2)}
@@ -1413,7 +1455,7 @@ However, in topologies s1 and s2, the gap between centralized and distributed ap
 The deduction time is multiplied by more than 20 from s0 to s2, while the relative share of reasoning time contributing to the delay decreases, as shown on Fig. \ref{fig:breakout_delays_rpi}.
 The transit times are the ones to increase relatively the most, which denotes a network overflow over a computing saturation on the centralized reasoning node.
 
-An delay increase is also observed for distributed delivery strategies in the single-host execution environment, but it is much smaller, as seen on Fig. \ref{fig:scalability_processed_syn}.
+A delay increase is also observed for distributed delivery strategies in the single-host execution environment, but it is much smaller, as seen on Fig. \ref{fig:scalability_processed_syn}.
 In the multi-host execution environment, there is a performance difference between direct and indirect delivery mechanisms.
 Even though overall the increase in the number of node has little impact on the measured delays, the delays measured in the \gls{cip} configurations are much longer than in \gls{cdp} or \gls{adp}. 
 
@@ -1423,7 +1465,7 @@ This conclusion is also strengthen by the fact that, if the Raspberry Pis 3 are 
 On Fig. \ref{fig:breakout_delays_rpi}, among the three decentralized delivery mechanisms, \gls{cip} has the least important relative transfer time dedicated to reasoning.
 This is coherent with the fact that more deductions are forwarded by the constrained nodes rather than deduced directly by it, since it is at depth 1 in the topology, and it is only connected to few sensors compared to conveyor or machine nodes.
 
-Approaches promoting direct communication, \textit{i.e.} \gls{cdr} and \gls{cdp}, perform better that their indirect counterparts, respectively \gls{cir}, \gls{cip}.
+Approaches promoting direct communication, \textit{i.e.} \gls{cdr} and \gls{cdp}, perform better than their indirect counterparts, respectively \gls{cir}, \gls{cip}.
 This is an expected result, as direct communication reduces the number of hops required for a message (be it an observation or a deduction) to reach its target.
 
 \begin{figure*}
@@ -1597,10 +1639,10 @@ This is discussed in details in Section \textsection \ref{subs:discussion}
 \label{subs:discussion}
 
 When increasing the distribution of rule execution in the multi-host experimentation environment, a degradation of the performances is observed.
-An explanation for this phenomenon is the saturation of the Fog node passed a certain work load, the tipping point being crossed around d'3 (see Fig. \ref{fig:factory_distribution_processed_rpi}). 
+An explanation for this phenomenon is the saturation of the Fog node passed a certain work load, the tipping point being crossed around d3 (see Fig. \ref{fig:factory_distribution_processed_rpi}). 
 Rules executed deeper are processed by constrained Fog nodes, and passed a certain load, the benefits of the distribution are compensated by the limitations of their processing capabilities.
 
-The progressive relative increase of the idle time when increasing distribution, seen when comparing d'3 an d'4 on Fig. \ref{fig:factory_distribution_breakout_syn} and Fig. \ref{fig:factory_distribution_breakout_rpi}, supports this hypothesis.
+The progressive relative increase of the idle time when increasing distribution, seen when comparing d3 an d4 on Fig. \ref{fig:factory_distribution_breakout_syn} and Fig. \ref{fig:factory_distribution_breakout_rpi}, supports this hypothesis.
 To this regard, the \edrt technique has a naive approach, where the capabilities of the Fog nodes are not considered in the deployment process.
 The obtained results are encouraging, especially in terms of scalability, and moreover the proposed experimentation aims at creating extreme conditions, by distributing the rules as much as possible.
 The obtained topology is not necessarily an accurate reflection of what would be deployed in a real-world application, and it is designed to show a trend rather than to be applied as is.
@@ -1651,9 +1693,13 @@ A simulated smart factory use case has been considered, executed on a powerful s
 Decentralized delivery mechanisms outperform centralized ones: \gls{qos} is less degraded when the number of nodes increase in a distributed reasoning setting.
 Similarly, the enablement of a more widespread distribution of rules by a modification of the sensors deployment have not improved \gls{qos} with a centralized delivery mechanism.
 The complementarity of Fog and Cloud paradigms is also supported by the results of our approach: there is an improvement of performances even in cases where deductions are forwarded to a Cloud node, and not directly to applications, compared to a centralized reasoning approach.
-Therefore, unloading the Cloud infrastructure by performing semantic Fog computing, while considering the Cloud node both as a computation resource and as an stable Web endpoint for applications enables scalable deployments for the \gls{swot}.
+Therefore, unloading the Cloud infrastructure by performing semantic Fog computing, while considering the Cloud node both as a computation resource and as a stable Web endpoint for applications enables scalable deployments for the \gls{swot}.
 
 However, not considering the resources available in the Fog showed limitations, and in future work we intend to develop distribution strategies able to perform load balancing between Cloud and Fog nodes based on nodes capabilities.
+\added{
+The impact of the changes in the underlying network on the deployment is not evaluated in this paper.
+The dynamicity of \edr is shown by construction, but future work shall include a detailed evaluation of the performances of this adaptation mechanism.
+}
 The genericity of the \edr approach enables such extensions to be developed without modifying the core algorithm.
 Likewise, future work include the development of a privacy-aware deployment strategy for \edr.
 Indeed, in the strategy implemented by \edrt, a complete cooperation is assumed between nodes, and there are no guarantees regarding the scope of data exchange.
@@ -1662,6 +1708,27 @@ The distributed nature of \edr fosters a paradigm shift: data producers can beco
 Instead of sending their data to service providers, data owners are provided with rules, and only reveal to remote nodes part of their data.
 In the past years, multiple security breaches have been revealed, and enabling users to regain control over their data might restore the trust users need to have regarding the systems that are deployed in their environment.
 Distributing reasoning driven by a privacy-aware strategy would be a first step towards safer, more user-friendly \gls{iot} systems.
+
+\appendix
+
+\section{Namespaces}
+\label{app:namespaces}
+\begin{table}
+	\begin{tabular}{r|l}
+		Prefix & Namespace\\ \hline
+			ssn: & {\footnotesize \url{http://purl.oclc.org/NET/ssnx/ssn}}\\
+			rdf: & {\footnotesize \pbox{5cm}{\Centering \texttt{http://www.w3.org/1999/02/}\\ \texttt{22-rdf-syntax-ns\#}}} \\
+			owl: & {\footnotesize \url{http://www.w3.org/2002/07/owl#}}\\
+			lmu: & {\footnotesize \url{https://w3id.org/laas-iot/lmu#}}\\
+			iotl: &{\footnotesize  \pbox{5cm}{\Centering \texttt{http://iot.ee.surrey.ac.uk/fiware}\\ \texttt{/ontologies/iot-lite\#}}} \\
+			ex: &  {\footnotesize \url{http://example.com/ns#}}\\
+			edr: & {\footnotesize \url{https://w3id.org/laas-iot/edr#}}\\
+			edrt: & {\footnotesize \url{https://w3id.org/laas-iot/edrt#}}\\
+			dul: & {\footnotesize \pbox{5cm}{\Centering \texttt{http://www.ontologydesignpatterns}\\ \texttt{.org/ont/dul/DUL.owl\#}}} \\
+			adr: & {\footnotesize \pbox{5cm}{\Centering \texttt{https://w3id.org/laas-iot/adream\#}}}
+	\end{tabular}
+	\caption{Namespaces referenced in this paper, and the associated prefixes}
+\end{table}
 
 
 \bibliographystyle{plainnat}

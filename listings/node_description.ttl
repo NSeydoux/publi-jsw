@@ -1,0 +1,7 @@
+ex:floor0002 a lmu:Node;
+        iotl:exposes ex:floor0002Service ;
+        edr:producesDataOn adr:Presence;
+        lmu:hasDownstreamNode ex:gallery0006, ex:sensor0003 ;
+        lmu:hasUpstreamNode ex:building0001 ;
+        lmu:reasoningNode true ;
+        ioto:hasId "floor0002" .

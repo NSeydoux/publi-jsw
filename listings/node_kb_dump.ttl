@@ -1,0 +1,291 @@
+@prefix :      <https://w3id.org/laas-iot/edr/iiot/factory#> .
+@prefix san:   <http://www.irit.fr/recherches/MELODI/ontologies/SAN#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix fn:    <http://w3id.org/sparql-generate/fn/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iter:  <http://w3id.org/sparql-generate/iter/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix edrt:  <http://w3id.org/laas-iot/edrt#> .
+@prefix ssn:   <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix iotl:  <http://iot.ee.surrey.ac.uk/fiware/ontologies/iot-lite#> .
+@prefix ioto:  <https://www.irit.fr/recherches/MELODI/ontologies/IoT-O#> .
+@prefix edr:   <http://w3id.org/laas-iot/edr#> .
+@prefix ex:    <http://example.com/ns#> .
+@prefix lmu:   <http://w3id.org/laas-iot/lmu#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
+@prefix dul:   <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+
+:Machine211  a       :ColdSensitiveMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor21 .
+
+ex:floor0002supervisor_presence
+        a                 <https://w3id.org/laas-iot/adream#SupervisorPresence> ;
+        ssn:isPropertyOf  :F1 .
+
+ex:sensor0003e3dff9e3-594a-486f-a042-380ccdb98d44_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor0003e3dff9e3-594a-486f-a042-380ccdb98d44_out ;
+        ssn:observedBy         ex:sensor0003 ;
+        ssn:observedProperty   ex:floor0002presence ;
+        edr:receivedAt         "2019-05-16T19:44:07.390+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T194407.35402 .
+
+:Machine111  a       :SparkGeneratingMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor11 .
+
+<https://w3id.org/laas-iot/adream#Presence>
+        rdfs:subClassOf  ssn:Property .
+
+:Conveyor12  a      :Conveyor , owl:NamedIndividual ;
+        :locatedIn  :F1 .
+
+:Factory  a              owl:Class ;
+        rdfs:label       "Factory"@en ;
+        rdfs:subClassOf  :Building .
+
+:Machine231  a       :ColdSensitiveMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor23 .
+
+:ColdSensitiveMachine
+        a                owl:Class ;
+        rdfs:subClassOf  :Machine .
+
+:inArea  a                  owl:ObjectProperty ;
+        rdfs:label          "in area"@en ;
+        rdfs:subPropertyOf  :locatedIn .
+
+edr:isInterestedIn  a  edr:SomeChildrenAnnouncedProperty , edr:ChildrenProxiedProperty .
+
+ex:floor0002  a                lmu:Node , lmu:HostNode ;
+        iotl:exposes           ex:floor0002Service ;
+        edr:producesDataOn     <https://w3id.org/laas-iot/adream#SupervisorPresence> , <https://w3id.org/laas-iot/adream#Presence> , <https://w3id.org/laas-iot/adream#Luminosity> ;
+        lmu:hasDownstreamNode  ex:gallery0006 , ex:gallery0015 , ex:sensor0003 , ex:sensor0005 , ex:sensor0004 ;
+        lmu:hasUpstreamNode    ex:building0001 ;
+        lmu:reasoningNode      true ;
+        ioto:hasId             "floor0002" .
+
+ex:sensor000517477f3b-70b0-4c68-aa0d-886a04d98cee_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor000517477f3b-70b0-4c68-aa0d-886a04d98cee_out ;
+        ssn:observedBy         ex:sensor0005 ;
+        ssn:observedProperty   ex:floor0002luminosity ;
+        edr:receivedAt         "2019-05-16T19:44:07.320+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T194407.24002 .
+
+:Conveyor  a             owl:Class ;
+        rdfs:label       "Conveyor"@en ;
+        rdfs:subClassOf  :ManufacturingEntity .
+
+ex:sensor0003e3dff9e3-594a-486f-a042-380ccdb98d44_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor0003e3dff9e3-594a-486f-a042-380ccdb98d44_val .
+
+:Machine123  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor12 .
+
+:Floor  a                owl:Class ;
+        rdfs:subClassOf  :BuildingArea .
+
+ex:floor0002luminosity
+        a                 <https://w3id.org/laas-iot/adream#Luminosity> ;
+        ssn:isPropertyOf  :F1 .
+
+:SparkGeneratingMachine
+        a                owl:Class ;
+        rdfs:subClassOf  :Machine .
+
+:Conveyor11  a      :Conveyor , owl:NamedIndividual ;
+        :locatedIn  :F1 .
+
+ioto:hasId  a   edr:AllChildrenAnnouncedProperty , edr:ParentAnnouncedProperty .
+
+ex:sensor0004bc02ae05-f86d-4fa8-9c17-9d6352cc392d_obs
+        a                      ssn:Observation ;
+        ssn:observationResult  ex:sensor0004bc02ae05-f86d-4fa8-9c17-9d6352cc392d_out ;
+        ssn:observedBy         ex:sensor0004 ;
+        ssn:observedProperty   ex:floor0002supervisor_presence ;
+        edr:receivedAt         "2019-05-16T19:44:07.392+02:00"^^xsd:dateTime ;
+        san:hasDateTime        ex:20190516T194407.35202 .
+
+:Machine  a              owl:Class ;
+        rdfs:label       "Machine"@en ;
+        rdfs:subClassOf  :ManufacturingEntity .
+
+:Machine222  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor22 .
+
+:Machine122  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor12 .
+
+ex:sensor000517477f3b-70b0-4c68-aa0d-886a04d98cee_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor000517477f3b-70b0-4c68-aa0d-886a04d98cee_val .
+
+:Conveyor23  a      :Conveyor , owl:NamedIndividual ;
+        :locatedIn  :F2 .
+
+:onConveyor  a      owl:ObjectProperty ;
+        rdfs:label  "on conveyor"@en .
+
+ex:sensor0003e3dff9e3-594a-486f-a042-380ccdb98d44_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "1.0"^^xsd:float .
+
+ex:gallery0006Service
+        a              iotl:Service ;
+        iotl:endpoint  "http://localhost:6006"^^xsd:anyURI ;
+        iotl:isOnline  true .
+
+ex:sensor0004bc02ae05-f86d-4fa8-9c17-9d6352cc392d_out
+        a             ssn:SensorOutput ;
+        ssn:hasValue  ex:sensor0004bc02ae05-f86d-4fa8-9c17-9d6352cc392d_val .
+
+iotl:exposes  a  edr:ParentAnnouncedProperty .
+
+:F1Supervision  a   :SupervisingPost , owl:NamedIndividual ;
+        :locatedIn  :F1 .
+
+<https://w3id.org/laas-iot/adream#SupervisorPresence>
+        rdfs:subClassOf  ssn:Property .
+
+edr:producesDataOn  a  edr:ParentAnnouncedProperty , edr:ParentProxiedProperty .
+
+ex:sensor0005  a             ssn:Sensor ;
+        ssn:observes         ex:floor0002luminosity ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#Luminosity> ;
+        lmu:hasUpstreamNode  ex:floor0002 ;
+        lmu:reasoningNode    false .
+
+:Machine221  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor22 .
+
+<https://w3id.org/laas-iot/adream#Luminosity>
+        rdfs:subClassOf  ssn:Property .
+
+:F2     a           :Floor , owl:NamedIndividual ;
+        :locatedIn  :myFactory .
+
+:Machine121  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor12 .
+
+ex:floor0002Service  a  iotl:Service ;
+        iotl:endpoint  "http://localhost:6002"^^xsd:anyURI ;
+        iotl:isOnline  true .
+
+:Conveyor22  a      :Conveyor , owl:NamedIndividual ;
+        :locatedIn  :F2 .
+
+:locatedIn  a       owl:ObjectProperty ;
+        rdfs:label  "located in"@en .
+
+ex:sensor000517477f3b-70b0-4c68-aa0d-886a04d98cee_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "826.9641"^^xsd:float .
+
+ex:gallery0015  a            lmu:Node ;
+        iotl:exposes         ex:gallery0015Service ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#ConveyorState> , <https://w3id.org/laas-iot/adream#Presence> ;
+        lmu:hasUpstreamNode  ex:floor0002 ;
+        ioto:hasId           "gallery0015" .
+
+:Machine113  a       :SparkGeneratingMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor11 .
+
+ex:sensor0004bc02ae05-f86d-4fa8-9c17-9d6352cc392d_val
+        a                 ssn:ObservationValue ;
+        dul:hasDataValue  "0.0"^^xsd:float .
+
+ex:20190516T194407.35402
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T19:44:07.354+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T19:44:07.354+02"^^xsd:dateTime .
+
+:ManufacturingEntity  a  owl:Class ;
+        rdfs:label  "Manufacturing entity"@en .
+
+ex:sensor0004  a             ssn:Sensor ;
+        ssn:observes         ex:floor0002supervisor_presence ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#SupervisorPresence> ;
+        lmu:hasUpstreamNode  ex:floor0002 ;
+        lmu:reasoningNode    false .
+
+:F1     a           :Floor , owl:NamedIndividual ;
+        :locatedIn  :myFactory .
+
+:BuildingArea  a    owl:Class ;
+        rdfs:label  "Building area"@en .
+
+ex:floor0002presence  a   <https://w3id.org/laas-iot/adream#Presence> ;
+        ssn:isPropertyOf  :F1 .
+
+:Room   a                owl:Class ;
+        rdfs:label       "Room"@en ;
+        rdfs:subClassOf  :BuildingArea .
+
+ex:20190516T194407.35202
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T19:44:07.352+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T19:44:07.352+02"^^xsd:dateTime .
+
+:Conveyor21  a      :Conveyor , owl:NamedIndividual ;
+        :locatedIn  :F2 .
+
+ex:gallery0015Service
+        a              iotl:Service ;
+        iotl:endpoint  "http://localhost:6015"^^xsd:anyURI ;
+        iotl:isOnline  true .
+
+:Building  a        owl:Class ;
+        rdfs:label  "Building"@en .
+
+:F2Supervision  a   :SupervisingPost , owl:NamedIndividual ;
+        :locatedIn  :F2 .
+
+:Machine212  a       :ColdSensitiveMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor21 .
+
+ex:building0001Service
+        a              iotl:Service ;
+        iotl:endpoint  "http://localhost:6001"^^xsd:anyURI ;
+        iotl:isOnline  true .
+
+:Machine112  a       :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor11 .
+
+ex:building0001  a             lmu:Node ;
+        iotl:exposes           ex:building0001Service ;
+        lmu:hasDownstreamNode  ex:floor0002 ;
+        ioto:hasId             "building0001" .
+
+ex:20190516T194407.24002
+        a           time:Instant ;
+        rdfs:label  "2019-05-16T19:44:07.240+02" ;
+        <http://www.irit.fr/recherches/MELODI/ontologies/IoT-O#hasTimeStamp>
+                "2019-05-16T19:44:07.240+02"^^xsd:dateTime .
+
+:SupervisingPost  a      owl:Class ;
+        rdfs:subClassOf  :Room .
+
+ex:sensor0003  a             ssn:Sensor ;
+        ssn:observes         ex:floor0002presence ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#Presence> ;
+        lmu:hasUpstreamNode  ex:floor0002 ;
+        lmu:reasoningNode    false .
+
+:Machine232  a       :ColdSensitiveMachine , :Machine , owl:NamedIndividual ;
+        :onConveyor  :Conveyor23 .
+
+<https://w3id.org/laas-iot/edr/iiot/factory>
+        a       owl:Ontology .
+
+ex:gallery0006  a            lmu:Node ;
+        iotl:exposes         ex:gallery0006Service ;
+        edr:producesDataOn   <https://w3id.org/laas-iot/adream#Presence> , <https://w3id.org/laas-iot/adream#ConveyorState> ;
+        lmu:hasUpstreamNode  ex:floor0002 ;
+        ioto:hasId           "gallery0006" .
+
+:myFactory  a   :Factory , owl:NamedIndividual .

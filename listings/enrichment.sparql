@@ -1,0 +1,17 @@
+GENERATE {
+	# The observation
+	?obsURI a ssn:Observation;
+		ssn:observationResult ?sensorOutputURI;
+		ssn:observedBy ?sensor_uri;
+		edr:receivedAt ?receivedTime.
+    # The sensor output
+	?sensorOutputURI a ssn:SensorOutput;
+		ssn:hasValue ?obsValURI.
+	# ...
+}
+SOURCE <file://{{ FILE }}> AS ?source
+ITERATOR iter:CSV(?source) AS ?obs
+WHERE {
+  BIND(fn:CSV(?obs, "name" ) AS ?sensor_id )
+  # ...
+}
