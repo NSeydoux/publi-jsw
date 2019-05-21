@@ -833,6 +833,8 @@ A node $n$ has in its \gls{kb} information about the property types of the data 
 Data produced by node $n$ is either collected by sensors to which $n$ is directly connected, or obtained as deductions when $n$ applies a rule.
 When a reasoning-enabled node is connected to a sensor, it enriches the raw observation, and propagates the enriched observation on the network, which ensures that the observation is only enriched once. 
 In the topology displayed on Fig. \ref{fig:edrpt_deployment}, node M111 is connected to three sensors: $own\_productions(M111) = \{Presence, Luminosity, Activity\}$.
+\removed{An example of enriched observation is available online%\footnote{\url{https://w3id.org/laas-iot/rules/observations/enriched_data.ttl}}.
+	Observations and devices are described in each node's \gls{kb} using the IoT-O \cite{Seydoux2016} ontology for our experiments (\textit{c.f.} Section \textsection \ref{sec:experimentations}), but the proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata.}
 The production of observations by node $n$ for a property type $\rho_t$ is denoted \triplet{$n$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}. 
 
 \subsubsection{Node's knowledge on the topology}
@@ -860,7 +862,7 @@ If node $n_{p}$ was already a producer for $\rho_t$, its capabilities remain unc
 As it has been discussed in Section \textsection \ref{par:data_transfer}, in order to limit unnecessary exchanges, data is exchanged lazily based on the node consumption announcement functionality.
 A node $n$ has to explicitly advertise its interest for a property type $\rho_{t}$ to each $n_c\in \added{Children(n)}$ in order to be notified when new observations are received or new deductions are made. 
 In particular, a node is interested in a property type $\rho_{t}$ when it applies a rule $r$ such that $\rho_{t}\in body_t(r)$. 
-%Identifying if $\rho_t \in body_t(r)$ is based on \gls{iri} comparisons. 
+\removed{Identifying if $\rho_t \in body_t(r)$ is based on \gls{iri} comparisons.}
 The interest of a node $n$ for a property type $\rho_t$ is represented by the triple \triplet{$n$}{\concept{edr}{is\-Interested\-In}}{$\rho_t$}, and \triplet{\concept{edr}{is\-Interested\-In}}{\concept{rdf}{type}}{\concept{edr}{Some\-Children\-Announced\-Property}}.
 %Indeed, when a node applies a rule $r$ and is thus interested in the properties $\rho_t \in head_t(r)$, it does not necessarily notify this interest to all of its children.
 
@@ -921,7 +923,7 @@ That is a second reason not to support aggregation rules.
 
 To ensure decidability, only DL-safe rules are considered, and \gls{edr} is only suitable for stratified rule sets. 
 Cyclic dependencies between rules are not resolved.
-When a node applies rule $r$, it is considered as producer of the $head_t(r)$, and this production information is used for the deployment of any rule $r'$ such as $body_t(r')\cap head_t(r)\neq \emptyset$.
+When a node applies rule $r$, it is considered as producer of all $\delta_i \in head_t(r)$, and this production information is used for the deployment of any rule $r'$ such as $body_t(r')\cap head_t(r)\neq \emptyset$.
 However, a non stratified rule set where rules $r$ and $r'$ coexist such that $body_t(r')\subseteq head_t(r)$ and $body_t(r)\subseteq head_t(r')$ cannot be processed successfully by \gls{edr}, and neither $r$ nor $r'$ will be propagated or applied.
 
 \subsection{Implementation of \edrt in rule modules}
@@ -968,7 +970,7 @@ Such a node is represented on Fig. \ref{fig:edrpt_deployment} with gray dashes c
 \subsubsection{Activation module}
 
 In order to apply a rule $r$, a node $n$ must be the lowest common ancestor to the producers of property types in the rule body. 
-Such node has a set $\mathcal{P}$ of children (either sensors or other Fog nodes) partially producing the rule head. 
+Such node has a set $\mathcal{P}$ of children (either sensors or other Fog nodes) \textbf{partially producing the rule head}. 
 Individually, none of the children produce all the elements of the rule head, but combined, their productions enable the processing of the rule. 
 It is characterized as such: $\exists \mathcal{P}$, such as $\forall n_c\in \mathcal{P}$, \triplet{$n$}{\concept{lmu}{has\-Down\-stream\-Node}}{$n_c$} and $\exists \{\rho_t, \rho'_t\} \subseteq body(r)$, \triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$} and $\neg\exists$ \triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho'_t$}, and $\forall \rho_t \in body(r), \exists n_c\in \mathcal{P},$\triplet{$n_c$}{\concept{edr}{produces\-Data\-On}}{$\rho_t$}.
 Lst. \ref{lst:activationShape} gives a SPARQL implementation of these conditions applied to $r_{ColdChain}^{activation}$. 
@@ -993,7 +995,7 @@ SELECT $this WHERE {
 					adr:Temperature, adr:MachineState.}}}}}
 \end{lstlisting}
 
-If the conditional part of rule $r$ activation module determines that the current node is suitable to apply $r$, some deductions are inferred. 
+If the conditional part of module $r^{activation}$ determines that the current node is suitable to apply $r$, some deductions are inferred. 
 The activity of rule $r$ is made explicit by the triple \triplet{$r$}{\concept{edr}{isRuleActive}}{true}, and the nodes $n'\in \mathcal{P}$ are identified as providers of the data type which $r$ now consumes. 
 The interest of $n$ for the consumption of the nodes $n'\in \mathcal{P}$ is announced, as it is captured by the \triplet{?interest}{\concept{edr}{announce\-To}}{?partial\-Data\-Provider} triple in the SHACL rule.
 The object of the interest, represented as a reified statement, will be bound to any partial production of the rule head by a child of $n$.
@@ -1058,8 +1060,8 @@ Sensors are the primary source of data for the network. The data they produce is
 When semantic computing-enabled nodes start, they try to connect to their sensors children of which they have \textit{a priori} knowledge.
 How nodes discover and gather information about sensors can be a process tightly related to the underlying technology, or hard-coded in the node \gls{kb}.
 
-Nodes connected to sensors announce the property types they produce to their parent node, according to the announcement functionality captured in the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
-As explained in Section \textsection \ref{subsub:topology}, nodes propagate production information by proxying their children productions.
+Nodes connected to sensors announce the property types they (and potentially any $n_c\in Children(n)$) produce to their parent node, according to the announcement functionality captured in the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
+\removed{As explained in Section \textsection \ref{subsub:topology}, nodes propagate production information by proxying their children productions.}
 Similarly, when a sensor or a lower node providing data of type $\rho_{i}$ to node $n$ disconnects, $n$ announces its updated capabilities if they have been transformed, \textit{i.e.} if the disconnected node was the sole producer of $\rho_{i}$.
 
 In the case when the node already held some rules, their placement might need to be updated according to the new topology denoted by the received message.
@@ -1082,7 +1084,7 @@ A part of the propagation of $r_{Visibility}$ in the illustrative deployment pro
 When node $n$ receives a new rule $r$, $n$ evaluates whether it can apply $r$ directly, and/or if it should propagate $r$ to some of its children by performing a reasoning step with all modules of $r$ activated. 
 Based on the deductions produced by this reasoning step, some node functionalities are activated if necessary: 
 \begin{itemize}
-	\item If the rule $r$ is applicable by the current node, the productions of $n$ are updated by $r_{x}^{activation}$.
+	\item If the rule $r$ is applicable by the current node, the productions of $n$ are updated by $r^{activation}$.
 	$n$ notifies its parent of its new productions, \textit{i.e.} the head of $r$.
 	Being able to produce the deductions of a rule is processed like a capability change, described in the previous section.
 	If the applicability of rule $r$ is enabled by the productions of some children of node $n$, the interest of $n$ for their productions has been added in the \gls{kb}, as well as the necessity for their notification of such interest.
@@ -1105,10 +1107,10 @@ Different kinds of data can be received by node $n$:
 If the received observation is raw, node $n$ enriches it by annotating it with an ontology before its processing as a new enriched observation. 
 If the piece of data is either an enriched observation or a deduction, it is directly integrated to its \gls{kb} and processed. 
 
-The data, of property type $\rho_{i}$, is in the first place sent to $\added{Parent(n)}$ if it is a consumer of $\rho_{i}$. 
+The data, of property type $\rho_{i}$, is in the first place sent to $n_p\in \added{Parent(n)}$ if it is a consumer of $\rho_{i}$. 
 Then, node $n$ checks if new deductions can be obtained by applying the rules it has marked up as active.
 When receiving new data, a node does not need to activate the rule modules for activation, transfer or delivery: only the core of the rule is relevant.
-If the rule body matches the \gls{kb} of node $n$, and postconditions of type $\delta_{j}$ are deduced, these deductions are propagated to $\added{Parent(n)}$ if it is consumer of $\delta_{j}$.
+If the rule body matches the \gls{kb} of node $n$, and postconditions of type $\delta_{j}$ are deduced, these deductions are propagated to $n_p$ if it is consumer of $\delta_{j}$.
 Since rules are applied on the local \gls{kb} of node $n$, there is no impact of data distribution on reasoning complexity. 
 A new reasoning loop is simply applied each time new data is received.
 The deductions yielded by rule $r$ are also \textbf{directly} sent to $r$'s originator(s).
