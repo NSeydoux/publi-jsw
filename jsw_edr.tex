@@ -36,7 +36,7 @@
 \newcommand{\edr}{EDR\xspace}
 \newcommand{\edrt}{EDR$_{\mathcal{T}}$\xspace}
 %\newcommand{\Nathalie}[1]{\textcolor{red}{ Nathalie: \textbf{#1} }}
-\newcommand{\Nicolas}[1]{\textcolor{red}{ Nicolas: \textbf{#1} }}
+%\newcommand{\Nicolas}[1]{\textcolor{red}{ Nicolas: \textbf{#1} }}
 %\newcommand{\Khalil}[1]{\textcolor{red}{ Khalil: \textbf{#1} }}
 \newcommand{\added}[1]{\textcolor{green}{\textbf{#1}}}
 \newcommand{\removed}[1]{\textcolor{red}{\sout{#1}}}
@@ -550,7 +550,7 @@ In the case where rule $r$ should be propagated towards node $n_{target}$ by $n$
 The \gls{edr} algorithm depends on the exchanges between neighboring nodes of their mutual descriptions, enabled by the announcement functionality.
 However, presupposing node characteristics relevant to any deployment strategy that will be implemented to refine \gls{edr} is not possible.
 In order to remain agnostic to the deployment strategy, \gls{edr} relies on a dedicated vocabulary used to describe which of each node's characteristics should be announced to its neighbors. 
-\Nicolas{À ramener dans les hypothèses : A node has two types of neighbors: its parent, and its children, and since the parent is unique (according to our assumptions) while the children are potentially many, two approaches are devised.}
+A node has two types of neighbors: its parent, and its children, and since the parent is unique (according to our assumptions) while the children are potentially many, two approaches are devised.
 
 \paragraph{Announcing characteristics to a node's parent:}
 Let us consider a node $n$, with a characteristic represented by a property $has\-Charac\-teris\-tic$ and captured in its knowledge base such that \triplet{$n$}{$has\-Charac\-teris\-tic$}{$\nu$}, with $\nu$ either a literal or an individual. \removed{denoting the value of the characteristic for $n$}.
@@ -634,8 +634,8 @@ The intelligence regarding rule deployment is located in the rules, and not hard
 The behavior of the algorithm at a global scale can thus be parameterized at a fine granularity, for each rule.
 Rules are represented in SHACL, and the modules are based on the SHACL advanced functionality named ``SHACL rules''.
 Each module is composed of two parts: a SHACL rule, that inserts deductions into the \gls{kb}, and a SHACL shape that determines whether the rule is applied or not. 
-An example rule is provided online \footnote{\url{https://w3id.org/laas-iot/edr/iiot/r1.ttl}}.
-In the remainder of this section, a generic description of these rule modules and their roles is given. 
+An example rule, named $r1$, is provided online \footnote{\url{https://w3id.org/laas-iot/edr/iiot/r1.ttl}}.
+In the remainder of this section, a generic description of these rule modules and their roles is given, each illustrated in $r1$. 
 An implementation is proposed in Section \textsection \ref{sec:edrpt}, where specific behaviors dedicated to a particular strategy are described.
 
 \begin{figure}
@@ -764,13 +764,18 @@ Modifying rules allow applications to fine-tune their behavior according to a fe
 When a rule $r$ is received by a node $n$, if $r$'s \gls{iri} is already known by $n$, all the triples describing the rule are compared to the triples stored in the node's \gls{kb}.
 
 If the newly received version of the rule is different from the version held by the node, then the rule representation is updated in the \gls{kb}, and the rule is processed as if it were a new rule.
-However, it is possible that the new representation of the rule is no longer applicable by children of the current node, to which the former version of the rule had been previously propagated.
+\added{All the modules of the rule are evaluated, and changed characteristics of the node, if there are any, are propagated to its neighbors as in any topology change.}
+However, it is possible that the new representation of the rule is no longer applicable by children of the current node \added{(or by their descendant in the case of proxying)}, to which the former version of the rule had been previously propagated.
 In the regular \gls{edr} algorithm, the rule would not be forwarded to such children, but in this case this is an issue: two different mutually exclusive versions of the rule are executed in the topology.
 
 To tackle this issue, an object property is used: when a node $n$ transfers a rule $r$ to $n_{c}\in \added{Children(n)}$, it adds the triple \triplet{$r$}{\concept{edr}{transferred\-To}}{$n_{c}$} to the rule description stored in its \gls{kb}.
-When a node updates a rule representation, it transfers the new rule version towards the children which received the former version by searching for this property.
-If said children are not able to apply the new version of the rule (as determined by the application module of the rule), updating their rule representation enforces the consistency of the rule across the network. 
-The same process is carried on recursively from parent to child node in order to ensure that all the nodes of the topology eventually have an up-to-date representation of the rule.
+When $n$ updates $r$, it transfers the new version of $r$ towards any $n_c \in Children(n)$ if $n_c$ received the former version of $r$ by searching for this predicate. 
+\added{If it is no longer relevant, \textit{i.e.} if the new version of $r$ is not transferable to $n_c$ (according to its transfer module), the triple \triplet{$r$}{\concept{edr}{transferred\-To}}{$n_{c}$} is removed from $n$'s \gls{kb}.}
+Even if $n_c$ is not able to apply the new version of $r$ (as determined by the application module of the rule), updating its \gls{kb} enforces the consistency of the representation of $r$ across the network. 
+The same process is carried on recursively \removed{from parent to child node} in order to ensure that all the nodes of the topology eventually have an up-to-date representation of the rule.
+\added{If $n$ had transferred $r$ to $n_c$ because $n_c$ was proxying some characteristics of its descendants, two situations are possible. 
+Either $n_c$ directly applied $r$ without transferring it, in which case once $n_c$ receives the updated version of $r$ the propagation stops, or $n_c$ transferred $r$ to any $n_{cc}\in Children(n_c)$.
+In this case, $n_c$'s \gls{kb} contains the triple \triplet{$r$}{\concept{edr}{transferred\-To}}{$n_{cc}$}, and $r$'s update is propagated towards $n_{cc}$ thanks to this triple, and so on.}
 
 This approach however leaves a consistency issue unsolved: during the propagation of the new rule version, the two mutually exclusive versions of the same rule are both active. 
 There is no guarantee that the latest version of the rule has been propagated successfully at any point in time after its injection in the network.
@@ -1691,9 +1696,11 @@ Such knowledge includes a description of its neighbors, the current state of the
 Overall, \gls{edr} enables, in a purely \textbf{decentralized and emergent} manner, the \textbf{deployment of rules}, the \textbf{propagation of data} and the \textbf{delivery of deductions} inferred when applying the rules once they have been deployed.
 In order to enforce its genericity, \gls{edr} itself is made agnostic to individual deployment strategies.
 It has to be refined by injecting \textbf{rules embedding their own deployment strategy}, selected according to application-level requirements.
-\Nicolas{Ajouter qu'on sait que ça demande connaissance du vocabulaire et des technos du web sém, mais qu'on gagne comme ça en généricité}
+\added{The obtained genericity enables the implementation of several policies, however it requires from the developing team a full \gls{swot} expertise, from the \gls{iot} to the \gls{sw}.
+We hope that future adoption of the \gls{swot} will support the generalization of such expertise.}
+%\Nicolas{Ajouter qu'on sait que ça demande connaissance du vocabulaire et des technos du web sém, mais qu'on gagne comme ça en généricité}
 
-\Nicolas{Refaire la transition}, we proposed \edrt, an \gls{edr} refinement implementing a deployment strategy dedicated to \textbf{reducing delays} for transmitting deductions to applications.
+To show the interest of our contribution, we proposed \edrt, an \gls{edr} refinement implementing a deployment strategy dedicated to \textbf{reducing delays} for transmitting deductions to applications.
 \edrt aims at deploying rules on Fog nodes as close as possible to sensors, while avoiding unnecessary computation.
 Rules are thus propagated toward sensors producing the \textbf{type of data} they consume, \textbf{as deep as possible} in the topology. 
 The propagation stops when the rule is deployed on the Fog node which is the closest common ancestor to these sensors in the topology.
