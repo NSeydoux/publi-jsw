@@ -8,38 +8,29 @@
 %[seceqn,secfloat,secthm,crcready]
 
 % options: wias, jaise, sw
-\documentclass{iosart2c}
+\documentclass[sw]{iosart2x}
 
-
+%%%%%%%%%%% Put your definitions here
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
 \usepackage{times}
 
-%\usepackage{bookmark}
-\usepackage[hidelinks]{hyperref}
+%\usepackage[hidelinks]{hyperref}
 \usepackage[depth=4]{bookmark}
-\usepackage{natbib}
-%\usepackage[dvips]{hyperref}
+%\usepackage{natbib}
+
 \usepackage{amsmath}
 \usepackage{dcolumn}
 \usepackage{graphics}
 \usepackage[toc, acronym, automake]{glossaries}
 \usepackage{algorithm, algpseudocode}
-%\usepackage[hyphens]{url} % must be before hyperref
-%\usepackage{url}
-%\usepackage[breaklinks=true]{hyperref}
 
 \usepackage{multicol}
 \usepackage{ulem}
 \usepackage{xspace}
 \newcommand{\edr}{EDR\xspace}
 \newcommand{\edrt}{EDR$_{\mathcal{T}}$\xspace}
-%\newcommand{\Nathalie}[1]{\textcolor{red}{ Nathalie: \textbf{#1} }}
-%\newcommand{\Nicolas}[1]{\textcolor{red}{ Nicolas: \textbf{#1} }}
-%\newcommand{\Khalil}[1]{\textcolor{red}{ Khalil: \textbf{#1} }}
-%\newcommand{\added}[1]{\textcolor{green}{\textbf{#1}}}
-%\newcommand{\removed}[1]{\textcolor{red}{\sout{#1}}}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,calc}
@@ -100,9 +91,12 @@
 \makeglossaries
 
 \newcolumntype{d}[1]{D{.}{.}{#1}}
+%%%%%%%%%%% End of definitions
 
-
-\firstpage{1} \lastpage{5} \volume{1} \pubyear{2009}
+\pubyear{0000}
+\volume{0}
+\firstpage{1}
+\lastpage{1}
 
 
 \begin{document}
@@ -112,26 +106,49 @@
 %\pretitle{Pretitle}
 \title{EDR: A Generic Approach for the Distribution of Rule-Based Reasoning in a Cloud-Fog continuum}
 
-\runningtitle{Exending the SWoT from the Cloud to the Fog}
-%\subtitle{Subtitle}
+\runtitle{Exending the SWoT from the Cloud to the Fog}
 
-%\review{Name Surname, University, Country}{Name Surname, University, Country}{Name Surname, University, Country}
+%\author[A]{\inits{N.}\fnms{Name1} \snm{Surname1}\ead[label=e1]{first@somewhere.com}%
+%	\thanks{Corresponding author. \printead{e1}.}},
+%\author[B]{\inits{N.N.}\fnms{Name2 Name2} \snm{Surname2}\ead[label=e2]{second@somewhere.com}}
+%and
+%\author[B]{\inits{N.-N.}\fnms{Name3-Name3} \snm{Surname3}\ead[label=e3]{third@somewhere.com}}
+%\runningauthor{N. Surname1 et al.}
 
-\author[A,B]{\fnms{Nicolas} \snm{Seydoux}},
-\author[B]{\fnms{Khalil} \snm{Drira}}
-\author[A]{\fnms{Nathalie} \snm{Hernandez}}
+%\address[A]{Department first, \orgname{University or Company name},
+%	Abbreviate US states, \cny{Country}\printead[presep={\\}]{e1}}
+%\address[B]{Department first, \orgname{University or Company name},
+%	Abbreviate US states, \cny{Country}\printead[presep={\\}]{e2,e3}}
+
+\author[A,B]{\inits{N.}\fnms{Nicolas} \snm{Seydoux}\ead[label=e1]{\{surname.name\}@zwifi.eu}},
+\author[B]{\inits{K.}\fnms{Khalil} \snm{Drira}\ead[label=e2]{\{name.surname\}@laas.fr}}
+\author[A]{\inits{N.}\fnms{Nathalie} \snm{Hernandez}
+\thanks{Corresponding author. \printead{e1}.}}
 and
-\author[B]{\fnms{Thierry} \snm{Monteil}}
-\runningauthor{N. Seydoux et al.}
-\address[A]{IRIT,\\Maison de la Recherche, Univ. Toulouse Jean Jaurès,\\5 allées Antonio Machado, F-31000 Toulouse\\email: \{name.surname\}@irit.fr}
-\address[B]{LAAS-CNRS,\\ Université de Toulouse, CNRS, INSA, Toulouse, France\\email: \{name.surname\}@laas.fr}
+\author[B]{\inits{T.}\fnms{Thierry} \snm{Monteil}}
+\runauthor{N. Seydoux et al.}
+\address[A]{MELODI, \orgname{IRIT}, Toulouse, \cny{France} \\email: \{name.surname\}@irit.fr}
+\address[B]{SARA, \orgname{LAAS-CNRS,\\ Université de Toulouse, CNRS, INSA}, Toulouse, \cny{France}\\email: \{name.surname\}@laas.fr}
+
+%\begin{review}{editor}
+%\reviewer{\fnms{First} \snm{Editor}\address{\orgname{University or Company name}, \cny{Country}}}
+%\reviewer{\fnms{Second} \snm{Editor}\address{\orgname{First University or Company name}, \cny{Country}
+%    and \orgname{Second University or Company name}, \cny{Country}}}
+%\end{review}
+%\begin{review}{solicited}
+%\reviewer{\fnms{First} \snm{Solicited reviewer}\address{\orgname{University or Company name}, \cny{Country}}}
+%\reviewer{\snm{anonymous reviewer}}
+%\end{review}
+%\begin{review}{open}
+%\reviewer{\fnms{First} \snm{Open Reviewer}\address{\orgname{University or Company name}, \cny{Country}}}
+%\end{review}
+
 
 \input{glossaire.tex}
 
 \begin{abstract}
 The successful deployment of the Semantic Web of Things (SWoT) requires the adaptation of the Semantic Web principles and technologies to the constraints of the IoT domain, which is the challenging research direction we address here. 
 In this context we promote distributed reasoning approaches in IoT systems by implementing a hybrid deployment of reasoning rules relying on the complementarity of Cloud and Fog computing.  
-%Our solution benefits from the remote powerful Cloud computation resources, essential to the deployment of scalable IoT applications while avoiding low-latency decision making by including the local distributed constrained Fog computation resources, close to data producers.
 Our solution benefits from the complementarity between Cloud and Fog infrastructures. 
 Indeed, remote powerful Cloud computation resources are essential to the deployment of scalable IoT applications, and locally distributed constrained Fog resources, close to data producers, enable low-latency decision making.
 Moreover, as IoT networks are open and evolutive, the computation should be dynamically distributed across Fog nodes according to the transformation of the network topology.
@@ -142,7 +159,10 @@ The complementarity between Fog and Cloud in this context is assessed based on t
 \end{abstract}
 
 \begin{keyword}
-	Distributed reasoning\sep SWoT\sep Semantic Fog computing\sep SHACL rules
+	\kwd{Distributed reasoning}
+	\kwd{SWoT}
+	\kwd{Semantic Fog computing}
+	\kwd{SHACL rules}
 \end{keyword}
 	
 \end{frontmatter}
@@ -186,7 +206,7 @@ The proposed contribution is a \textbf{generic approach to the dynamic distribut
 Strategies for rule distribution are often application-dependent, with a wide variety of requirements due to the heterogeneity of \gls{iot} application domains.
 That is why \gls{edr} is a generic approach, that can be specialized depending on the desired rule distribution strategy.
 %\Khalil{Peut-etre il vaut mieux parler du contenu en citant ou non ces papiers en intro et les citer dans les autres sections plus tard. C’est risqué de limiter la description des contribs du papiers à ces citations et extension : l’idéal c’est de développer quitte à réduire avant si problème de place}
-The work presented in this paper completes and extends two conference articles, \cite{wi2018} and \cite{coopis2018}, where some aspects of \gls{edr} and its refinements have been introduced.
+The work presented in this paper completes and extends two conference articles, \cite{Seydoux2018_wi} and \cite{Seydoux2018_coopis}, where some aspects of \gls{edr} and its refinements have been introduced.
 Novel work includes a more extensive presentation of related work, the detailed presentation of the vocabulary enabling the genericity of \gls{edr} and the description of the usage of the Linked Rules \cite{Khandelwal2011} principles. 
 Complementary evaluations regarding the impact of distribution, and the impact of the execution of \edr on a constrained hardware are included, leading to a discussion analyzing the light shed by the obtained results on Cloud-Fog complementarity. 
 The scientific challenge we faced considers three characteristics of the distributed reasoning system: scalability, responsiveness, and dynamicity. 
@@ -578,7 +598,7 @@ More details about this particular predicate are provided in Section \textsectio
 \subsubsection{Propagating knowledge beyond neighbors}
 \label{subsubs:proxying}
 
-\gls{edr} is designed for neighbor-to-neighbor rule and data propagation : a node $n$ only communicates with $n'\in Parent(n)\cup Children(n)$ (with the exception of deduction delivery).
+\gls{edr} is designed for neighbor-to-neighbor rule and data propagation: a node $n$ only communicates with $n'\in Parent(n)\cup Children(n)$ (with the exception of deduction delivery).
 However, such design may hamper the propagation of rules, by preventing the diffusion of knowledge required by the deployment strategy to make decisions as to where the rules should be placed.
 We want to avoid the situation in which the characteristics of a node $n_{c}\in Children(n)$ makes it adequate to apply a rule which is held by $n_{p}\in Parent(n)$, but $n$ cannot apply the rule, and therefore $n_{p}$ does not propagate the rule to $n$, preventing its eventual propagation to $n_{c}$.
 A complementary functionality is thus described by the \gls{edr} vocabulary to enable such diffusion of knowledge describing node characteristics: \textbf{proxying}.
@@ -1058,7 +1078,7 @@ Sensors are the primary source of data for the network. The data they produce is
 When semantic computing-enabled nodes start, they try to connect to their sensors children of which they have \textit{a priori} knowledge.
 How nodes discover and gather information about sensors can be a process tightly related to the underlying technology, or hard-coded in the node \gls{kb}.
 
-Nodes connected to sensors announce the property types they (and potentially any $n_c\in Children(n)$) produce to their parent node, according to the announcement functionality captured in the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-Announced\-Property}}. 
+Nodes connected to sensors announce the property types they (and potentially any $n_c\in Children(n)$) produce to their parent node, according to the announcement functionality captured in the triple \triplet{\concept{edr}{produces\-Data\-On}}{\concept{rdf}{type}}{\concept{edr}{Parent\-An\-noun\-ced\-Pro\-per\-ty}}.  
 Similarly, when a sensor or a lower node providing data of type $\rho_{i}$ to node $n$ disconnects, $n$ announces its updated characteristics if they have been transformed, \textit{i.e.} if the disconnected node was the sole producer of $\rho_{i}$.
 
 In the case when the node already held some rules, their placement might need to be updated according to the new topology denoted by the received message.
@@ -1324,11 +1344,11 @@ Lst. \ref{lst:observation} shows a snippet of observed data, mainly described wi
 \lstinputlisting[float, caption=Exchanged sensor observations, label=lst:observation]{listings/observation.ttl}
 %The proposed approach does not depend on the ontology used to describe data, as long as the same ontology is used to express the rules and their metadata.
 The proposed approach depends on the observation representation, hard-coded in the current implementation, which is why standard vocabularies have been used as much as possible. 
-In future versions, \edr will be updated to be compliant with the updated version of SSN, SSN/SOSA\footnote{\url{http://www.w3.org/ns/sosa/}}. 
+In future versions, \edr will be updated to be compliant with the updated version of SSN, SSN/SOSA\footnote{\url{http://www.w3.org/ns/sosa/}} \cite{janowicz:JournalofWebSemantics2019}. 
 In the implemented simulation, data is produced in the form of CSV records by sensors that are sent over HTTP to the subscribing node's API.
 The CSV schema mimics the schema observed in the actual deployment of ADREAM, a smart building producing publicly available data\footnote{\url{https://syndream.laas.fr:8082/}}: \texttt{chrono,name,value,quality,comment}.
 The last two headers are ad-hoc to ADREAM, and they are not used in this experiment, and the others are self-explanatory.
-This raw data is enriched thanks to a SPARQL-Generate query, a sample of which is shown in Lst. \ref{lst:enrichment}\footnote{The complete query is available in the source code of EDR: node/\-queries/\-data/\-enrich\_data.sparql}. 
+This raw data is enriched thanks to a SPARQL-Generate query \cite{lefrancois:SemanticWeb2017}, a sample of which is shown in Lst. \ref{lst:enrichment}\footnote{The complete query is available in the source code of EDR: node/\-queries/\-data/\-enrich\_data.sparql}. 
 \lstinputlisting[float, caption=Enrichment query snippet, label=lst:enrichment]{listings/enrichment.sparql}
 
 \subsection{Scalability of the proposed approach}
@@ -1619,12 +1639,12 @@ In this case, each node takes charge of an increasing share of the reasoning, le
 	\Centering
 	\caption{Distribution experiments delays breakout (single-host execution)}
 	\label{fig:factory_distribution_breakout_syn}
-	\scalebox{0.78}{
+	\scalebox{0.75}{
 		\input{figures/results/factory/breakout_delays_distrib_syn.pgf}
 	}
 	\caption{Distribution experiments delays breakout (multi-host execution)}
 	\label{fig:factory_distribution_breakout_rpi}
-	\scalebox{0.78}{
+	\scalebox{0.75}{
 		\input{figures/results/factory/breakout_delays_distrib_rpi.pgf}
 	}
 \end{figure*}
@@ -1716,24 +1736,25 @@ Distributing reasoning driven by a privacy-aware strategy would be a first step 
 
 \section{Namespaces}
 \label{app:namespaces}
-\begin{table}
+\begin{table}[h]
 	\begin{tabular}{r|l}
 		Prefix & Namespace\\ \hline
 			ssn: & {\footnotesize \url{http://purl.oclc.org/NET/ssnx/ssn}}\\
-			rdf: & {\footnotesize \pbox{5cm}{\Centering \texttt{http://www.w3.org/1999/02/}\\ \texttt{22-rdf-syntax-ns\#}}} \\
+			rdf: & {\footnotesize \url{http://www.w3.org/1999/02/22-rdf-syntax-ns#}}\\
 			owl: & {\footnotesize \url{http://www.w3.org/2002/07/owl#}}\\
 			lmu: & {\footnotesize \url{https://w3id.org/laas-iot/lmu#}}\\
-			iotl: &{\footnotesize  \pbox{5cm}{\Centering \texttt{http://iot.ee.surrey.ac.uk/fiware}\\ \texttt{/ontologies/iot-lite\#}}} \\
+			iotl: &{\footnotesize \url{http://iot.ee.surrey.ac.uk/fiware/ontologies/iot-lite#}}\\
 			ex: &  {\footnotesize \url{http://example.com/ns#}}\\
 			edr: & {\footnotesize \url{https://w3id.org/laas-iot/edr#}}\\
 			edrt: & {\footnotesize \url{https://w3id.org/laas-iot/edrt#}}\\
-			dul: & {\footnotesize \pbox{5cm}{\Centering \texttt{http://www.ontologydesignpatterns}\\ \texttt{.org/ont/dul/DUL.owl\#}}} \\
-			adr: & {\footnotesize \pbox{5cm}{\Centering \texttt{https://w3id.org/laas-iot/adream\#}}}
+			dul: & {\footnotesize \url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#}}\\
+			adr: & {\footnotesize \url{https://w3id.org/laas-iot/adream#}}
 	\end{tabular}
 	\caption{Namespaces referenced in this paper, and the associated prefixes}
 \end{table}
 
 
-\bibliographystyle{plainnat}
-\bibliography{jsw_edr}
+%\nocite{*} 
+\bibliographystyle{ios1}
+\bibliography{biblio}
 \end{document}
